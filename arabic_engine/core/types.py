@@ -119,6 +119,7 @@ from .enums import (
     StyleKind,
     SubjectGenre,
     SyllablePosition,
+    ThulathiBab,
     TimeRef,
     TraceMode,
     TraceQuality,
@@ -140,11 +141,7 @@ from .enums import (
     WeightClass,
     WeightFractalPhase,
     WeightKind,
-    WeightPossibilityDimension,
     WeightValidationStatus,
-    ThulathiBab,
-    AugmentedSemanticLayer,
-    NasikhCategory,
 )
 
 # ── Signifier layer ─────────────────────────────────────────────────

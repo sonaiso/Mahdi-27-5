@@ -599,7 +599,7 @@ def evaluate_direction_suitability(
     w3 = suit.get("W3", 0.8)
 
     agg = round((w1 + w2 + w3 + w4) / 4, 4)
-    carries = agg >= THETA_W
+    carries = agg > THETA_W
 
     return WeightDirectionSuitability(
         structural_suitability=w1,
