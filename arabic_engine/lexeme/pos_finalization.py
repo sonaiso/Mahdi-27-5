@@ -14,7 +14,7 @@ auto_finalize         Heuristic auto-finalisation from POS.
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Optional, Union
 
 from arabic_engine.core.enums import (
     POS,
@@ -39,8 +39,8 @@ def finalize_as_noun(
     referential_mode: ReferentialMode = ReferentialMode.JINS,
     jamid_derived: JamidDerivedType = JamidDerivedType.JAMID,
     match_mode: MatchingMode = MatchingMode.MUTABAQA,
-    countability: str | None = None,
-    ontological_class: str | None = None,
+    countability: Optional[str] = None,
+    ontological_class: Optional[str] = None,
 ) -> NounNode:
     """Finalise a lexeme as a noun.
 
@@ -73,7 +73,7 @@ def finalize_as_verb(
     lexeme: LexemeNode,
     action_type: VerbActionType = VerbActionType.EVENT,
     tense: TimeRef = TimeRef.PAST,
-    transitivity: str | None = None,
+    transitivity: Optional[str] = None,
     match_mode: MatchingMode = MatchingMode.MUTABAQA,
     predicate_power: float = 1.0,
 ) -> VerbNode:

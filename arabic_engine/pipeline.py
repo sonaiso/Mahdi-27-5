@@ -17,12 +17,14 @@ from arabic_engine.core.enums import (
     JudgementType,
     LinkKind,
     MethodFamily,
+    ProductivityMode,
     ProofPathKind,
     RealityKind,
     SenseModality,
     TraceMode,
     ValidationOutcome,
     ValidationState,
+    WeightTemplateType,
 )
 from arabic_engine.core.types import (
     CompositionReadyNode,
@@ -235,16 +237,12 @@ def run(
                 WeightNode(
                     id=f"W_closed_{cl.surface}",
                     weight_form=cl.surface,
-                    template_type=__import__(
-                        "arabic_engine.core.enums", fromlist=["WeightTemplateType"]
-                    ).WeightTemplateType.CLOSED,
+                    template_type=WeightTemplateType.CLOSED,
                     slots=(),
                     semantic_tendency="وظيفة",
                     recoverability_score=0.0,
                     completeness_score=0.5,
-                    productivity_mode=__import__(
-                        "arabic_engine.core.enums", fromlist=["ProductivityMode"]
-                    ).ProductivityMode.CLOSED,
+                    productivity_mode=ProductivityMode.CLOSED,
                     pos_affinity=cl.pos,
                 )
             )

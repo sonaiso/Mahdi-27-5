@@ -609,6 +609,18 @@ class TestValidationRules:
         noun = finalize_as_noun(lex, match_mode=MatchingMode.MUTABAQA)
         assert validate_rs11(noun) is True
 
+    def test_rs11_fails_without_matching_mode(self):
+        from arabic_engine.lexeme.validation import validate_rs11
+
+        # Construct a NounNode with match_mode set to None
+        noun = NounNode(
+            lexeme_ref="test",
+            referential_mode=ReferentialMode.JINS,
+            jamid_or_derived=JamidDerivedType.JAMID,
+            match_mode=None,  # type: ignore[arg-type]
+        )
+        assert validate_rs11(noun) is False
+
     def test_rs12_full_chain(self):
         from arabic_engine.lexeme.lexeme_builder import build_lexeme
         from arabic_engine.lexeme.validation import validate_rs12
