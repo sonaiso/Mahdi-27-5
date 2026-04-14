@@ -38,6 +38,7 @@ from arabic_engine.hypothesis import (
     factors,
     judgements,
     morphology,
+    particles,
     relations,
     roles,
 )
@@ -82,6 +83,10 @@ def run(text: str, *, max_iterations: int = 3) -> KernelRuntimeState:
 
     concept_hyps = concepts.generate(morph_hyps)
     for h in concept_hyps:
+        state.hypotheses.add_hypothesis(h)
+
+    particle_hyps = particles.generate(concept_hyps)
+    for h in particle_hyps:
         state.hypotheses.add_hypothesis(h)
 
     axis_hyps = axes.generate(concept_hyps)

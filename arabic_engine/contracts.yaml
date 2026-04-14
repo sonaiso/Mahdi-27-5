@@ -41,6 +41,18 @@ layers:
       - "each LexicalClosure has a valid POS enum"
       - "root is a tuple of strings or empty tuple"
 
+  # ── Layer 2b: Particle Fractal Constitution ────────────────────────
+  - name: particle_constitution
+    module: arabic_engine.particle.registry
+    function: load_catalog
+    input_type: "None"
+    output_type: "Dict[str, ParticleRecord]"
+    invariants:
+      - "catalog is non-empty"
+      - "each ParticleRecord has a valid ParticleType"
+      - "each ParticleRecord has a valid ParticleRelationType"
+      - "each particle passes minimal completeness"
+
   # ── Layer 3: Syntactic Analysis (v2) ──────────────────────────────
   - name: syntax
     module: arabic_engine.syntax.syntax

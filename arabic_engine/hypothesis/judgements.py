@@ -20,17 +20,18 @@ from __future__ import annotations
 
 from typing import List, Optional, Tuple
 
-from arabic_engine.core.enums import ActivationStage, HypothesisStatus
+from arabic_engine.core.enums import ActivationStage, HypothesisStatus, ParticleType
 from arabic_engine.core.types import HypothesisNode
+from arabic_engine.particle.registry import forms_by_type
 
 # ── Particle / tool lists for proposition type detection ────────────
 
-_INTERROGATIVE_PARTICLES = frozenset({
-    "هل", "أ", "ما", "من", "أين", "كيف", "متى", "لماذا",
+_INTERROGATIVE_PARTICLES = forms_by_type(ParticleType.ISTIFHAM) | frozenset({
+    "ما", "من", "أين", "كيف", "متى", "لماذا",
     "أي", "أنّى", "كم", "أيّ", "ماذا",
 })
 
-_VOCATIVE_PARTICLES = frozenset({"يا", "أيّها", "أيّتها", "أيا", "هيا"})
+_VOCATIVE_PARTICLES = forms_by_type(ParticleType.NIDA) | frozenset({"أيا", "هيا"})
 
 _OATH_PARTICLES = frozenset({"والله", "تالله", "بالله", "وربّ", "لعمر"})
 

@@ -12,6 +12,7 @@ from typing import Dict, List
 
 from arabic_engine.core.enums import POS, SemanticType
 from arabic_engine.core.types import Concept, LexicalClosure
+from arabic_engine.particle.registry import lookup as particle_lookup
 
 # ── Concept registry (demo) ─────────────────────────────────────────
 
@@ -47,6 +48,55 @@ _CONCEPT_DB: Dict[str, Concept] = {
         semantic_type=SemanticType.ATTRIBUTE,
         properties={"temporal": True, "time_ref": "future"},
     ),
+    # ── Particle entries (باب الحرف الفراكتالي) ──────────────────
+    "في": Concept(
+        concept_id=501,
+        label="في",
+        semantic_type=SemanticType.RELATION,
+        properties={"particle_type": "JARR", "direction": "ظرفية"},
+    ),
+    "من": Concept(
+        concept_id=502,
+        label="من",
+        semantic_type=SemanticType.RELATION,
+        properties={"particle_type": "JARR", "direction": "ابتداء"},
+    ),
+    "إلى": Concept(
+        concept_id=503,
+        label="إلى",
+        semantic_type=SemanticType.RELATION,
+        properties={"particle_type": "JARR", "direction": "انتهاء"},
+    ),
+    "على": Concept(
+        concept_id=504,
+        label="على",
+        semantic_type=SemanticType.RELATION,
+        properties={"particle_type": "JARR", "direction": "استعلاء"},
+    ),
+    "إنّ": Concept(
+        concept_id=505,
+        label="إنّ",
+        semantic_type=SemanticType.RELATION,
+        properties={"particle_type": "MASHABBAH", "direction": "توكيد"},
+    ),
+    "هل": Concept(
+        concept_id=506,
+        label="هل",
+        semantic_type=SemanticType.RELATION,
+        properties={"particle_type": "ISTIFHAM", "direction": "استفهام"},
+    ),
+    "لا": Concept(
+        concept_id=507,
+        label="لا",
+        semantic_type=SemanticType.RELATION,
+        properties={"particle_type": "NAFY", "direction": "نفي"},
+    ),
+    "و": Concept(
+        concept_id=508,
+        label="و",
+        semantic_type=SemanticType.RELATION,
+        properties={"particle_type": "ATF", "direction": "جمع"},
+    ),
 }
 
 _POS_TO_STYPE = {
@@ -80,10 +130,21 @@ def map_concept(closure: LexicalClosure) -> Concept:
 
     global _next_concept_id
     _next_concept_id += 1
+
+    # Enrich HARF concepts with particle metadata from the registry
+    properties: dict = {}
+    if closure.pos is POS.HARF:
+        prec = particle_lookup(closure.lemma)
+        if prec is not None:
+            properties["particle_type"] = prec.particle_type.name
+            properties["relation_type"] = prec.relation_type.name
+            properties["direction"] = prec.direction
+
     return Concept(
         concept_id=_next_concept_id,
         label=closure.lemma,
         semantic_type=_POS_TO_STYPE.get(closure.pos, SemanticType.ENTITY),
+        properties=properties,
     )
 
 

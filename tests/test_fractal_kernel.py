@@ -75,8 +75,9 @@ class TestEnumCompleteness:
         assert SignalType.DIACRITIC.name == "DIACRITIC"
 
     def test_activation_stage_members(self):
-        assert len(ActivationStage) == 9
+        assert len(ActivationStage) == 10
         assert ActivationStage.SIGNAL.name == "SIGNAL"
+        assert ActivationStage.PARTICLE.name == "PARTICLE"
         assert ActivationStage.JUDGEMENT.name == "JUDGEMENT"
 
 

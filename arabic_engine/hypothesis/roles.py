@@ -13,29 +13,27 @@ from __future__ import annotations
 
 from typing import List
 
-from arabic_engine.core.enums import ActivationStage, HypothesisStatus
+from arabic_engine.core.enums import ActivationStage, HypothesisStatus, ParticleType
 from arabic_engine.core.types import HypothesisNode
+from arabic_engine.particle.registry import forms_by_type, is_particle
 
-_PREP_TOKENS = frozenset({"إلى", "من", "في", "على", "عن", "ب", "ل", "ك"})
+_PREP_TOKENS = forms_by_type(ParticleType.JARR)
 
-_INNA_PARTICLES = frozenset({
-    "إنّ", "أنّ", "لكنّ", "كأنّ", "ليت", "لعل",
-    "إن", "أن", "لكن", "كأن",
-})
+_INNA_PARTICLES = forms_by_type(ParticleType.MASHABBAH)
 
 _KANA_VERBS = frozenset({
     "كان", "أصبح", "أمسى", "أضحى", "ظل", "بات",
     "صار", "ليس", "ما_زال", "ما_فتئ",
 })
 
-_VOCATIVE_PARTICLES = frozenset({"يا", "أيّها", "أيّتها", "أيا", "هيا"})
+_VOCATIVE_PARTICLES = forms_by_type(ParticleType.NIDA)
 
-_INTERROGATIVE_PARTICLES = frozenset({
-    "هل", "أ", "ما", "من", "أين", "كيف", "متى", "لماذا",
+_INTERROGATIVE_PARTICLES = forms_by_type(ParticleType.ISTIFHAM) | frozenset({
+    "ما", "من", "أين", "كيف", "متى", "لماذا",
     "أي", "أنّى", "كم", "أيّ", "ماذا",
 })
 
-_NEGATION_PARTICLES = frozenset({"لا", "لم", "لن", "ما"})
+_NEGATION_PARTICLES = forms_by_type(ParticleType.NAFY)
 
 
 def generate(concept_hypotheses: List[HypothesisNode]) -> List[HypothesisNode]:

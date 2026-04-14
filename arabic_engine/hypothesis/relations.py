@@ -19,17 +19,13 @@ from __future__ import annotations
 
 from typing import List
 
-from arabic_engine.core.enums import ActivationStage, HypothesisStatus
+from arabic_engine.core.enums import ActivationStage, HypothesisStatus, ParticleType
 from arabic_engine.core.types import HypothesisNode
+from arabic_engine.particle.registry import forms_by_type
 
-_PREP_TOKENS = frozenset({
-    "إلى", "من", "في", "على", "عن", "ب", "ل", "ك",
-    "حتى", "منذ", "مذ", "خلا", "عدا", "حاشا",
-})
+_PREP_TOKENS = forms_by_type(ParticleType.JARR)
 
-_CONJUNCTION_PARTICLES = frozenset({
-    "و", "ف", "ثم", "أو", "أم", "بل", "لا", "لكن", "حتى",
-})
+_CONJUNCTION_PARTICLES = forms_by_type(ParticleType.ATF)
 
 # Temporal/spatial adverbs that signal ظرفية
 _TEMPORAL_ADVERBS = frozenset({

@@ -17,25 +17,20 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from arabic_engine.core.enums import ActivationStage, HypothesisStatus
+from arabic_engine.core.enums import ActivationStage, HypothesisStatus, ParticleType
 from arabic_engine.core.types import HypothesisNode
+from arabic_engine.particle.registry import forms_by_type
 
 # ── Particle lists for factor identification ────────────────────────
 
-_INNA_PARTICLES = frozenset({
-    "إنّ", "أنّ", "لكنّ", "كأنّ", "ليت", "لعل",
-    "إن", "أن", "لكن", "كأن",
-})
+_INNA_PARTICLES = forms_by_type(ParticleType.MASHABBAH)
 
 _KANA_VERBS = frozenset({
     "كان", "أصبح", "أمسى", "أضحى", "ظل", "بات",
     "صار", "ليس", "ما_زال", "ما_فتئ",
 })
 
-_PREP_TOKENS = frozenset({
-    "إلى", "من", "في", "على", "عن", "ب", "ل", "ك",
-    "حتى", "منذ", "مذ",
-})
+_PREP_TOKENS = forms_by_type(ParticleType.JARR)
 
 
 def generate(

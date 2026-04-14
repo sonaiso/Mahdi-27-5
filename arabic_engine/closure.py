@@ -130,6 +130,15 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "description_ar": "التصنيف الثلاثي الأدنى: اسم، فعل، حرف",
     },
     {
+        "symbol": "H_frac",
+        "name": "particle_constitution",
+        "name_ar": "باب الحرف الفراكتالي",
+        "module": "arabic_engine.particle.registry",
+        "function": "load_catalog",
+        "description": "Particle Fractal Constitution — particle identity layer",
+        "description_ar": "تأسيس الحرف كعقدة فراكتالية مستقلة قبل التركيب",
+    },
+    {
         "symbol": "𝔊",
         "name": "syntax",
         "name_ar": "التركيب الأدنى",
@@ -290,6 +299,61 @@ def _check_pos_minimality() -> ClosureVerdict:
         justification=f"Missing POS values: {missing}",
         justification_ar=f"أقسام ناقصة: {missing}",
     )
+
+
+def _check_particle_fractal_constitution() -> ClosureVerdict:
+    """Verify the Particle Fractal Constitution layer is operational.
+
+    Checks:
+    1. ParticleType and ParticleRelationType enums exist and are non-empty.
+    2. ParticleRecord, ParticleFractalScore, ParticleMinimalCompleteness exist.
+    3. The particle catalog is loadable and non-empty.
+    """
+    from arabic_engine.core.enums import ParticleRelationType, ParticleType
+    from arabic_engine.core.types import (
+        ParticleFractalScore,
+        ParticleMinimalCompleteness,
+        ParticleRecord,
+    )
+    from arabic_engine.particle.registry import load_catalog
+
+    try:
+        # 1. Enum checks
+        assert len(ParticleType) >= 12, "ParticleType has fewer than 12 members"
+        assert len(ParticleRelationType) >= 7, "ParticleRelationType has fewer than 7 members"
+
+        # 2. Type checks (dataclass constructibility)
+        _ = ParticleRecord.__dataclass_fields__
+        _ = ParticleFractalScore.__dataclass_fields__
+        _ = ParticleMinimalCompleteness.__dataclass_fields__
+
+        # 3. Catalog check
+        catalog = load_catalog()
+        assert len(catalog) > 0, "Particle catalog is empty"
+
+        return ClosureVerdict(
+            layer_name="particle_constitution",
+            layer_name_ar="باب الحرف الفراكتالي",
+            status=ClosureStatus.CLOSED,
+            justification=(
+                f"Particle constitution verified: "
+                f"{len(ParticleType)} types, {len(ParticleRelationType)} relations, "
+                f"{len(catalog)} catalog entries"
+            ),
+            justification_ar=(
+                f"باب الحرف الفراكتالي محقق: "
+                f"{len(ParticleType)} نوعًا، {len(ParticleRelationType)} علاقة، "
+                f"{len(catalog)} مدخلًا في السجل"
+            ),
+        )
+    except Exception as exc:
+        return ClosureVerdict(
+            layer_name="particle_constitution",
+            layer_name_ar="باب الحرف الفراكتالي",
+            status=ClosureStatus.OPEN,
+            justification=f"Particle constitution check failed: {exc}",
+            justification_ar=f"فشل التحقق من باب الحرف الفراكتالي: {exc}",
+        )
 
 
 def _check_irab_closure() -> ClosureVerdict:
@@ -582,6 +646,7 @@ def verify_general_closure() -> GeneralClosureResult:
 
     # ── Domain-specific structural checks ───────────────────────
     result.verdicts.append(_check_pos_minimality())
+    result.verdicts.append(_check_particle_fractal_constitution())
     result.verdicts.append(_check_irab_closure())
     result.verdicts.append(_check_dalala_types())
     result.verdicts.append(_check_propositional_closure())

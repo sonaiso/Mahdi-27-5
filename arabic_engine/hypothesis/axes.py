@@ -19,6 +19,7 @@ from typing import List
 
 from arabic_engine.core.enums import ActivationStage, HypothesisStatus
 from arabic_engine.core.types import HypothesisNode
+from arabic_engine.particle.registry import all_forms as all_particle_forms
 
 _AXIS_NAMES = (
     "جامد/مشتق",
@@ -37,13 +38,7 @@ _DERIVED_PATTERNS = frozenset({
 })
 
 # ── Invariant (مبني) word lists
-_INVARIANT_PARTICLES = frozenset({
-    "في", "من", "إلى", "على", "عن", "ب", "ل", "ك",
-    "إنّ", "أنّ", "لكنّ", "كأنّ", "ليت", "لعل",
-    "هل", "أ", "لا", "لم", "لن", "قد", "سوف", "ما",
-    "ثم", "و", "ف", "أو", "بل", "حتى",
-    "يا", "أيّها", "أيّتها",
-})
+_INVARIANT_PARTICLES = all_particle_forms()
 
 _INVARIANT_PRONOUNS = frozenset({
     "هو", "هي", "هم", "هن", "أنت", "أنتم", "أنتن",
