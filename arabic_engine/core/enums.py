@@ -1967,3 +1967,87 @@ class KawnType(Enum):
     WUJUDI = auto()
     TAHAWWULI = auto()
     MASDAR_BRIDGE = auto()
+
+
+# ── Epistemic Reception Constitution v1 ─────────────────────────────
+
+
+class SubjectGenre(Enum):
+    """أجناس الموضوع الوارد — supreme genres of incoming subject matter (Art. 5).
+
+    WUJUD  — وجود  : what establishes the thing, self, referent, or entity
+    SIFA   — صفة   : what establishes the quality, state, or description
+    HADATH — حدث   : what establishes occurrence, change, becoming, or actuality
+    NISBA  — نسبة  : what establishes linkage, direction, or connection
+    """
+
+    WUJUD = auto()   # وجود — existence
+    SIFA = auto()    # صفة — attribute
+    HADATH = auto()  # حدث — event
+    NISBA = auto()   # نسبة — relation
+
+
+class ReceptionRank(Enum):
+    """رتب التلقي — ordered ranks of reception and processing (Art. 13).
+
+    HISS    — حس     : first input via direct or quasi-direct effect
+    SHUUUR  — شعور   : living internal effect (acceptance, aversion, etc.)
+    FIKR    — فكر    : binding perceived subject with prior info for meaning
+    NIYYA   — نية    : determining direction of purpose after disclosure
+    KHIYAR  — خيار   : opening possible alternatives after determination
+    IRADA   — إرادة  : enacting one of the chosen alternatives with resolve
+    """
+
+    HISS = auto()    # حس — sense
+    SHUUUR = auto()  # شعور — feeling
+    FIKR = auto()    # فكر — thought
+    NIYYA = auto()   # نية — intention
+    KHIYAR = auto()  # خيار — choice
+    IRADA = auto()   # إرادة — will
+
+
+class ReceptionLayer(Enum):
+    """الطبقات الكبرى داخل محور التلقي — major layers (Art. 14).
+
+    ISTIQBAL          — استقبال          : reception (sense, feeling)
+    MUALAJA_MARIFIYYA — معالجة معرفية    : cognitive processing (thought)
+    TAWJIH            — توجيه            : pre-judgment direction (intention, choice, will)
+    """
+
+    ISTIQBAL = auto()           # استقبال — reception
+    MUALAJA_MARIFIYYA = auto()  # معالجة معرفية — cognitive processing
+    TAWJIH = auto()             # توجيه — pre-judgment direction
+
+
+class CarryingMode(Enum):
+    """معيار الحمل — whether a reception rank carries a subject genre (Arts. 36–38).
+
+    ASIL    — أصيل   : the rank carries the genre directly and primarily
+    TABI    — تبعي   : the rank carries it via another or partially
+    MUMTANI — ممتنع  : invalid to attribute this genre to this rank
+    """
+
+    ASIL = auto()     # أصيل — original
+    TABI = auto()     # تبعي — subsidiary
+    MUMTANI = auto()  # ممتنع — prohibited
+
+
+class ReceptionDecisionCode(Enum):
+    """رموز قرار الاستقبال المعرفي — decision codes for reception validation."""
+
+    REC001_SUBJECT_GENRE_UNRESOLVED = auto()  # جنس الموضوع غير محدد
+    REC002_AXIS_CONFUSION = auto()            # خلط بين المحورين
+    REC003_SENSE_OVERREACH = auto()           # إفراط في نسبة الإغلاق للحس
+    REC004_FEELING_AS_JUDGMENT = auto()       # معاملة الشعور كحكم
+    REC005_INTENTION_AS_RECEPTION = auto()    # معاملة النية كاستقبال أولي
+    REC006_WILL_AS_DETERMINATION = auto()     # معاملة الإرادة كتعيين أصلي
+    REC007_CARRYING_VIOLATION = auto()        # حمل ممتنع
+    REC008_RANK_ORDER_VIOLATION = auto()      # خلل في ترتيب الرتب
+
+
+class ReceptionValidationOutcome(Enum):
+    """نتيجة التحقق من الاستقبال المعرفي — reception validation outcome."""
+
+    ACCEPTED = auto()                  # مقبول — passes all constitutional checks
+    REJECTED_CONSTITUTIONALLY = auto()  # مرفوض دستوريًا — violates articles
+    INCOMPLETE = auto()                # غير مكتمل — subject not fully classified
