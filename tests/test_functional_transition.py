@@ -121,8 +121,8 @@ class TestLoadSeedDataset:
     def test_returns_list(self, records):
         assert isinstance(records, list)
 
-    def test_has_33_records(self, records):
-        assert len(records) == 33
+    def test_has_41_records(self, records):
+        assert len(records) == 41
 
     def test_all_records_are_functional_transition_record(self, records):
         for r in records:

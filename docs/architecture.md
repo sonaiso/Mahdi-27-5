@@ -53,6 +53,8 @@ See [`docs/kernel_schema.md`](kernel_schema.md) for the formal schema.
 │  L5   Dalāla Validation            arabic_engine.linkage.dalala            │
 │  L6   Judgment / Proposition       arabic_engine.cognition.evaluation      │
 │  L7   Time / Space Anchoring       arabic_engine.cognition.time_space      │
+│  L7b  Semantic Roles               arabic_engine.linkage.semantic_roles    │
+│  L7c  Masdar Analysis              arabic_engine.signifier.masdar          │
 │  L8   Truth-Guidance Evaluation    arabic_engine.cognition.evaluation      │
 │  L9   Inference                    arabic_engine.cognition.inference_rules │
 │  L10  World-Model Adjustment       arabic_engine.cognition.world_model     │
@@ -76,13 +78,16 @@ arabic_engine/
 │   ├── unicode_norm.py          Unicode normalisation & tokenisation (L0–L1)
 │   ├── phonology.py             Phonological analysis / syllabification
 │   ├── root_pattern.py          Root & morphological pattern extraction (L2)
+│   ├── masdar.py                Masdar extraction & derivation engine (L7c)
 │   └── dmin.py                  D_min — minimal complete phonological model
 │
 ├── signified/                   المدلول — Signified layer
 │   └── ontology.py              Ontological mapping (L4)
 │
 ├── linkage/                     الرابطة — Linkage layer
-│   └── dalala.py                Dalāla validation (L5)
+│   ├── dalala.py                Dalāla validation (L5)
+│   ├── semantic_roles.py        Semantic role assignment (L7b)
+│   └── masdar_bridge.py         Masdar bridge — existential ↔ transformational (L7c)
 │
 ├── syntax/                      النحو — Syntax layer
 │   └── syntax.py                I'rāb assignment & dependency linking (L3)
@@ -131,6 +136,17 @@ arabic_engine/
 | `WorldFact` | A fact held in the world-model knowledge base |
 | `InferenceResult` | Result of applying a forward-chaining rule |
 | `MafhumResult` | Result of Mafhūm (implied meaning) analysis (Ch. 21) |
+
+### Masdar (Verbal Noun) Types
+
+| Type | Description |
+|------|-------------|
+| `MasdarRecord` | Full masdar record: surface, root, pattern, bab, event core |
+| `MasdarDerivation` | Single derivation from masdar to target form |
+| `FractalMasdarNode` | Fractal node linking existential ↔ transformational being |
+
+See [`docs/masdar_fractal_constitution.md`](masdar_fractal_constitution.md) for the
+formal Masdar Fractal Constitution.
 
 ---
 

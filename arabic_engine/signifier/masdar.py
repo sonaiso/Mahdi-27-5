@@ -14,11 +14,11 @@ from __future__ import annotations
 from typing import Dict, List, Optional, Tuple
 
 from arabic_engine.core.enums import (
+    POS,
     DerivationTarget,
     KawnType,
     MasdarBab,
     MasdarType,
-    POS,
 )
 from arabic_engine.core.types import (
     FractalMasdarNode,

@@ -126,6 +126,7 @@ class TimeRef(Enum):
     PRESENT = auto()  # حاضر
     FUTURE = auto()  # مستقبل
     ETERNAL = auto()  # أزلي / دائم
+    MASDAR_POTENTIAL = auto()  # إمكان زمني مصدري — masdar temporal potential
     UNSPECIFIED = auto()
 
 
@@ -135,6 +136,7 @@ class SpaceRef(Enum):
     HERE = auto()  # هنا
     THERE = auto()  # هناك
     NAMED = auto()  # مكان محدد بالاسم
+    MASDAR_POTENTIAL = auto()  # إمكان مكاني مصدري — masdar spatial potential
     UNSPECIFIED = auto()
 
 
@@ -561,6 +563,19 @@ class ConditionToken(Enum):
     TEMPORAL_OPERATOR_APPLIED = auto()
     EXISTENTIAL_STATE_BOUND_TO_TIME = auto()
     TEMPORAL_OPERATOR_REMOVED = auto()
+    # Masdar / verbal noun conditions
+    ROOT_IDENTIFIED = auto()
+    VERB_PATTERN_KNOWN = auto()
+    BAB_ASSIGNED = auto()
+    PARTICLE_AN_PRESENT = auto()
+    VERB_FOLLOWS_PARTICLE = auto()
+    MASDAR_IDENTIFIED = auto()
+    DERIVATION_TARGET_FA3IL = auto()
+    DERIVATION_TARGET_MAF3UL = auto()
+    DERIVATION_TARGET_ZAMAN = auto()
+    DERIVATION_TARGET_MAKAN = auto()
+    DERIVATION_TARGET_HAY2A = auto()
+    DERIVATION_TARGET_ALA = auto()
 
 
 # ── AEU Periodic-Table enums ────────────────────────────────────────

@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Optional
 
-from arabic_engine.core.enums import DerivationTarget, KawnType, MasdarBab
+from arabic_engine.core.enums import DerivationTarget, KawnType
 from arabic_engine.core.types import (
     FractalMasdarNode,
     MasdarDerivation,
@@ -23,7 +23,6 @@ from arabic_engine.signifier.masdar import (
     derive_from_masdar,
     validate_completeness,
 )
-
 
 # ── Phase 1: Assign (تعيين) ─────────────────────────────────────────
 
