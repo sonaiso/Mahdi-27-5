@@ -395,7 +395,7 @@ def build_formal_tuple(
     for i, ch in enumerate(pattern):
         if ch in "َُِْ":
             vowels.append(ch)
-        if ch in {"أ", "ت", "ن", "س", "ا", "إ", "مُ", "يُ"}:
+        if ch in {"أ", "ت", "ن", "س", "ا", "إ", "م", "ي"}:
             aug_positions.append(i)
 
     # Syllable approximation: split pattern into CV/CVC chunks
