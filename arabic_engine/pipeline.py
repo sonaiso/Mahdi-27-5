@@ -71,6 +71,18 @@ from arabic_engine.signifier.weight_fractal import (
 )
 from arabic_engine.syntax.syntax import analyse as syntax_analyse
 
+# ── Cached direction space (canonical, static) ─────────────────────
+
+_DIRECTION_SPACE = None
+
+
+def _get_direction_space():
+    global _DIRECTION_SPACE
+    if _DIRECTION_SPACE is None:
+        _DIRECTION_SPACE = build_direction_space()
+    return _DIRECTION_SPACE
+
+
 # ── Pipeline result ─────────────────────────────────────────────────
 
 @dataclass
@@ -231,7 +243,7 @@ def run(
     syntax_nodes = syntax_analyse(closures)
 
     # L3b — Semantic Direction Assignment
-    _direction_space = build_direction_space()
+    _direction_space = _get_direction_space()
     direction_assignments = [_assign_direction(cl, _direction_space) for cl in closures]
 
     # L3c — Weight Fractal Analysis

@@ -244,11 +244,12 @@ def build_fractal_tree(
     profile = classify_weight(base_pattern, radical_count=len(root), pos=pos)
     phases = list(WeightFractalPhase)
     nodes: List[WeightFractalNode] = []
+    root_tag = root[0] if root and root[0] else "x"
 
     for idx, phase in enumerate(phases):
-        node_id = f"WFN_{root[0] if root else 'x'}_{idx}"
+        node_id = f"WFN_{root_tag}_{idx}"
         parent_id = nodes[-1].node_id if nodes else None
-        child_id = f"WFN_{root[0] if root else 'x'}_{idx + 1}" if idx < len(phases) - 1 else None
+        child_id = f"WFN_{root_tag}_{idx + 1}" if idx < len(phases) - 1 else None
         children = (child_id,) if child_id else ()
 
         nodes.append(

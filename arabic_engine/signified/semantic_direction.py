@@ -237,6 +237,9 @@ def validate_weight_carrying(
     return pattern in direction.weight_conditions
 
 
+_ROOT_TYPE_MAP = {3: "triliteral", 4: "quadriliteral", 5: "quinqueliteral"}
+
+
 def validate_root_carrying(
     root: Tuple[str, ...],
     direction: SemanticDirection,
@@ -256,8 +259,7 @@ def validate_root_carrying(
     if not direction.root_conditions:
         return True
 
-    root_type_map = {3: "triliteral", 4: "quadriliteral", 5: "quinqueliteral"}
-    root_type = root_type_map.get(len(root), "other")
+    root_type = _ROOT_TYPE_MAP.get(len(root), "other")
     return root_type in direction.root_conditions
 
 

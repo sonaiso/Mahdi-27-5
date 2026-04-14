@@ -133,9 +133,9 @@ def close_mufrad(word: str) -> MufradClosureResult:
     if lookup_dmin is not None and closure.root:
         try:
             first_char = closure.root[0]
-            if first_char:
+            if first_char and len(first_char) > 0:
                 dmin = lookup_dmin(ord(first_char[0]))
-        except Exception:
+        except (IndexError, TypeError, Exception):
             pass
 
     # M — masdar analysis
