@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Optional
 
-from arabic_engine.core.enums import DerivationTarget, KawnType
+from arabic_engine.core.enums import DerivationTarget, KawnType, MasdarType
 from arabic_engine.core.types import (
     FractalMasdarNode,
     MasdarDerivation,
@@ -318,7 +318,7 @@ def validate_dmin_masdar(node: FractalMasdarNode) -> Dict[str, object]:
         {
             "name": "taayin",
             "label": "التعيين",
-            "met": m.masdar_type is not None and bool(m.surface),
+            "met": m.masdar_type != MasdarType.MUAWWAL or bool(m.surface),
         },
     ]
 

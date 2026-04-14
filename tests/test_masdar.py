@@ -446,7 +446,7 @@ class TestDminMasdarValidation:
         )
         node = FractalMasdarNode(node_id="FN_TEST", masdar=m)
         score = validate_completeness(node)
-        # Missing surface → thubut fails, and taayin still passes for non-MUAWWAL
+        # Missing surface → thubut fails
         assert score < 1.0
 
 

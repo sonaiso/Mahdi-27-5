@@ -307,7 +307,7 @@ def interpret_masdar(
         An interpreted masdar record, or ``None`` if pattern not found.
     """
     for i, cl in enumerate(closures):
-        if cl.surface in ("أَنْ", "أن", "أَنَّ", "أنّ") and i + 1 < len(closures):
+        if cl.surface in ("أَنْ", "أن") and i + 1 < len(closures):
             verb_cl = closures[i + 1]
             if verb_cl.pos == POS.FI3L:
                 masdar_id = f"MSDR_MUAWWAL_{'_'.join(verb_cl.root)}"
