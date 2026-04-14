@@ -114,6 +114,13 @@ from .enums import (
     StrictLayerID,
     StyleKind,
     SubjectGenre,
+    SemanticDirectionGenus,
+    DerivationalDirection,
+    DirectionRelation,
+    DirectionBoundary,
+    WeightCarryingMode,
+    WeightFractalPhase,
+    WeightClass,
     SyllablePosition,
     TimeRef,
     TraceMode,
@@ -2740,3 +2747,143 @@ class EpistemicReceptionResult:
     corrected_assignments: Tuple[CarryingAssignment, ...] = ()
     path: Optional[ReceptionPathRecord] = None
     messages: Tuple[str, ...] = ()
+
+
+# ── Semantic Direction Space Constitution v1 ────────────────────────
+
+
+@dataclass(frozen=True)
+class SemanticDirection:
+    """جهة دلالية — a single direction point in the semantic space (Art. 6–12).
+
+    Each direction is classified under one of the four supreme genera
+    (:class:`SemanticDirectionGenus`) and indicates which weight patterns
+    and root types can carry it.
+    """
+
+    direction_id: str                              # معرف الجهة
+    genus: SemanticDirectionGenus                   # الجنس الأعلى
+    derivational_direction: DerivationalDirection   # الجهة الاشتقاقية
+    weight_conditions: Tuple[str, ...] = ()         # شروط حمل الوزن
+    root_conditions: Tuple[str, ...] = ()           # شروط حمل الجذر
+    boundary: DirectionBoundary = DirectionBoundary.HADD_FASIL  # الحد
+
+
+@dataclass(frozen=True)
+class DirectionRelationRecord:
+    """سجل العلاقة بين جهتين — a relation edge in the direction space (Art. 34–40)."""
+
+    source_direction_id: str         # الجهة المصدر
+    target_direction_id: str         # الجهة الهدف
+    relation: DirectionRelation      # نوع العلاقة
+    conditions: Tuple[str, ...] = ()  # شروط العلاقة
+    confidence: float = 1.0          # درجة الثقة
+
+
+@dataclass(frozen=True)
+class SemanticDirectionSpace:
+    """فضاء الجهات الدلالية — the complete direction space (Art. 41–45).
+
+    Gathers all directions and their inter-relations.  ``complete`` is
+    True only when the space meets the minimum completeness condition:
+    every genus has at least one direction, and all mandatory relations
+    are present.
+    """
+
+    directions: Tuple[SemanticDirection, ...]              # الجهات
+    relations: Tuple[DirectionRelationRecord, ...] = ()    # العلاقات
+    genera: Tuple[SemanticDirectionGenus, ...] = ()         # الأجناس
+    complete: bool = False                                  # اكتمال الفضاء
+
+
+@dataclass(frozen=True)
+class DirectionAssignment:
+    """إسناد الجهة — assignment of a word to a semantic direction."""
+
+    word_surface: str                            # اللفظ
+    root: Tuple[str, ...]                        # الجذر
+    pattern: str                                 # الوزن
+    assigned_direction: SemanticDirection         # الجهة المسندة
+    genus: SemanticDirectionGenus                 # الجنس الأعلى
+    confidence: float = 1.0                      # درجة الثقة
+
+
+# ── Weight Fractal Constitution v1 ──────────────────────────────────
+
+
+@dataclass(frozen=True)
+class WeightProfile:
+    """ملف الوزن — full weight profile for a single word (Art. 1–5).
+
+    Captures the morphological pattern, its classification, radical count,
+    augmentation letters, and how it carries a semantic direction.
+    """
+
+    pattern: str                                       # الوزن (فَعْل، فِعالة)
+    weight_class: WeightClass                           # تصنيف الوزن
+    radical_count: int                                  # عدد الحروف الأصلية
+    augmentation_letters: Tuple[str, ...] = ()          # حروف الزيادة
+    semantic_direction: SemanticDirectionGenus = SemanticDirectionGenus.WUJUD
+    carrying_mode: WeightCarryingMode = WeightCarryingMode.ASLI
+
+
+@dataclass(frozen=True)
+class WeightDirectionMapping:
+    """تطبيق الوزن على الجهات — maps a weight to permitted directions (Art. 11–15)."""
+
+    pattern: str                                                            # الوزن
+    permitted_directions: Tuple[DerivationalDirection, ...] = ()            # الجهات المباحة
+    prohibited_directions: Tuple[DerivationalDirection, ...] = ()           # الجهات الممنوعة
+    carrying_matrix: Tuple[Tuple[str, str], ...] = ()                       # مصفوفة الحمل
+
+
+@dataclass(frozen=True)
+class WeightFractalNode:
+    """عقدة فراكتالية للوزن — a node in the fractal weight derivation tree (Art. 16–20)."""
+
+    node_id: str                                           # معرف العقدة
+    weight_profile: WeightProfile                          # ملف الوزن
+    source_root: Tuple[str, ...] = ()                      # الجذر المصدر
+    phase: WeightFractalPhase = WeightFractalPhase.TA3YIN  # الطور
+    children: Tuple[str, ...] = ()                         # عقد الأبناء
+    parent: Optional[str] = None                           # العقدة الأم
+    direction_assignment: Optional[DirectionAssignment] = None  # إسناد الجهة
+
+
+@dataclass(frozen=True)
+class WeightFractalResult:
+    """نتيجة التحليل الفراكتالي للوزن — result of weight fractal analysis."""
+
+    root: Tuple[str, ...]                             # الجذر
+    base_weight: WeightProfile                        # الوزن الأساسي
+    fractal_tree: Tuple[WeightFractalNode, ...] = ()  # الشجرة الفراكتالية
+    direction_map: Optional[WeightDirectionMapping] = None  # تطبيق الجهات
+    completeness_score: float = 0.0                   # درجة الاكتمال
+    is_closed: bool = False                           # هل أُقفل؟
+
+
+# ── Mufrad Closure (إقفال اللفظ المفرد) ─────────────────────────────
+
+
+@dataclass(frozen=True)
+class MufradClosureResult:
+    """نتيجة إقفال اللفظ المفرد — complete, closed record for a single word.
+
+    Assembles ALL dimensions of a single Arabic word into one
+    deterministic, hierarchical, fractal structure.
+
+    Ω(w) = R ∘ E ∘ D ∘ W ∘ S ∘ M ∘ P ∘ C ∘ N(w)
+    """
+
+    surface: str                                                 # الصورة السطحية
+    normalized: str                                              # الصورة المعيارية
+    lexical_closure: Optional[LexicalClosure] = None             # الإقفال المعجمي
+    dmin: Optional[DMin] = None                                  # الأدنى المكتمل
+    direction_assignment: Optional[DirectionAssignment] = None   # إسناد الجهة
+    weight_fractal: Optional[WeightFractalResult] = None         # الوزن الفراكتالي
+    masdar_record: Optional[MasdarRecord] = None                 # سجل المصدر
+    concept: Optional[Concept] = None                            # المفهوم
+    dalala_link: Optional[DalalaLink] = None                     # رابط الدلالة
+    epistemic_reception: Optional[EpistemicReceptionResult] = None  # الاستقبال المعرفي
+    is_closed: bool = False                                      # هل أُقفل كليًا؟
+    closure_confidence: float = 0.0                              # درجة ثقة الإقفال
