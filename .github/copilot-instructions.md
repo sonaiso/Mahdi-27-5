@@ -21,7 +21,7 @@ ruff check .
 # Auto-fix lint issues
 ruff check --fix .
 
-# Run all tests (1466 tests, ~3 seconds)
+# Run all tests (completes in a few seconds)
 pytest -v
 
 # Run a specific test file
@@ -35,7 +35,7 @@ python example_run.py
 
 ```
 arabic_engine/               # Main package — all production code
-├── __init__.py              # Package metadata, __version__ = "2.0.0"
+├── __init__.py              # Package metadata, exports __version__
 ├── pipeline.py              # PRIMARY entry-point: run() orchestrates all layers (L0–L10)
 ├── runtime_pipeline.py      # Secondary 8-stage operational pipeline (Utterance→Judgement)
 ├── closure.py               # General Closure verification (Ch. 19 proof)
@@ -96,7 +96,7 @@ arabic_engine/               # Main package — all production code
 ├── signal/                  # Signal layer (normalisation, segmentation, atoms)
 └── data/                    # Static data files (JSON, YAML, SQL, Cypher schemas)
 
-tests/                       # All tests — 37 test files, ~1466 tests
+tests/                       # All tests (many test files, runs in seconds)
 docs/                        # Documentation (architecture, proofs, API reference)
 db/                          # Cypher graph database schemas & seeds
 scripts/                     # Maintenance scripts (branch_pr_merge.sh)
@@ -125,7 +125,7 @@ There is also a **runtime pipeline** (`runtime_pipeline.py`) with 8 stages: Utte
 
 ## Key Types and Enums
 
-All types live in `arabic_engine/core/types.py` and all enums in `arabic_engine/core/enums.py`. These two files are large (~88 KB each). Key types:
+All types live in `arabic_engine/core/types.py` and all enums in `arabic_engine/core/enums.py`. These two files are very large. Key types:
 
 - **`LexicalClosure`** — morphological record for a token (surface, lemma, root, pattern, POS, confidence)
 - **`Concept`** — ontological concept node (concept_id, label, semantic_type, properties)
@@ -160,7 +160,7 @@ Key enums: `POS` (ISM/FI3L/HARF), `DalalaType` (MUTABAQA/TADAMMUN/ILTIZAM/ISNAD)
 - **`tests/test_repository_integrity.py`** checks that all critical modules are importable and no duplicate file contents exist across `arabic_engine/`, `tests/`, `docs/`, `db/`.
 - **`tests/test_architecture_guard.py`** guards the architectural module structure.
 - When adding a new module, add a corresponding test file in `tests/`.
-- All 1466 tests should pass in under 5 seconds.
+- All tests should pass quickly (a few seconds).
 
 ## CI Workflow
 
@@ -181,7 +181,7 @@ The project is deliberately minimal in dependencies. Do not add heavy dependenci
 
 ## Common Pitfalls and Workarounds
 
-1. **Large type files**: `core/types.py` and `core/enums.py` are ~88 KB each. Use `grep` or targeted `view_range` rather than reading them entirely. Search for specific class/enum names.
+1. **Large type files**: `core/types.py` and `core/enums.py` are very large files. Use `grep` or targeted `view_range` rather than reading them entirely. Search for specific class/enum names.
 
 2. **Arabic text in code**: The codebase contains extensive Arabic text in strings, comments, and docstrings. This is domain-correct — do not remove or transliterate it.
 
