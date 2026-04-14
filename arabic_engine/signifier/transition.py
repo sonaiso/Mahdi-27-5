@@ -437,7 +437,7 @@ def stability_check(element: DMin, context: TransitionContext) -> bool:
     """
     # Condition 1: vowel-like element not forced into nucleus by economy
     if _PF.ITLAL in element.features:
-        if context.economy_pressure >= 0.5:
+        if context.economy_pressure >= _ECONOMY_REDUCTION_THRESHOLD:
             return False
         if (
             context.position == _SP.CODA
