@@ -17,6 +17,7 @@ from .enums import (
     AuthorityLevel,
     CarrierClass,
     CarrierType,
+    CarryingMode,
     CategorizationMode,
     CausalRole,
     CellType,
@@ -91,8 +92,12 @@ from .enums import (
     ReceiverExpectedAction,
     ReceiverRoleType,
     ReceiverState,
+    ReceptionDecisionCode,
+    ReceptionLayer,
     ReceptionMode,
+    ReceptionRank,
     ReceptionStateType,
+    ReceptionValidationOutcome,
     ReversibleValue,
     RevisionType,
     SalienceLevel,
@@ -108,6 +113,7 @@ from .enums import (
     SpaceRef,
     StrictLayerID,
     StyleKind,
+    SubjectGenre,
     SyllablePosition,
     TimeRef,
     TraceMode,
@@ -2662,3 +2668,75 @@ class FractalMasdarNode:
     fractal_children: List[str] = field(default_factory=list)
     fractal_depth: int = 0                          # عمق التكرار الذاتي
     completeness_score: float = 0.0                 # درجة اكتمال الحد الأدنى
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Epistemic Reception Constitution v1 — دستور الاستقبال المعرفي
+# ═══════════════════════════════════════════════════════════════════════
+
+
+@dataclass(frozen=True)
+class SubjectClassification:
+    """تصنيف الموضوع الوارد — incoming subject classified into a genre (Art. 5–10)."""
+
+    classification_id: str
+    genre: SubjectGenre
+    description: str
+    is_closed: bool  # True when genre is determined; False = unclosed material (Art. 10)
+
+
+@dataclass(frozen=True)
+class ReceptionRankRecord:
+    """سجل رتبة التلقي — a reception rank with its layer mapping (Art. 13–14)."""
+
+    rank_id: str
+    rank: ReceptionRank
+    layer: ReceptionLayer
+    description: str
+
+
+@dataclass(frozen=True)
+class CarryingAssignment:
+    """خلية في المصفوفة الدستورية — a single cell in the carrying matrix (Art. 40)."""
+
+    genre: SubjectGenre
+    rank: ReceptionRank
+    mode: CarryingMode
+    qualification: str  # e.g. "أصيل في المحسوس / تبعي في غيره"
+
+
+@dataclass(frozen=True)
+class ReceptionPathRecord:
+    """مسار الاستقبال — a subject's full journey through reception ranks."""
+
+    path_id: str
+    subject: SubjectClassification
+    assignments: Tuple[CarryingAssignment, ...]
+    current_rank: ReceptionRank
+
+
+@dataclass(frozen=True)
+class EpistemicReceptionInput:
+    """مدخل التحقق من الاستقبال المعرفي — input to the reception validator."""
+
+    reception_id: str
+    subject: Optional[SubjectClassification] = None
+    sense_present: bool = False
+    feeling_present: bool = False
+    thought_present: bool = False
+    intention_present: bool = False
+    choice_present: bool = False
+    will_present: bool = False
+    claimed_assignments: Tuple[CarryingAssignment, ...] = ()
+
+
+@dataclass(frozen=True)
+class EpistemicReceptionResult:
+    """نتيجة التحقق من الاستقبال المعرفي — output of the reception validator."""
+
+    reception_id: str
+    outcome: ReceptionValidationOutcome
+    codes: Tuple[ReceptionDecisionCode, ...] = ()
+    corrected_assignments: Tuple[CarryingAssignment, ...] = ()
+    path: Optional[ReceptionPathRecord] = None
+    messages: Tuple[str, ...] = ()
