@@ -28,6 +28,8 @@ DEFAULT_REQUIRED_MODULES: tuple[str, ...] = (
     "arabic_engine.cognition.episode_validator",
     "arabic_engine.cognition.epistemic_v1",
     "arabic_engine.cognition.discourse_exchange",
+    "arabic_engine.core.fractal_constitution",
+    "arabic_engine.representation.fractal_rep_spec",
 )
 
 DEFAULT_SCAN_DIRS: tuple[str, ...] = ("arabic_engine", "tests", "docs", "db")
