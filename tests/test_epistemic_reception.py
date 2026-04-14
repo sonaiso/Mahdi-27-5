@@ -338,8 +338,6 @@ class TestReceptionValidation:
         assert result.codes == ()
 
     def test_missing_subject(self) -> None:
-        inp = _full_input(subject=None)
-        # Override to pass None
         inp = EpistemicReceptionInput(
             reception_id="R1",
             subject=None,
@@ -437,19 +435,18 @@ class TestReceptionValidation:
         assert result.outcome == ReceptionValidationOutcome.REJECTED_CONSTITUTIONALLY
 
     def test_axis_confusion(self) -> None:
-        """Art. 11: Claiming ASIL for a MUMTANI cell is axis confusion."""
-        # Relation × Sense is TABI in the matrix; let's craft a fake MUMTANI
-        # scenario by claiming ASIL for a cell that should be TABI.
-        # The axis confusion check fires when expected is MUMTANI and claimed is ASIL.
-        # Since our matrix has no MUMTANI cells (the original problem states it
-        # for Relation×Sense in the abstract case), we test with a normal mismatch.
+        """Art. 11: Claiming ASIL for a direction rank is an axis confusion
+        because direction ranks (intention, choice, will) are never the original
+        carriers of any genre — confusing subject-carrying with reception-directing.
+        """
         bad_claim = CarryingAssignment(
-            genre=SubjectGenre.NISBA,
-            rank=ReceptionRank.HISS,
-            mode=CarryingMode.ASIL,  # should be TABI
+            genre=SubjectGenre.WUJUD,
+            rank=ReceptionRank.NIYYA,
+            mode=CarryingMode.ASIL,  # should be TABI — direction ranks never ASIL
             qualification="",
         )
         result = validate_reception(_full_input(claimed=(bad_claim,)))
+        assert ReceptionDecisionCode.REC002_AXIS_CONFUSION in result.codes
         assert ReceptionDecisionCode.REC007_CARRYING_VIOLATION in result.codes
 
 

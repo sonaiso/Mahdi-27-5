@@ -295,17 +295,21 @@ def validate_reception(
         messages.append("Subject genre is unresolved (Art. 10)")
 
     # 2. Axis confusion detection (Art. 11).
-    #    If a carrying claim assigns reception-rank names as if they were genres,
-    #    or maps genre names onto reception semantics, flag confusion.
+    #    If a carrying claim assigns an ASIL mode to a direction rank
+    #    (intention/choice/will), the subject axis is confused with the
+    #    reception axis — direction ranks never carry originally.
+    _DIRECTION_RANKS = {ReceptionRank.NIYYA, ReceptionRank.KHIYAR, ReceptionRank.IRADA}
     for claim in inp.claimed_assignments:
-        # A claim where an ASIL mode is asserted for a combination that is
-        # actually MUMTANI reveals axis confusion.
         expected = CONSTITUTIONAL_MATRIX.get((claim.genre, claim.rank))
-        if expected == CarryingMode.MUMTANI and claim.mode == CarryingMode.ASIL:
+        if (
+            claim.mode == CarryingMode.ASIL
+            and claim.rank in _DIRECTION_RANKS
+            and expected == CarryingMode.TABI
+        ):
             codes.append(ReceptionDecisionCode.REC002_AXIS_CONFUSION)
             messages.append(
                 f"Axis confusion: {claim.genre.name} claimed ASIL at "
-                f"{claim.rank.name} which is prohibited (Art. 11)"
+                f"{claim.rank.name} which is a direction rank (Art. 11)"
             )
 
     # 3. Sense overreach (Arts. 16–20).
