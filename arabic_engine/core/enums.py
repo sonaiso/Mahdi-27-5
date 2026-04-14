@@ -2198,3 +2198,99 @@ class WeightClass(Enum):
     RUBA3I_MUJARRAD = auto()    # رباعي مجرد — base quadri-literal
     RUBA3I_MAZEED = auto()      # رباعي مزيد — augmented quadri-literal
     KHUMASI = auto()            # خماسي — quinqui-literal
+
+
+class WeightKind(Enum):
+    """نوع الوزن — distinguishes productive weights from closed templates (Art. 4–8).
+
+    PRODUCTIVE      — منتج        : active derivational weight
+    CLOSED_TEMPLATE — قالب مغلق   : non-generative fixed template
+    MEASURE_ONLY    — قياسي فقط   : measurable but non-productive
+    """
+
+    PRODUCTIVE = auto()       # منتج — active derivational weight
+    CLOSED_TEMPLATE = auto()  # قالب مغلق — non-generative fixed template
+    MEASURE_ONLY = auto()     # قياسي فقط — measurable but non-productive
+
+
+class WeightPossibilityDimension(Enum):
+    """أبعاد شرط الإمكان للوزن — 6 dimensions of weight possibility (Art. 9–17).
+
+    BINYAWI  — بنيوي   : structural possibility
+    MAQTA3I  — مقطعي   : syllabic possibility
+    SARFI    — صرفي    : morphological possibility
+    DALALI   — دلالي   : semantic possibility
+    TAWLIDI  — توليدي  : generative possibility
+    RADDI    — ردّي    : return / trace-back possibility
+    """
+
+    BINYAWI = auto()   # بنيوي — structural
+    MAQTA3I = auto()   # مقطعي — syllabic
+    SARFI = auto()     # صرفي — morphological
+    DALALI = auto()    # دلالي — semantic
+    TAWLIDI = auto()   # توليدي — generative
+    RADDI = auto()     # ردّي — return / trace-back
+
+
+class ThulathiBab(Enum):
+    """أبواب الثلاثي المجرد — trilateral base verb doors (Art. 43–46).
+
+    FA3ALA_YAF3ULU — فَعَلَ يَفْعُلُ
+    FA3ALA_YAF3ILU — فَعَلَ يَفْعِلُ
+    FA3ALA_YAF3ALU — فَعَلَ يَفْعَلُ
+    FA3ILA_YAF3ALU — فَعِلَ يَفْعَلُ
+    FA3ULA_YAF3ULU — فَعُلَ يَفْعُلُ
+    """
+
+    FA3ALA_YAF3ULU = auto()  # فَعَلَ يَفْعُلُ
+    FA3ALA_YAF3ILU = auto()  # فَعَلَ يَفْعِلُ
+    FA3ALA_YAF3ALU = auto()  # فَعَلَ يَفْعَلُ
+    FA3ILA_YAF3ALU = auto()  # فَعِلَ يَفْعَلُ
+    FA3ULA_YAF3ULU = auto()  # فَعُلَ يَفْعُلُ
+
+
+class AugmentedSemanticLayer(Enum):
+    """الطبقة الدلالية للمزيد — semantic layer of augmented weights (Art. 47–50).
+
+    SABABIYYA  — سببية   : causation
+    MUSHARAKA  — مشاركة  : reciprocity / participation
+    MUTAWA3A   — مطاوعة  : compliance / reflexivity
+    TADARRUJ   — تدرّج   : gradation
+    TALAB      — طلب     : seeking / requesting
+    TAKALLUF   — تكلّف   : affectation / effort
+    TAHAWWUL   — تحوّل   : transformation
+    """
+
+    SABABIYYA = auto()   # سببية — causation
+    MUSHARAKA = auto()   # مشاركة — reciprocity
+    MUTAWA3A = auto()    # مطاوعة — compliance / reflexivity
+    TADARRUJ = auto()    # تدرّج — gradation
+    TALAB = auto()       # طلب — seeking
+    TAKALLUF = auto()    # تكلّف — affectation
+    TAHAWWUL = auto()    # تحوّل — transformation
+
+
+class NasikhCategory(Enum):
+    """تصنيف النواسخ — copula/nasikh verb categories (Art. 55–58).
+
+    KANA_WA_AKHAWAT  — كان وأخواتها  : existential / temporal copulae
+    KADA_WA_AKHAWAT   — كاد وأخواتها  : near-action copulae
+    ZANNA_WA_AKHAWAT  — ظنّ وأخواتها  : cognitive / epistemic copulae
+    """
+
+    KANA_WA_AKHAWAT = auto()   # كان وأخواتها
+    KADA_WA_AKHAWAT = auto()   # كاد وأخواتها
+    ZANNA_WA_AKHAWAT = auto()  # ظنّ وأخواتها
+
+
+class WeightValidationStatus(Enum):
+    """حالة قبول الوزن — weight acceptance/rejection status (Art. 63–64).
+
+    ACCEPTED  — مقبول  : weight passes all criteria
+    REJECTED  — مرفوض  : weight fails mandatory criteria
+    DEFICIENT — ناقص   : weight partially meets criteria
+    """
+
+    ACCEPTED = auto()   # مقبول — passes all criteria
+    REJECTED = auto()   # مرفوض — fails mandatory criteria
+    DEFICIENT = auto()  # ناقص — partially meets criteria
