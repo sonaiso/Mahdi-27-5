@@ -21,6 +21,7 @@ from .enums import (
     CausalRole,
     CellType,
     CombinationType,
+    CompoundType,
     ConceptFormationMode,
     ConceptRelationType,
     ConceptualSignifiedClass,
@@ -34,6 +35,8 @@ from .enums import (
     DalaalaKind,
     DalalaType,
     DecisionCode,
+    Definiteness,
+    DerivationStatus,
     DiachronicStatus,
     DiscourseGapType,
     DiscourseValidationOutcome,
@@ -51,6 +54,8 @@ from .enums import (
     FunctionRole,
     FuncTransitionClass,
     GapSeverity,
+    Gender,
+    GenderBasis,
     GuidanceState,
     HypothesisStatus,
     InfoKind,
@@ -69,6 +74,9 @@ from .enums import (
     MethodFamily,
     ModalCategory,
     NormativeCategory,
+    NounFractalStage,
+    NounKind,
+    NounNumber,
     OntologicalConstraintType,
     OntologicalLayer,
     OntologicalMode,
@@ -80,6 +88,7 @@ from .enums import (
     PhonTransform,
     ProofPathKind,
     ProofStatus,
+    ProperNounType,
     PurposeType,
     RankType,
     RationalSelfKind,
@@ -116,6 +125,7 @@ from .enums import (
     TrustBasis,
     TrustLevel,
     TruthState,
+    UniversalParticular,
     UnicodeProfileType,
     UtteranceMode,
     UtteranceToConceptConstraint,
@@ -182,6 +192,8 @@ class LexicalClosure:
     temporal: TimeRef = TimeRef.UNSPECIFIED
     spatial: SpaceRef = SpaceRef.UNSPECIFIED
     confidence: float = 1.0
+    # ── v3 noun constitution ─────────────────────────────────────
+    noun_node: Optional["NounNode"] = None
 
 
 # ── Signified layer ─────────────────────────────────────────────────
@@ -2585,3 +2597,66 @@ class LayerTraceRecord:
     layer_6: Optional[RepresentationRecord] = None
     gates: Tuple[TransitionGate, ...] = ()
     final_gate_status: TransitionGateStatus = TransitionGateStatus.INSUFFICIENT_DATA
+
+
+# ── Noun Fractal Constitution (دستور الاسم الفراكتالي) ───────────────
+
+
+@dataclass(frozen=True)
+class NounNode:
+    """العقدة الاسمية — complete noun identity before composition.
+
+    Represents the fully classified noun including all 12 facets
+    (جهات) required by the Noun Fractal Constitution:
+
+    1. جهة الموجود         — existence
+    2. جهة الكلي والجزئي   — universal / particular
+    3. جهة الجنس والنوع     — genus / species / individual
+    4. جهة العلم            — proper noun classification
+    5. جهة الصفة الاسمية    — adjectival noun
+    6. جهة الوحدة والكثرة   — number
+    7. جهة التذكير والتأنيث — gender
+    8. جهة المعرفة والنكرة  — definiteness
+    9. جهة المركب الاسمي    — compound noun type
+    10. جهة المقترض          — borrowed noun
+    11. جهة الوزن الجامد     — rigid pattern
+    12. جهة المطابقة والتضمن والالتزام — signification
+    """
+
+    surface: str
+    lemma: str
+    root: Tuple[str, ...]
+    pattern: str
+    noun_kind: "NounKind"
+    universality: "UniversalParticular"
+    gender: "Gender"
+    gender_basis: "GenderBasis"
+    number: "NounNumber"
+    definiteness: "Definiteness"
+    derivation: "DerivationStatus"
+    proper_type: Optional["ProperNounType"] = None
+    compound_type: Optional["CompoundType"] = None
+    is_borrowed: bool = False
+    source_language: Optional[str] = None
+    rigid_template: Optional[str] = None
+    fractal_stage: "NounFractalStage" = NounFractalStage.DESIGNATION
+    confidence: float = 1.0
+
+
+@dataclass(frozen=True)
+class NounSignification:
+    """دلالة الاسم — mutābaqa / taḍammun / iltizām for a noun.
+
+    Encodes the three layers of signification that establish how the
+    noun relates to its referent / concept / type:
+
+    * **Mutābaqa** (مطابقة) — what the noun exactly denotes.
+    * **Taḍammun** (تضمن) — what parts / limits it includes.
+    * **Iltizām** (التزام) — what it necessarily entails.
+    """
+
+    noun: NounNode
+    mutabaqa_target: str
+    tadammun_parts: Tuple[str, ...]
+    iltizam_entailments: Tuple[str, ...]
+    referential_status: str

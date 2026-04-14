@@ -1860,3 +1860,110 @@ class TransitionGateStatus(Enum):
     PASSED = auto()
     BLOCKED = auto()
     INSUFFICIENT_DATA = auto()
+
+
+# ── Noun Fractal Constitution (دستور الاسم الفراكتالي) ───────────────
+
+
+class Gender(Enum):
+    """جهة التذكير والتأنيث — grammatical gender of a noun."""
+
+    MASCULINE = auto()   # مذكر
+    FEMININE = auto()    # مؤنث
+    DUAL_GENDER = auto()  # مشترك بين المذكر والمؤنث
+
+
+class GenderBasis(Enum):
+    """أساس التذكير والتأنيث — basis for gender classification."""
+
+    REAL = auto()         # حقيقي — biological gender
+    METAPHORICAL = auto()  # مجازي — conventional/metaphorical
+    LEXICAL = auto()      # لفظي — based on word form
+    SEMANTIC = auto()     # معنوي — based on meaning
+
+
+class NounNumber(Enum):
+    """جهة الوحدة والكثرة — number (singular / dual / plural variants)."""
+
+    SINGULAR = auto()          # مفرد
+    DUAL = auto()              # مثنى
+    SOUND_MASC_PLURAL = auto()  # جمع مذكر سالم
+    SOUND_FEM_PLURAL = auto()   # جمع مؤنث سالم
+    BROKEN_PLURAL = auto()     # جمع تكسير
+    COLLECTIVE_NOUN = auto()   # اسم جمع
+    GENUS_NOUN = auto()        # اسم جنس جمعي
+    NUMERAL = auto()           # عدد
+
+
+class Definiteness(Enum):
+    """جهة المعرفة والنكرة — definiteness classification."""
+
+    DEFINITE_ARTICLE = auto()       # معرفة بأل
+    DEFINITE_PROPER = auto()        # معرفة بالعلمية
+    DEFINITE_PRONOUN = auto()       # معرفة بالضمير
+    DEFINITE_DEMONSTRATIVE = auto()  # معرفة بالإشارة
+    DEFINITE_RELATIVE = auto()      # معرفة بالموصول
+    DEFINITE_ANNEXATION = auto()    # معرفة بالإضافة
+    DEFINITE_VOCATIVE = auto()      # معرفة بالنداء
+    INDEFINITE = auto()             # نكرة
+
+
+class NounKind(Enum):
+    """الأقسام الكبرى للاسم — major noun categories."""
+
+    ENTITY = auto()     # ذات — substance / entity noun
+    ATTRIBUTE = auto()  # صفة اسمية — adjectival noun
+    PROPER = auto()     # علم — proper noun
+    GENUS = auto()      # جنس — genus noun
+    SPECIES = auto()    # نوع — species noun
+    INDIVIDUAL = auto()  # فرد — individual noun
+    NUMERAL = auto()    # عدد — numeral noun
+    COMPOUND = auto()   # مركب — compound noun
+    BORROWED = auto()   # مقترض — borrowed / loanword noun
+
+
+class UniversalParticular(Enum):
+    """جهة الكلي والجزئي — universal vs. particular."""
+
+    UNIVERSAL = auto()   # كلي — applicable to many
+    PARTICULAR = auto()  # جزئي — restricted to one
+
+
+class ProperNounType(Enum):
+    """أنواع العلم — sub-types of proper nouns."""
+
+    PERSONAL = auto()    # علم شخصي
+    PLACE = auto()       # علم مكان
+    TIME = auto()        # علم زمان
+    TRANSFERRED = auto()  # علم منقول
+    COMPOUND = auto()    # علم مركب
+    NICKNAME = auto()    # لقب
+    PATRONYMIC = auto()  # كنية
+    COINED = auto()      # علم مرتجل
+    BORROWED = auto()    # علم مقترض
+
+
+class CompoundType(Enum):
+    """أنواع المركب — compound noun types."""
+
+    ANNEXATION = auto()  # مركب إضافي (e.g. عبد الله)
+    BLEND = auto()       # مركب مزجي (e.g. بعلبك)
+    PREDICATIVE = auto()  # مركب إسنادي (e.g. تأبط شرًا)
+
+
+class DerivationStatus(Enum):
+    """جامد / مشتق — rigid vs. derived noun."""
+
+    RIGID = auto()    # جامد — non-derived / frozen
+    DERIVED = auto()  # مشتق — derived from a root
+
+
+class NounFractalStage(Enum):
+    """مراحل الفراكتال الاسمي — stages of the noun fractal cycle."""
+
+    DESIGNATION = auto()   # تعيين — designate the existent
+    PRESERVATION = auto()  # حفظ — preserve identity
+    LINKAGE = auto()       # ربط — link signifier to signified
+    JUDGMENT = auto()      # حكم — judge properties
+    TRANSITION = auto()    # انتقال — transition to composition
+    RETURN = auto()        # رد — return to structure
