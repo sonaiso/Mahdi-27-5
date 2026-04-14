@@ -1,0 +1,66 @@
+{
+  "cell_catalog": {
+    "consonants": [
+      "C_ROOT_PLAIN",
+      "C_MULTI_FUNCTION",
+      "C_AUGMENTATIVE",
+      "C_GLIDE_BACK",
+      "C_GLIDE_FRONT"
+    ],
+    "vowels": [
+      "V_LONG_A",
+      "V_LONG_W",
+      "V_LONG_Y"
+    ],
+    "diacritics": [
+      "D_FATHA",
+      "D_DAMMA",
+      "D_KASRA",
+      "D_SUKUN",
+      "D_SHADDA",
+      "D_TANWEEN_FATH",
+      "D_TANWEEN_DAMM",
+      "D_TANWEEN_KASR"
+    ],
+    "meta_cells": [
+      "CELL_ILLA",
+      "CELL_IMPLICIT",
+      "CELL_WAQF_COMPRESSED",
+      "CELL_EXISTENTIAL",
+      "CELL_EXISTENTIAL_TEMPORAL",
+      "CELL_EVENT_SOURCE",
+      "CELL_EVENT_TEMPORAL",
+      "CELL_CAUSAL_INTERNAL",
+      "CELL_CAUSAL_EXTERNAL"
+    ]
+  },
+  "priority_scale": {
+    "1": "critical",
+    "2": "high",
+    "3": "medium",
+    "4": "low",
+    "5": "fallback"
+  },
+  "reversible_values": [
+    "YES",
+    "NO",
+    "CONDITIONAL"
+  ],
+  "transition_classes": [
+    "PHONOLOGICAL",
+    "MORPHOLOGICAL",
+    "ORTHOGRAPHIC",
+    "CAUSAL",
+    "TEMPORAL",
+    "EXISTENTIAL",
+    "ABSTRACTIVE"
+  ],
+  "evidence_types": [
+    "LEXICAL",
+    "PATTERN",
+    "PHONOLOGICAL_CONTEXT",
+    "MORPH_CONTEXT",
+    "SURFACE_ONLY",
+    "DEEP_ANALYSIS"
+  ]
+}

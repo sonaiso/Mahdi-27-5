@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/arabic-functional-transition.schema.json",
+  "title": "Arabic Functional Transition Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "Transition_ID",
+    "Source_Cell",
+    "Target_Cell",
+    "Preconditions",
+    "Priority",
+    "Reversible",
+    "Surface_Form",
+    "Deep_Form"
+  ],
+  "properties": {
+    "Transition_ID": {
+      "type": "string",
+      "pattern": "^TR_[0-9]{3}$"
+    },
+    "Source_Cell": {
+      "type": "string",
+      "enum": [
+        "C_ROOT_PLAIN",
+        "C_MULTI_FUNCTION",
+        "C_AUGMENTATIVE",
+        "C_GLIDE_BACK",
+        "C_GLIDE_FRONT",
+        "V_LONG_A",
+        "V_LONG_W",
+        "V_LONG_Y",
+        "D_FATHA",
+        "D_DAMMA",
+        "D_KASRA",
+        "D_SUKUN",
+        "D_SHADDA",
+        "D_TANWEEN_FATH",
+        "D_TANWEEN_DAMM",
+        "D_TANWEEN_KASR",
+        "CELL_ILLA",
+        "CELL_IMPLICIT",
+        "CELL_WAQF_COMPRESSED",
+        "CELL_EXISTENTIAL",
+        "CELL_EXISTENTIAL_TEMPORAL",
+        "CELL_EVENT_SOURCE",
+        "CELL_EVENT_TEMPORAL",
+        "CELL_CAUSAL_INTERNAL",
+        "CELL_CAUSAL_EXTERNAL"
+      ]
+    },
+    "Target_Cell": {
+      "type": "string",
+      "enum": [
+        "C_ROOT_PLAIN",
+        "C_MULTI_FUNCTION",
+        "C_AUGMENTATIVE",
+        "C_GLIDE_BACK",
+        "C_GLIDE_FRONT",
+        "V_LONG_A",
+        "V_LONG_W",
+        "V_LONG_Y",
+        "D_FATHA",
+        "D_DAMMA",
+        "D_KASRA",
+        "D_SUKUN",
+        "D_SHADDA",
+        "D_TANWEEN_FATH",
+        "D_TANWEEN_DAMM",
+        "D_TANWEEN_KASR",
+        "CELL_ILLA",
+        "CELL_IMPLICIT",
+        "CELL_WAQF_COMPRESSED",
+        "CELL_EXISTENTIAL",
+        "CELL_EXISTENTIAL_TEMPORAL",
+        "CELL_EVENT_SOURCE",
+        "CELL_EVENT_TEMPORAL",
+        "CELL_CAUSAL_INTERNAL",
+        "CELL_CAUSAL_EXTERNAL"
+      ]
+    },
+    "Transition_Class": {
+      "type": "string",
+      "enum": [
+        "PHONOLOGICAL",
+        "MORPHOLOGICAL",
+        "ORTHOGRAPHIC",
+        "CAUSAL",
+        "TEMPORAL",
+        "EXISTENTIAL",
+        "ABSTRACTIVE"
+      ]
+    },
+    "Preconditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "Blocking_Conditions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "default": []
+    },
+    "Priority": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "Reversible": {
+      "type": "string",
+      "enum": ["YES", "NO", "CONDITIONAL"]
+    },
+    "Surface_Form": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Deep_Form": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Evidence_Type": {
+      "type": "string",
+      "enum": [
+        "LEXICAL",
+        "PATTERN",
+        "PHONOLOGICAL_CONTEXT",
+        "MORPH_CONTEXT",
+        "SURFACE_ONLY",
+        "DEEP_ANALYSIS"
+      ]
+    },
+    "Notes": {
+      "type": "string"
+    }
+  }
+}

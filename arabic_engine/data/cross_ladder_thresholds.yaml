@@ -1,0 +1,354 @@
+matrix:
+  id: cross_ladder_threshold_matrix_v1
+  name: Cross-Ladder Threshold Matrix
+  language: ar
+  description: >
+    Official executable mapping between linguistic layers and conceptual layers.
+  transformation_types:
+    - extraction
+    - normalization
+    - constraint
+    - structural_readiness
+    - potential
+    - identity_projection
+    - reference
+    - referential_positioning
+    - participation
+    - preference
+    - operation
+    - relation
+    - event
+    - qualification
+    - proposition
+    - evaluation
+    - inference
+    - explanation
+  revision_policies:
+    - none
+    - limited
+    - open
+  bridge_record_schema:
+    - id
+    - linguistic_layer
+    - threshold
+    - transformation_type
+    - conceptual_layer
+    - output_class
+    - source_ref
+    - output_ref
+    - rule_applied
+    - lock_status
+    - revisable
+    - confidence
+    - evidence_refs
+  thresholds:
+    - order: 1
+      linguistic_layer: Trace / Raw Input
+      threshold: TraceToUnitThreshold
+      transformation_type: extraction
+      conceptual_layer: Unit Distinction
+      output_class: [UtteranceUnit, TraceToUnitBridge]
+      rule: لا مفهوم قبل تثبيت حدود الوحدة
+      lock: [trace_lock, unit_boundary_lock]
+      revision_policy: limited
+      revision_note: يجوز تعديل حدود الوحدة إذا ظهرت قرينة أقوى في التشكيل أو اللواصق
+    - order: 2
+      linguistic_layer: Orthography / Script
+      threshold: OrthographyToNormalizedFormThreshold
+      transformation_type: normalization
+      conceptual_layer: Pre-Structural Readiness
+      output_class: [OrthographicTrace, ScriptNormalizationProfile]
+      rule: لا تحليل صرفي قبل توحيد الرسم وضبط السياسة الإملائية
+      lock: [orthography_lock]
+      revision_policy: limited
+      revision_note: تراجع محدود إذا كشف التحليل الصرفي أن التطبيع الأول أفسد التمييز
+    - order: 3
+      linguistic_layer: Diacritics / Harakat
+      threshold: DiacriticsToMorphSignalThreshold
+      transformation_type: qualification
+      conceptual_layer: Structural Hint Layer
+      output_class: [DiacriticProfile]
+      rule: التشكيل قرينة مفسرة لا تُهمل إذا وُجدت
+      lock: [diacritic_lock]
+      revision_policy: limited
+      revision_note: يجوز إعادة وزن قرينة التشكيل إذا عارضها المعجم أو السياق
+    - order: 4
+      linguistic_layer: Phoneme (Consonant/Vowel)
+      threshold: PhonologyToStructuralConstraintThreshold
+      transformation_type: constraint
+      conceptual_layer: Structural Constraint
+      output_class: [PhonemicAtom, PhonologicalConstraint]
+      rule: الفونيم لا يولد مفهومًا بل قيدًا بنيويًا
+      lock: [phoneme_lock]
+      revision_policy: limited
+      revision_note: لا مراجعة إلا إذا تبدلت القراءة الصوتية بسبب التطبيع أو الشدة أو الإعلال
+    - order: 5
+      linguistic_layer: Syllable
+      threshold: SyllableToRootPatternThreshold
+      transformation_type: structural_readiness
+      conceptual_layer: Root/Pattern Readiness
+      output_class: [SyllableUnit, RootPatternReadiness]
+      rule: لا انتقال إلى الجذر/الوزن قبل تثبيت بنية المقطع
+      lock: [syllable_lock]
+      revision_policy: limited
+      revision_note: تجوز مراجعة نوع المقطع إذا تغيّر تحليل اللواصق أو الحركات
+    - order: 6
+      linguistic_layer: Root Seed
+      threshold: RootSeedIdentificationThreshold
+      transformation_type: extraction
+      conceptual_layer: Structural Identity Seed
+      output_class: [RootSeed]
+      rule: لا اشتقاق قبل تحديد نوع الجذر وصيغته المحتملة
+      lock: [root_lock]
+      revision_policy: open
+      revision_note: يجوز تعدد الجذور المرشحة مع ترجيح لاحق
+    - order: 7
+      linguistic_layer: Root + Pattern
+      threshold: RootPatternToSemanticPotentialThreshold
+      transformation_type: potential
+      conceptual_layer: Semantic Potential
+      output_class: [RootPatternSemanticBridge, SemanticPotential]
+      rule: الجذر لا يولد المفهوم إلا بوسيط الوزن/النواة
+      lock: [root_pattern_lock, semantic_potential_lock]
+      revision_policy: open
+      revision_note: نعم، إذا كشف الاشتقاق أو السياق أن الوزن المؤول أولًا غير صحيح
+    - order: 8
+      linguistic_layer: Lexical Category (noun/verb/particle)
+      threshold: LexicalIdentityToConceptKernelThreshold
+      transformation_type: identity_projection
+      conceptual_layer: Singular Concept Kernel
+      output_class: [LexicalIdentity, SingularConceptKernel]
+      rule: لا دلالة مستقرة قبل تثبيت نوع الكلمة
+      lock: [lexical_identity_lock]
+      revision_policy: limited
+      revision_note: يجوز مراجعة فئة الكلمة عند الغموض الصرفي
+    - order: 9
+      linguistic_layer: Derivation Mode (static/derived)
+      threshold: DerivationModeToConceptBiasThreshold
+      transformation_type: potential
+      conceptual_layer: Semantic Nature
+      output_class: [DerivationalProfile]
+      rule: الجامد والمشتق يوجهان الإمكان الدلالي ولا يحتمانه
+      lock: [derivation_lock]
+      revision_policy: open
+      revision_note: نعم، عند ثبوت نقل اصطلاحي أو جمود استعمالي للمشتق
+    - order: 10
+      linguistic_layer: Masdar / Industrial Masdar
+      threshold: MasdarToAbstractEventThreshold
+      transformation_type: event
+      conceptual_layer: Event / Abstract Meaning
+      output_class: [MasdarConcept]
+      rule: لا يدمج المصدر الحدثي بالمصدر الصناعي
+      lock: [masdar_lock]
+      revision_policy: limited
+      revision_note: يجوز إعادة تصنيف المصدر بحسب السياق التركيبي
+    - order: 11
+      linguistic_layer: Verb Form (mujarrad/mazeed)
+      threshold: VerbFormToEventKernelThreshold
+      transformation_type: event
+      conceptual_layer: Event Concept
+      output_class: [VerbProfile, EventConcept]
+      rule: كل فعل يجب أن يحدد نوعه الصرفي قبل بناء الحدث
+      lock: [verb_lock, event_lock]
+      revision_policy: open
+      revision_note: نعم، عند مراجعة الباب أو التعدية أو المبني للمجهول
+    - order: 12
+      linguistic_layer: Transitivity
+      threshold: TransitivityToEventRolesThreshold
+      transformation_type: participation
+      conceptual_layer: Event Role Schema
+      output_class: [EventRoleSchema]
+      rule: اللزوم/التعدية يفتحان فتحات الأدوار ولا يعيّنان شاغليها
+      lock: [event_roles_lock]
+      revision_policy: open
+      revision_note: نعم، إذا دل السياق على حذف مفعول أو تضمين فعل معنى فعل آخر
+    - order: 13
+      linguistic_layer: Tense / Aspect / Temporal Markers
+      threshold: TemporalFormToEventStateThreshold
+      transformation_type: qualification
+      conceptual_layer: Event State
+      output_class: [EventState]
+      rule: لا تقويم للحدث قبل تثبيت زمنه أو حالته أو تعليق ذلك صراحة
+      lock: [event_state_lock]
+      revision_policy: open
+      revision_note: نعم، إذا غيّر الظرف أو الأداة أو المقام القيمة الزمنية
+    - order: 14
+      linguistic_layer: Spatial Expressions
+      threshold: SpatialFormToSpatialConstraintThreshold
+      transformation_type: constraint
+      conceptual_layer: Spatial Qualification
+      output_class: [SpatialConstraint, SpatialProfile]
+      rule: لا تثبيت لمكان الحدث قبل تمييز نوع العلاقة المكانية
+      lock: [space_lock]
+      revision_policy: open
+      revision_note: نعم، إذا تبين أن الظرف مجازي أو تابع لعلاقة أخرى
+    - order: 15
+      linguistic_layer: Built-in Nominals (pronoun, demonstrative, relative)
+      threshold: BuiltinNominalToReferenceThreshold
+      transformation_type: reference
+      conceptual_layer: Referential Position
+      output_class: [BuiltinNominalProfile, ReferentialBridge, ReferentialProfile]
+      rule: الضمير لا ينتج ذاتًا تامة بل مسار إحالة
+      lock: [builtin_nominal_lock, referential_lock]
+      revision_policy: open
+      revision_note: نعم، مع كل تحديث لمرجع سابق أو لاحق
+    - order: 16
+      linguistic_layer: Definiteness / Indefiniteness
+      threshold: DefinitenessToReferentialPositionThreshold
+      transformation_type: referential_positioning
+      conceptual_layer: Referential Profile
+      output_class: [ReferentialProfile]
+      rule: المعرفة/النكرة توجه المرجع والحمل لا مجرد الوصف
+      lock: [referential_lock]
+      revision_policy: open
+      revision_note: نعم، إذا كشفت الجملة أو المقام تعيينًا أو عمومًا مختلفًا
+    - order: 17
+      linguistic_layer: Universality / Particularity
+      threshold: UniversalityToScopeThreshold
+      transformation_type: qualification
+      conceptual_layer: Referential Scope
+      output_class: [ReferentialScopeProfile]
+      rule: الكلي/الجزئي لا يثبتان بلا فحص مقام الاستعمال
+      lock: [scope_lock]
+      revision_policy: open
+      revision_note: نعم، عند الانتقال من المفرد إلى القضية
+    - order: 18
+      linguistic_layer: Mabni / Mu‘rab
+      threshold: InflectionToCompositionalEligibilityThreshold
+      transformation_type: participation
+      conceptual_layer: Compositional Eligibility
+      output_class: [InflectionProfile, InflectionEligibilityBridge, CompositionalEligibility]
+      rule: البناء/الإعراب لا يحددان الدور بل قابلية ظهوره التركيبي
+      lock: [inflection_lock, compositional_lock]
+      revision_policy: open
+      revision_note: نعم، إذا تغير فهم المحل أو الحذف أو العلامة
+    - order: 19
+      linguistic_layer: Case Marking
+      threshold: CaseToRelationalPreferenceThreshold
+      transformation_type: preference
+      conceptual_layer: Relational Candidate
+      output_class: [CaseMarkInterpretation, CaseSemantics, CaseRelationBridge, RelationalCandidate]
+      rule: الإعراب لا يخلق العلاقة وحده بل يرجحها بين بدائل
+      lock: [case_semantics_lock, relational_lock]
+      revision_policy: open
+      revision_note: نعم، عند ظهور عامل أو ترتيب أو قرينة أقوى
+    - order: 20
+      linguistic_layer: Governing Factors
+      threshold: FactorToOperationalScopeThreshold
+      transformation_type: operation
+      conceptual_layer: Relational Governance
+      output_class: [GoverningFactor]
+      rule: لا تعيين نهائي بلا جمع العامل مع العلامة والأهلية
+      lock: [factor_lock]
+      revision_policy: open
+      revision_note: نعم، خصوصًا في العوامل المعنوية أو التقديرية
+    - order: 21
+      linguistic_layer: Linking Tools / Particles
+      threshold: ToolToRelationOperatorThreshold
+      transformation_type: relation
+      conceptual_layer: Relational Activation
+      output_class: [LinkingToolConcept, ToolRelationBridge, RelationalConcept]
+      rule: الأداة مولد نسبة أو معدّل لها لا مجرد لفظ مستقل
+      lock: [linking_tool_lock, relation_lock]
+      revision_policy: open
+      revision_note: نعم، بحسب سعة مجال الأداة أو تعدد معانيها
+    - order: 22
+      linguistic_layer: Agreement (gender/number/count)
+      threshold: AgreementToRelationalConstraintThreshold
+      transformation_type: constraint
+      conceptual_layer: Concord / Relational Constraint
+      output_class: [AgreementProfile, AgreementConstraint, ConcordRecord]
+      rule: العدد والجنس قيدان علائقيان لا زخرفة صرفية
+      lock: [agreement_lock]
+      revision_policy: open
+      revision_note: نعم، عند إعادة تعيين المرجع أو الدور
+    - order: 23
+      linguistic_layer: Affixes / Clitics
+      threshold: AffixToFunctionalSignalThreshold
+      transformation_type: identity_projection
+      conceptual_layer: Structural / Referential / Operational Hint
+      output_class: [AffixProfile, CliticProfile, MorphologicalAssembly]
+      rule: لا قراءة كاملة للوحدة دون تحليل اللواصق
+      lock: [affix_lock]
+      revision_policy: open
+      revision_note: نعم، إذا غيّر الفصل بين اللواصق نوع الكلمة أو الإحالة
+    - order: 24
+      linguistic_layer: Syntactic Roles
+      threshold: RoleToRelationalMeaningThreshold
+      transformation_type: relation
+      conceptual_layer: Relational Concept
+      output_class: [SyntacticRole, SyntacticRelation, RelationalConcept]
+      rule: الدور النحوي صورة لغوية، والنسبة مكافئه المفهومي
+      lock: [syntactic_role_lock, relation_lock]
+      revision_policy: open
+      revision_note: نعم، إذا تبدّل ترجيح الفاعل/المبتدأ/الخبر ونحوها
+    - order: 25
+      linguistic_layer: Dependency / Construction
+      threshold: SyntacticRelationToCompositeMeaningThreshold
+      transformation_type: relation
+      conceptual_layer: Composite Concept
+      output_class: [DependencyArc, ConstructionRole, CompositeConcept]
+      rule: لا مركب بلا نسبة مؤسسة واضحة
+      lock: [construction_lock, composite_lock]
+      revision_policy: open
+      revision_note: نعم، إذا أعيد تحليل البنية على مستوى أعلى
+    - order: 26
+      linguistic_layer: Clause Type
+      threshold: ClauseToCompositeFrameThreshold
+      transformation_type: proposition
+      conceptual_layer: Clause-Level Concept
+      output_class: [ClauseProfile, CompositeFormation]
+      rule: لا تستقر الجملة قبل تعيين نوعها البنيوي
+      lock: [clause_lock]
+      revision_policy: open
+      revision_note: نعم، إذا أظهرت الأداة أو الرتبة أو الحذف نوعًا آخر للجملة
+    - order: 27
+      linguistic_layer: Sentence Architecture
+      threshold: SentenceArchitectureToPropositionThreshold
+      transformation_type: proposition
+      conceptual_layer: Proposition Layer
+      output_class: [SentenceArchitecture, PropositionFrame, Proposition]
+      rule: لا حكم قبل proposition frame مستقر
+      lock: [sentence_lock, proposition_lock]
+      revision_policy: open
+      revision_note: نعم، إذا ظهر أن البنية شرطية أو تفسيرية أو إنشائية لا خبرية
+    - order: 28
+      linguistic_layer: Discourse Mode / Illocution
+      threshold: DiscourseToJudgementForceThreshold
+      transformation_type: proposition
+      conceptual_layer: Judgement Layer
+      output_class: [IllocutionaryForm, JudgementProfile, Judgement]
+      rule: لا دمج بين الخبر والإنشاء قبل تعيين القوة الإنجازية
+      lock: [judgement_lock]
+      revision_policy: open
+      revision_note: نعم، إذا دل المقام أو الأداة على غرض مختلف
+    - order: 29
+      linguistic_layer: World-Compatible Reading
+      threshold: JudgementToEvaluationThreshold
+      transformation_type: evaluation
+      conceptual_layer: Evaluation Layer
+      output_class: [EvaluationProfile, Evaluation]
+      rule: لا معرفة معتبرة قبل التقويم
+      lock: [evaluation_lock]
+      revision_policy: open
+      revision_note: نعم، عند ورود معرفة سابقة أو تعارض أو استدلال جديد
+    - order: 30
+      linguistic_layer: Inference Trigger
+      threshold: EvaluationToInferenceThreshold
+      transformation_type: inference
+      conceptual_layer: Inference Layer
+      output_class: [InferenceProfile, InferenceRecord]
+      rule: لا استدلال من بنية غير مستقرة
+      lock: [inference_lock]
+      revision_policy: open
+      revision_note: نعم، مع كل تعديل في القضية أو التقويم
+    - order: 31
+      linguistic_layer: Explanation Backtrace
+      threshold: AnyDecisionToExplanationThreshold
+      transformation_type: explanation
+      conceptual_layer: Explanation Layer
+      output_class: [ExplanationTrace, ExplanationProfile, CrossLadderBridgeRecord]
+      rule: كل قرار رئيسي يجب أن يملك سلسلة تفسير سببية
+      lock: [explanation_lock]
+      revision_policy: open
+      revision_note: دائمًا قابل للتوسعة وإعادة الصياغة

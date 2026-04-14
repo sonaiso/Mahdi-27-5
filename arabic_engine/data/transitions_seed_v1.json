@@ -1,0 +1,587 @@
+{
+  "dataset_name": "arabic_functional_transitions_seed_v1",
+  "version": "1.0.0",
+  "transitions": [
+    {
+      "Transition_ID": "TR_001",
+      "Source_Cell": "C_GLIDE_BACK",
+      "Target_Cell": "V_LONG_W",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "glide_loses_consonantal_load",
+        "segment_becomes_vocalic_nucleus",
+        "syllable_structure_allows_lengthening"
+      ],
+      "Blocking_Conditions": [
+        "segment_required_as_explicit_onset"
+      ],
+      "Priority": 1,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "و as long vowel",
+      "Deep_Form": "و as glide consonant",
+      "Evidence_Type": "PHONOLOGICAL_CONTEXT",
+      "Notes": "Functional shift from glide to long vowel."
+    },
+    {
+      "Transition_ID": "TR_002",
+      "Source_Cell": "C_GLIDE_FRONT",
+      "Target_Cell": "V_LONG_Y",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "glide_loses_consonantal_load",
+        "segment_becomes_vocalic_nucleus",
+        "syllable_structure_allows_lengthening"
+      ],
+      "Blocking_Conditions": [
+        "segment_required_as_explicit_onset"
+      ],
+      "Priority": 1,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "ي as long vowel",
+      "Deep_Form": "ي as glide consonant",
+      "Evidence_Type": "PHONOLOGICAL_CONTEXT",
+      "Notes": "Functional shift from glide to long vowel."
+    },
+    {
+      "Transition_ID": "TR_003",
+      "Source_Cell": "V_LONG_W",
+      "Target_Cell": "C_GLIDE_BACK",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "segment_enters_consonantal_position",
+        "surface_requires_glide_linking"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 1,
+      "Reversible": "YES",
+      "Surface_Form": "و as consonantal glide",
+      "Deep_Form": "و as long vowel",
+      "Evidence_Type": "PHONOLOGICAL_CONTEXT",
+      "Notes": "Reverse rank shift from vowel to glide."
+    },
+    {
+      "Transition_ID": "TR_004",
+      "Source_Cell": "V_LONG_Y",
+      "Target_Cell": "C_GLIDE_FRONT",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "segment_enters_consonantal_position",
+        "surface_requires_glide_linking"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 1,
+      "Reversible": "YES",
+      "Surface_Form": "ي as consonantal glide",
+      "Deep_Form": "ي as long vowel",
+      "Evidence_Type": "PHONOLOGICAL_CONTEXT",
+      "Notes": "Reverse rank shift from vowel to glide."
+    },
+    {
+      "Transition_ID": "TR_005",
+      "Source_Cell": "CELL_ILLA",
+      "Target_Cell": "CELL_IMPLICIT",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "weak_segment_deleted_on_surface",
+        "deep_structure_preserved",
+        "pattern_recovers_missing_slot"
+      ],
+      "Blocking_Conditions": [
+        "deletion_causes_root_ambiguity"
+      ],
+      "Priority": 1,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "weak segment absent from surface",
+      "Deep_Form": "weak segment retained in deep representation",
+      "Evidence_Type": "DEEP_ANALYSIS",
+      "Notes": "Deletion is modeled as implicit retention, not annihilation."
+    },
+    {
+      "Transition_ID": "TR_006",
+      "Source_Cell": "D_FATHA",
+      "Target_Cell": "V_LONG_A",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "fatha_extended",
+        "segment_forms_independent_long_nucleus"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "YES",
+      "Surface_Form": "ا",
+      "Deep_Form": "extended fatha",
+      "Evidence_Type": "PHONOLOGICAL_CONTEXT",
+      "Notes": "Short-to-long open vocalic extension."
+    },
+    {
+      "Transition_ID": "TR_007",
+      "Source_Cell": "D_DAMMA",
+      "Target_Cell": "V_LONG_W",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "damma_extended",
+        "segment_forms_independent_long_nucleus"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "YES",
+      "Surface_Form": "و long vowel",
+      "Deep_Form": "extended damma",
+      "Evidence_Type": "PHONOLOGICAL_CONTEXT",
+      "Notes": "Short-to-long back vocalic extension."
+    },
+    {
+      "Transition_ID": "TR_008",
+      "Source_Cell": "D_KASRA",
+      "Target_Cell": "V_LONG_Y",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "kasra_extended",
+        "segment_forms_independent_long_nucleus"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "YES",
+      "Surface_Form": "ي long vowel",
+      "Deep_Form": "extended kasra",
+      "Evidence_Type": "PHONOLOGICAL_CONTEXT",
+      "Notes": "Short-to-long front vocalic extension."
+    },
+    {
+      "Transition_ID": "TR_009",
+      "Source_Cell": "C_ROOT_PLAIN",
+      "Target_Cell": "D_SHADDA",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "two_identical_consonants_in_sequence",
+        "compression_allowed",
+        "deep_structure_preserved"
+      ],
+      "Blocking_Conditions": [
+        "identity_not_proven"
+      ],
+      "Priority": 1,
+      "Reversible": "YES",
+      "Surface_Form": "single consonant with shadda",
+      "Deep_Form": "C1_sukun + C1_haraka",
+      "Evidence_Type": "PHONOLOGICAL_CONTEXT",
+      "Notes": "Canonical gemination."
+    },
+    {
+      "Transition_ID": "TR_010",
+      "Source_Cell": "C_AUGMENTATIVE",
+      "Target_Cell": "D_SHADDA",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "augmentative_consonant_contacts_similar_or_identical_segment",
+        "morph_pattern_allows_assimilation"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "geminated surface output",
+      "Deep_Form": "augmentative + adjacent segment",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Gemination arising within derived morphology."
+    },
+    {
+      "Transition_ID": "TR_011",
+      "Source_Cell": "C_MULTI_FUNCTION",
+      "Target_Cell": "D_SHADDA",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "strong_similarity_or_identity",
+        "surface_compression_permitted"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "shadda",
+      "Deep_Form": "two adjacent compatible segments",
+      "Evidence_Type": "DEEP_ANALYSIS",
+      "Notes": "Applies to flexible elements with contextual assimilation."
+    },
+    {
+      "Transition_ID": "TR_012",
+      "Source_Cell": "D_FATHA",
+      "Target_Cell": "D_SUKUN",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "morphological_change_drops_short_vowel"
+      ],
+      "Blocking_Conditions": [
+        "dropping_vowel_breaks_allowed_syllable_pattern"
+      ],
+      "Priority": 1,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "sukun",
+      "Deep_Form": "fatha in prior or deep state",
+      "Evidence_Type": "MORPH_CONTEXT",
+      "Notes": "Short vowel neutralized to zero movement."
+    },
+    {
+      "Transition_ID": "TR_013",
+      "Source_Cell": "D_DAMMA",
+      "Target_Cell": "D_SUKUN",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "morphological_change_drops_short_vowel"
+      ],
+      "Blocking_Conditions": [
+        "dropping_vowel_breaks_allowed_syllable_pattern"
+      ],
+      "Priority": 1,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "sukun",
+      "Deep_Form": "damma in prior or deep state",
+      "Evidence_Type": "MORPH_CONTEXT",
+      "Notes": "Short vowel neutralized to zero movement."
+    },
+    {
+      "Transition_ID": "TR_014",
+      "Source_Cell": "D_KASRA",
+      "Target_Cell": "D_SUKUN",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "morphological_change_drops_short_vowel"
+      ],
+      "Blocking_Conditions": [
+        "dropping_vowel_breaks_allowed_syllable_pattern"
+      ],
+      "Priority": 1,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "sukun",
+      "Deep_Form": "kasra in prior or deep state",
+      "Evidence_Type": "MORPH_CONTEXT",
+      "Notes": "Short vowel neutralized to zero movement."
+    },
+    {
+      "Transition_ID": "TR_015",
+      "Source_Cell": "D_SUKUN",
+      "Target_Cell": "D_FATHA",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "segment_requires_opening",
+        "pattern_or_linking_requires_movement"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "fatha",
+      "Deep_Form": "previously silent position",
+      "Evidence_Type": "PHONOLOGICAL_CONTEXT",
+      "Notes": "Resyllabification-driven opening."
+    },
+    {
+      "Transition_ID": "TR_016",
+      "Source_Cell": "D_SUKUN",
+      "Target_Cell": "D_DAMMA",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "segment_requires_back_rounding",
+        "pattern_or_linking_requires_movement"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "damma",
+      "Deep_Form": "previously silent position",
+      "Evidence_Type": "PHONOLOGICAL_CONTEXT",
+      "Notes": "Resyllabification-driven rounding."
+    },
+    {
+      "Transition_ID": "TR_017",
+      "Source_Cell": "D_SUKUN",
+      "Target_Cell": "D_KASRA",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "segment_requires_fronting",
+        "pattern_or_linking_requires_movement"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "kasra",
+      "Deep_Form": "previously silent position",
+      "Evidence_Type": "PHONOLOGICAL_CONTEXT",
+      "Notes": "Resyllabification-driven fronting."
+    },
+    {
+      "Transition_ID": "TR_018",
+      "Source_Cell": "C_ROOT_PLAIN",
+      "Target_Cell": "C_AUGMENTATIVE",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "segment_functions_as_augmentative_marker",
+        "root_slots_identified_independently"
+      ],
+      "Blocking_Conditions": [
+        "lexicon_confirms_segment_is_root_member"
+      ],
+      "Priority": 1,
+      "Reversible": "YES",
+      "Surface_Form": "augmentative consonant",
+      "Deep_Form": "segment reclassified from rootal status",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Functional reclassification under derived pattern."
+    },
+    {
+      "Transition_ID": "TR_019",
+      "Source_Cell": "C_MULTI_FUNCTION",
+      "Target_Cell": "C_AUGMENTATIVE",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "context_favors_augmentative_reading",
+        "pattern_requires_non_root_function"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 1,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "augmentative segment",
+      "Deep_Form": "multi-function segment",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Used when context resolves ambiguity toward augmentation."
+    },
+    {
+      "Transition_ID": "TR_020",
+      "Source_Cell": "C_AUGMENTATIVE",
+      "Target_Cell": "C_ROOT_PLAIN",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "lexicon_confirms_root_status",
+        "segment_required_for_root_identity"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 1,
+      "Reversible": "YES",
+      "Surface_Form": "root consonant",
+      "Deep_Form": "segment previously assumed augmentative",
+      "Evidence_Type": "LEXICAL",
+      "Notes": "Correction from augmentative hypothesis to root membership."
+    },
+    {
+      "Transition_ID": "TR_021",
+      "Source_Cell": "C_GLIDE_BACK",
+      "Target_Cell": "C_AUGMENTATIVE",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "waaw_functions_as_non_root_increment",
+        "pattern_supports_incremental_role"
+      ],
+      "Blocking_Conditions": [
+        "root_membership_of_waaw_proven"
+      ],
+      "Priority": 2,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "augmentative و",
+      "Deep_Form": "boundary glide reclassified as augmentative",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Special case for flexible waaw."
+    },
+    {
+      "Transition_ID": "TR_022",
+      "Source_Cell": "C_GLIDE_FRONT",
+      "Target_Cell": "C_AUGMENTATIVE",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "yaa_functions_as_non_root_increment",
+        "pattern_supports_incremental_role"
+      ],
+      "Blocking_Conditions": [
+        "root_membership_of_yaa_proven"
+      ],
+      "Priority": 2,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "augmentative ي",
+      "Deep_Form": "boundary glide reclassified as augmentative",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Special case for flexible yaa."
+    },
+    {
+      "Transition_ID": "TR_023",
+      "Source_Cell": "D_FATHA",
+      "Target_Cell": "CELL_WAQF_COMPRESSED",
+      "Transition_Class": "ORTHOGRAPHIC",
+      "Preconditions": [
+        "word_final_position",
+        "pause_mode_enabled"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "YES",
+      "Surface_Form": "paused ending without final short vowel",
+      "Deep_Form": "final fatha in connected form",
+      "Evidence_Type": "SURFACE_ONLY",
+      "Notes": "Pause compression."
+    },
+    {
+      "Transition_ID": "TR_024",
+      "Source_Cell": "D_DAMMA",
+      "Target_Cell": "CELL_WAQF_COMPRESSED",
+      "Transition_Class": "ORTHOGRAPHIC",
+      "Preconditions": [
+        "word_final_position",
+        "pause_mode_enabled"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "YES",
+      "Surface_Form": "paused ending without final short vowel",
+      "Deep_Form": "final damma in connected form",
+      "Evidence_Type": "SURFACE_ONLY",
+      "Notes": "Pause compression."
+    },
+    {
+      "Transition_ID": "TR_025",
+      "Source_Cell": "D_KASRA",
+      "Target_Cell": "CELL_WAQF_COMPRESSED",
+      "Transition_Class": "ORTHOGRAPHIC",
+      "Preconditions": [
+        "word_final_position",
+        "pause_mode_enabled"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "YES",
+      "Surface_Form": "paused ending without final short vowel",
+      "Deep_Form": "final kasra in connected form",
+      "Evidence_Type": "SURFACE_ONLY",
+      "Notes": "Pause compression."
+    },
+    {
+      "Transition_ID": "TR_026",
+      "Source_Cell": "C_ROOT_PLAIN",
+      "Target_Cell": "CELL_IMPLICIT",
+      "Transition_Class": "PHONOLOGICAL",
+      "Preconditions": [
+        "surface_deletion_allowed",
+        "deep_recoverability_preserved"
+      ],
+      "Blocking_Conditions": [
+        "root_identity_collapses"
+      ],
+      "Priority": 3,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "segment absent on surface",
+      "Deep_Form": "root consonant preserved in deep structure",
+      "Evidence_Type": "DEEP_ANALYSIS",
+      "Notes": "Surface economy without root annihilation."
+    },
+    {
+      "Transition_ID": "TR_027",
+      "Source_Cell": "CELL_ILLA",
+      "Target_Cell": "CELL_WAQF_COMPRESSED",
+      "Transition_Class": "ORTHOGRAPHIC",
+      "Preconditions": [
+        "pause_mode_enabled",
+        "weak_final_structure_compressible"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 3,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "compressed weak ending in pause",
+      "Deep_Form": "expanded weak structure in connection",
+      "Evidence_Type": "SURFACE_ONLY",
+      "Notes": "Pause-induced reduction of weak structure."
+    },
+    {
+      "Transition_ID": "TR_028",
+      "Source_Cell": "CELL_CAUSAL_INTERNAL",
+      "Target_Cell": "CELL_CAUSAL_EXTERNAL",
+      "Transition_Class": "CAUSAL",
+      "Preconditions": [
+        "external_transformer_appears",
+        "effect_moves_beyond_actor"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 1,
+      "Reversible": "YES",
+      "Surface_Form": "externally caused event",
+      "Deep_Form": "internal self-contained transformation",
+      "Evidence_Type": "MORPH_CONTEXT",
+      "Notes": "From internal state change to overt causation."
+    },
+    {
+      "Transition_ID": "TR_029",
+      "Source_Cell": "CELL_CAUSAL_EXTERNAL",
+      "Target_Cell": "CELL_CAUSAL_INTERNAL",
+      "Transition_Class": "CAUSAL",
+      "Preconditions": [
+        "external_transformer_removed",
+        "effect_collapses_back_to_subject"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 3,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "internally bounded transformation",
+      "Deep_Form": "externally caused structure reduced",
+      "Evidence_Type": "DEEP_ANALYSIS",
+      "Notes": "Reverse causal simplification."
+    },
+    {
+      "Transition_ID": "TR_030",
+      "Source_Cell": "CELL_EVENT_SOURCE",
+      "Target_Cell": "CELL_EVENT_TEMPORAL",
+      "Transition_Class": "TEMPORAL",
+      "Preconditions": [
+        "abstract_event_linked_to_time_reference"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 1,
+      "Reversible": "YES",
+      "Surface_Form": "finite event form",
+      "Deep_Form": "abstract source/event concept",
+      "Evidence_Type": "MORPH_CONTEXT",
+      "Notes": "Temporalization of source into event."
+    },
+    {
+      "Transition_ID": "TR_031",
+      "Source_Cell": "CELL_EVENT_TEMPORAL",
+      "Target_Cell": "CELL_EVENT_SOURCE",
+      "Transition_Class": "ABSTRACTIVE",
+      "Preconditions": [
+        "time_reference_removed"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "YES",
+      "Surface_Form": "abstract verbal noun / source",
+      "Deep_Form": "finite event form",
+      "Evidence_Type": "DEEP_ANALYSIS",
+      "Notes": "Removal of temporal anchoring."
+    },
+    {
+      "Transition_ID": "TR_032",
+      "Source_Cell": "CELL_EXISTENTIAL",
+      "Target_Cell": "CELL_EXISTENTIAL_TEMPORAL",
+      "Transition_Class": "EXISTENTIAL",
+      "Preconditions": [
+        "temporal_operator_applied",
+        "existential_state_bound_to_time"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 1,
+      "Reversible": "YES",
+      "Surface_Form": "time-bound existential state",
+      "Deep_Form": "pure existential state",
+      "Evidence_Type": "MORPH_CONTEXT",
+      "Notes": "Existential state under temporal operator."
+    },
+    {
+      "Transition_ID": "TR_033",
+      "Source_Cell": "CELL_EXISTENTIAL_TEMPORAL",
+      "Target_Cell": "CELL_EXISTENTIAL",
+      "Transition_Class": "EXISTENTIAL",
+      "Preconditions": [
+        "temporal_operator_removed"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "YES",
+      "Surface_Form": "bare existential state",
+      "Deep_Form": "time-bound existential state",
+      "Evidence_Type": "DEEP_ANALYSIS",
+      "Notes": "De-temporalization of existential structure."
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+# contracts.yaml — Layer-closure contracts for the Arabic engine (v2).
+#
+# Each layer declares:
+#   input_type  : the type it consumes
+#   output_type : the type it produces
+#   invariants  : conditions that MUST hold at the boundary
+#
+# The pipeline verifier checks that output_type of layer N matches
+# input_type of layer N+1, proving the composition is well-typed.
+
+layers:
+  # ── Layer 0: Normalisation ────────────────────────────────────────
+  - name: normalize
+    module: arabic_engine.signifier.unicode_norm
+    function: normalize
+    input_type: str
+    output_type: str
+    invariants:
+      - "no tatweel (U+0640) in output"
+      - "no consecutive whitespace"
+      - "NFC-normalised"
+
+  # ── Layer 1: Tokenisation ─────────────────────────────────────────
+  - name: tokenize
+    module: arabic_engine.signifier.unicode_norm
+    function: tokenize
+    input_type: str
+    output_type: "List[str]"
+    invariants:
+      - "each token is non-empty"
+      - "no leading/trailing whitespace per token"
+
+  # ── Layer 2: Lexical Closure ──────────────────────────────────────
+  - name: lexical_closure
+    module: arabic_engine.signifier.root_pattern
+    function: batch_closure
+    input_type: "List[str]"
+    output_type: "List[LexicalClosure]"
+    invariants:
+      - "len(output) == len(input)"
+      - "each LexicalClosure has a valid POS enum"
+      - "root is a tuple of strings or empty tuple"
+
+  # ── Layer 3: Syntactic Analysis (v2) ──────────────────────────────
+  - name: syntax
+    module: arabic_engine.syntax.syntax
+    function: analyse
+    input_type: "List[LexicalClosure]"
+    output_type: "List[SyntaxNode]"
+    invariants:
+      - "len(output) == len(input)"
+      - "each SyntaxNode has a valid IrabCase"
+      - "each SyntaxNode has a valid IrabRole"
+
+  # ── Layer 4: Ontological Mapping ──────────────────────────────────
+  - name: ontology
+    module: arabic_engine.signified.ontology
+    function: batch_map
+    input_type: "List[LexicalClosure]"
+    output_type: "List[Concept]"
+    invariants:
+      - "len(output) == len(input)"
+      - "each Concept has a unique concept_id"
+      - "semantic_type is a valid SemanticType enum"
+
+  # ── Layer 5: Dalāla Validation ────────────────────────────────────
+  - name: dalala
+    module: arabic_engine.linkage.dalala
+    function: full_validation
+    input_type: "Tuple[List[LexicalClosure], List[Concept]]"
+    output_type: "List[DalalaLink]"
+    invariants:
+      - "each link has confidence in [0, 1]"
+      - "each link has a valid DalalaType enum"
+      - "accepted is bool"
+
+  # ── Layer 6: Judgment ─────────────────────────────────────────────
+  - name: judgment
+    module: arabic_engine.cognition.evaluation
+    function: build_proposition
+    input_type: "Tuple[List[LexicalClosure], List[Concept], List[DalalaLink]]"
+    output_type: Proposition
+    invariants:
+      - "subject is non-empty string"
+      - "predicate is non-empty string"
+      - "polarity is bool"
+
+  # ── Layer 7: Time/Space Tagging (v2) ──────────────────────────────
+  - name: time_space
+    module: arabic_engine.cognition.time_space
+    function: tag
+    input_type: "Tuple[List[LexicalClosure], Proposition]"
+    output_type: TimeSpaceTag
+    invariants:
+      - "time_ref is a valid TimeRef enum"
+      - "space_ref is a valid SpaceRef enum"
+
+  # ── Layer 7b: Semantic Roles (v3) ──────────────────────────────────
+  - name: semantic_roles
+    module: arabic_engine.linkage.semantic_roles
+    function: derive_semantic_roles
+    input_type: "Tuple[List[LexicalClosure], List[SyntaxNode]]"
+    output_type: "Dict[str, str]"
+    invariants:
+      - "contains event/agent/patient keys"
+      - "all values are strings"
+
+  # ── Layer 8: Evaluation ───────────────────────────────────────────
+  - name: evaluation
+    module: arabic_engine.cognition.evaluation
+    function: evaluate
+    input_type: "Tuple[Proposition, List[DalalaLink]]"
+    output_type: EvalResult
+    invariants:
+      - "confidence in [0, 1]"
+      - "truth_state is a valid TruthState enum"
+      - "guidance_state is a valid GuidanceState enum"
+
+  # ── Layer 9: Inference (v2) ───────────────────────────────────────
+  - name: inference
+    module: arabic_engine.cognition.inference_rules
+    function: "InferenceEngine.run"
+    input_type: "List[Proposition]"
+    output_type: "List[InferenceResult]"
+    invariants:
+      - "each result has valid bool"
+      - "confidence in [0, 1]"
+      - "premises list is non-empty"
+
+  # ── Layer 10: World Model Check (v2) ──────────────────────────────
+  - name: world_model
+    module: arabic_engine.cognition.world_model
+    function: "WorldModel.confidence_adjustment"
+    input_type: Proposition
+    output_type: float
+    invariants:
+      - "output in [0, 1]"
+
+  # ── Layer 11: Explanation (v3) ─────────────────────────────────────
+  - name: explanation
+    module: arabic_engine.cognition.explanation
+    function: build_explanation
+    input_type: "Tuple[Proposition, Dict[str, str], EvaluationResult, List[InferenceResult], Dict[str, Any]]"
+    output_type: "Dict[str, Any]"
+    invariants:
+      - "contains why_agent"
+      - "contains why_judgement"
+      - "contains why_rank"
+
+# ── Closure proof ───────────────────────────────────────────────────
+# The composition F = L10 ∘ L9 ∘ … ∘ L0 is well-typed if for every
+# adjacent pair (Lᵢ, Lᵢ₊₁), output_type(Lᵢ) ⊆ input_type(Lᵢ₊₁).
+# The pipeline.verify_contracts() function checks this at startup.
+
+# ── General Closure (Ch. 19) ────────────────────────────────────────
+# The Manṭūq system is closed when:
+#   1. Every layer Lᵢ is locally closed (module + function exist)
+#   2. The layer chain is ascending: L_{n+1} = Γ_n(L_n)
+#   3. No inter-layer contradiction exists
+#   4. Every structure is decomposable to Unicode atoms
+#   5. The Manṭūq/Mafhūm boundary is clear
+#
+# Verified by: arabic_engine.closure.verify_general_closure()
+#
+# Closed_Mantūq(U₀, G, Σ, R, W, C_min, 𝔊, 𝔖, ℰ_min, 𝒫⁺_min, ℳ⁺_min)
