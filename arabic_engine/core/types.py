@@ -589,8 +589,8 @@ class TransitionContext:
 
     position: SyllablePosition
     function_role: FunctionRole
-    left_neighbor: Optional["DMin"] = None  # type: ignore[name-defined]
-    right_neighbor: Optional["DMin"] = None  # type: ignore[name-defined]
+    left_neighbor: Optional[DMin] = None
+    right_neighbor: Optional[DMin] = None
     pattern: str = ""  # e.g. "فَعَلَ", "اسْتَفْعَلَ"
     economy_pressure: float = 0.0  # 0 = none, 1 = maximum
     architecture: str = ""  # e.g. "مجرد", "مزيد", "مشتق"
