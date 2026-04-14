@@ -2,17 +2,22 @@
 
 from __future__ import annotations
 
-import pytest
-
 from arabic_engine.core.enums import (
-    POS, IrabCase, IrabRole, DalalaType, SemanticType, TimeRef, SpaceRef,
+    POS,
+    DalalaType,
+    IrabCase,
+    IrabRole,
+    SemanticType,
+    SpaceRef,
+    TimeRef,
 )
-from arabic_engine.core.types import LexicalClosure, SyntaxNode, Concept, DalalaLink
+from arabic_engine.core.types import Concept, DalalaLink, LexicalClosure, SyntaxNode
 from arabic_engine.linkage.dalala import (
-    validate_link, build_isnad_links, full_validation,
+    build_isnad_links,
+    full_validation,
+    validate_link,
 )
 from arabic_engine.linkage.semantic_roles import derive_semantic_roles
-
 
 # ── helpers ─────────────────────────────────────────────────────────
 
@@ -146,7 +151,7 @@ class TestBuildIsnadLinks:
         ]
         links = build_isnad_links(closures, concepts)
         assert len(links) >= 1
-        isnad = [l for l in links if l.dalala_type == DalalaType.ISNAD]
+        isnad = [lk for lk in links if lk.dalala_type == DalalaType.ISNAD]
         assert len(isnad) >= 1
         assert isnad[0].confidence == 0.95
         assert isnad[0].accepted is True
@@ -195,7 +200,7 @@ class TestBuildIsnadLinks:
         ]
         links = build_isnad_links(closures, concepts)
         # The noun before the verb should not produce an ISNAD link
-        assert all(l.source_lemma != "ولد" for l in links)
+        assert all(lk.source_lemma != "ولد" for lk in links)
 
     def test_multiple_verbs_updates_predicate(self):
         """Each verb becomes the active predicate for subsequent nouns."""
@@ -212,7 +217,7 @@ class TestBuildIsnadLinks:
             _concept(concept_id=4, label="كتاب"),
         ]
         links = build_isnad_links(closures, concepts)
-        isnad = [l for l in links if l.dalala_type == DalalaType.ISNAD]
+        isnad = [lk for lk in links if lk.dalala_type == DalalaType.ISNAD]
         assert len(isnad) == 2
         # First noun linked to first verb
         assert isnad[0].source_lemma == "طالب"
@@ -254,7 +259,7 @@ class TestFullValidation:
             _concept(concept_id=2, label="طالب"),
         ]
         links = full_validation(closures, concepts)
-        types = {l.dalala_type for l in links}
+        types = {lk.dalala_type for lk in links}
         # Should include per-token links AND structural ISNAD links
         assert DalalaType.ISNAD in types
         # Per-token validate_link should produce at least MUTABAQA for matching lemma
@@ -283,7 +288,7 @@ class TestFullValidation:
         concepts = [_concept(concept_id=1, label="كتاب")]
         links = full_validation(closures, concepts)
         # With no verb, no ISNAD links expected
-        assert all(l.dalala_type != DalalaType.ISNAD for l in links)
+        assert all(lk.dalala_type != DalalaType.ISNAD for lk in links)
         assert len(links) == 1
 
 

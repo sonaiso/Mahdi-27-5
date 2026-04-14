@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import pytest
-
 from arabic_engine.core.types import Grapheme, Syllable
 from arabic_engine.signifier.phonology import (
     get_short_vowel,

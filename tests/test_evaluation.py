@@ -13,9 +13,9 @@ import unittest
 
 from arabic_engine.cognition.evaluation import build_proposition, evaluate
 from arabic_engine.core.enums import (
+    POS,
     DalalaType,
     GuidanceState,
-    POS,
     SemanticType,
     TimeRef,
     TruthState,
@@ -23,11 +23,9 @@ from arabic_engine.core.enums import (
 from arabic_engine.core.types import (
     Concept,
     DalalaLink,
-    EvalResult,
     LexicalClosure,
     Proposition,
 )
-
 
 # ── helpers ─────────────────────────────────────────────────────────
 

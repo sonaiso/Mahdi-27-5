@@ -2,16 +2,13 @@
 
 from __future__ import annotations
 
-import pytest
-
+from arabic_engine.cognition.explanation import build_explanation
 from arabic_engine.core.enums import (
     EpistemicRank,
     TruthState,
     ValidationState,
 )
 from arabic_engine.core.types import EvaluationResult, InferenceResult, Proposition
-from arabic_engine.cognition.explanation import build_explanation
-
 
 # ---------------------------------------------------------------------------
 # Helpers

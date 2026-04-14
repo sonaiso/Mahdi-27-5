@@ -12,7 +12,6 @@ from arabic_engine.signifier.root_pattern import (
     lexical_closure,
 )
 
-
 # ── extract_root_pattern ───────────────────────────────────────────
 
 

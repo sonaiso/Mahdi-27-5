@@ -2,12 +2,9 @@
 
 from __future__ import annotations
 
-import pytest
-
 from arabic_engine.core.enums import POS, IrabCase, IrabRole
-from arabic_engine.core.types import LexicalClosure, SyntaxNode
+from arabic_engine.core.types import LexicalClosure
 from arabic_engine.syntax.syntax import _assign_case_and_role, analyse
-
 
 # ── helpers ─────────────────────────────────────────────────────────
 

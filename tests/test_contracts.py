@@ -6,10 +6,8 @@ import os
 import textwrap
 
 import pytest
-import yaml
 
 from arabic_engine.core.contracts import _load_contracts, verify_contracts
-
 
 # ── helpers ──────────────────────────────────────────────────────────────
 

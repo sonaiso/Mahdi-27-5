@@ -2,12 +2,9 @@
 
 from __future__ import annotations
 
-import pytest
-
+from arabic_engine.cognition.time_space import detect_space, detect_time, tag
 from arabic_engine.core.enums import POS, SpaceRef, TimeRef
 from arabic_engine.core.types import LexicalClosure, Proposition, TimeSpaceTag
-from arabic_engine.cognition.time_space import detect_time, detect_space, tag
-
 
 # ── helpers ──────────────────────────────────────────────────────────
 

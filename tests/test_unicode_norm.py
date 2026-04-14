@@ -13,7 +13,6 @@ from arabic_engine.signifier.unicode_norm import (
     tokenize,
 )
 
-
 # ── helpers / constants ──────────────────────────────────────────────
 _TATWEEL = "\u0640"
 _FATHA = "\u064E"       # Arabic fathah

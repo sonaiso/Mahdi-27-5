@@ -5,14 +5,13 @@ from __future__ import annotations
 import pytest
 
 from arabic_engine.cognition.mafhum import (
+    _DEFAULT_MAFHUM_CONFIDENCE,
     analyse_mafhum,
     get_minimal_types,
     verify_irreducibility,
-    _DEFAULT_MAFHUM_CONFIDENCE,
 )
-from arabic_engine.core.enums import ConstraintType, MafhumType, POS
+from arabic_engine.core.enums import POS, ConstraintType, MafhumType
 from arabic_engine.core.types import LexicalClosure, MafhumPillar, Proposition
-
 
 # ── helpers ─────────────────────────────────────────────────────────
 
