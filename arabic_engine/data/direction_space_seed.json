@@ -1,0 +1,196 @@
+{
+  "version": "1.0.0",
+  "dataset_name": "semantic_direction_space_v1",
+  "description": "فضاء الجهات الدلالية — canonical semantic direction space seed data",
+  "genera": [
+    {"id": "WUJUD",  "label_ar": "الوجود", "label_en": "Existence"},
+    {"id": "SIFA",   "label_ar": "الصفة",  "label_en": "Attribute"},
+    {"id": "HADATH", "label_ar": "الحدث",  "label_en": "Event"},
+    {"id": "NISBA",  "label_ar": "النسبة", "label_en": "Relation"}
+  ],
+  "directions": [
+    {
+      "direction_id": "DIR_ISM_JAMID",
+      "genus": "WUJUD",
+      "derivational_direction": "ISM_JAMID",
+      "weight_conditions": ["فَعْل", "فُعْل", "فِعْل", "فَعَل", "فُعَل", "فِعَل"],
+      "root_conditions": ["triliteral", "quadriliteral"],
+      "boundary": "HADD_FASIL"
+    },
+    {
+      "direction_id": "DIR_MASDAR",
+      "genus": "HADATH",
+      "derivational_direction": "MASDAR",
+      "weight_conditions": ["فَعْل", "فِعالة", "فُعول", "فَعَل", "فَعالة", "إفعال", "تَفعيل", "انفعال", "افتعال", "استفعال", "تَفاعُل", "تَفَعُّل", "مُفاعَلة"],
+      "root_conditions": ["triliteral", "quadriliteral"],
+      "boundary": "HADD_FASIL"
+    },
+    {
+      "direction_id": "DIR_ISM_FA3IL",
+      "genus": "SIFA",
+      "derivational_direction": "ISM_FA3IL",
+      "weight_conditions": ["فاعِل", "مُفعِل", "مُفاعِل", "مُتفاعِل", "مُتفعِّل", "مُنفعِل", "مُفتعِل", "مُستفعِل"],
+      "root_conditions": ["triliteral", "quadriliteral"],
+      "boundary": "HADD_INTIQALI"
+    },
+    {
+      "direction_id": "DIR_ISM_MAF3UL",
+      "genus": "SIFA",
+      "derivational_direction": "ISM_MAF3UL",
+      "weight_conditions": ["مَفعول", "مُفعَل", "مُفاعَل", "مُتفاعَل", "مُتفعَّل", "مُنفعَل", "مُفتعَل", "مُستفعَل"],
+      "root_conditions": ["triliteral", "quadriliteral"],
+      "boundary": "HADD_INTIQALI"
+    },
+    {
+      "direction_id": "DIR_SIFA_MUSHABBAHA",
+      "genus": "SIFA",
+      "derivational_direction": "SIFA_MUSHABBAHA",
+      "weight_conditions": ["فَعيل", "فَعِل", "فَعْلان", "أَفعَل"],
+      "root_conditions": ["triliteral"],
+      "boundary": "HADD_MUSHTARAK"
+    },
+    {
+      "direction_id": "DIR_ISM_TAFDIL",
+      "genus": "SIFA",
+      "derivational_direction": "ISM_TAFDIL",
+      "weight_conditions": ["أَفعَل"],
+      "root_conditions": ["triliteral"],
+      "boundary": "HADD_FASIL"
+    },
+    {
+      "direction_id": "DIR_ISM_ZAMAN",
+      "genus": "NISBA",
+      "derivational_direction": "ISM_ZAMAN",
+      "weight_conditions": ["مَفعَل", "مَفعِل"],
+      "root_conditions": ["triliteral"],
+      "boundary": "HADD_MUSHTARAK"
+    },
+    {
+      "direction_id": "DIR_ISM_MAKAN",
+      "genus": "NISBA",
+      "derivational_direction": "ISM_MAKAN",
+      "weight_conditions": ["مَفعَل", "مَفعِل"],
+      "root_conditions": ["triliteral"],
+      "boundary": "HADD_MUSHTARAK"
+    },
+    {
+      "direction_id": "DIR_ISM_ALA",
+      "genus": "WUJUD",
+      "derivational_direction": "ISM_ALA",
+      "weight_conditions": ["مِفعَل", "مِفعال", "مِفعَلة"],
+      "root_conditions": ["triliteral"],
+      "boundary": "HADD_FASIL"
+    },
+    {
+      "direction_id": "DIR_ISM_HAY2A",
+      "genus": "SIFA",
+      "derivational_direction": "ISM_HAY2A",
+      "weight_conditions": ["فِعلة"],
+      "root_conditions": ["triliteral"],
+      "boundary": "HADD_FASIL"
+    },
+    {
+      "direction_id": "DIR_FI3L_MADI",
+      "genus": "HADATH",
+      "derivational_direction": "FI3L_MADI",
+      "weight_conditions": ["فَعَلَ", "فَعِلَ", "فَعُلَ", "أَفعَلَ", "فَعَّلَ", "فاعَلَ", "انفَعَلَ", "افتَعَلَ", "استَفعَلَ", "تَفاعَلَ", "تَفعَّلَ"],
+      "root_conditions": ["triliteral", "quadriliteral"],
+      "boundary": "HADD_FASIL"
+    },
+    {
+      "direction_id": "DIR_FI3L_MUDARI3",
+      "genus": "HADATH",
+      "derivational_direction": "FI3L_MUDARI3",
+      "weight_conditions": ["يَفعَل", "يَفعِل", "يَفعُل", "يُفعِل", "يُفعِّل", "يُفاعِل", "يَنفعِل", "يَفتعِل", "يَستفعِل", "يَتفاعَل", "يَتفعَّل"],
+      "root_conditions": ["triliteral", "quadriliteral"],
+      "boundary": "HADD_FASIL"
+    },
+    {
+      "direction_id": "DIR_FI3L_AMR",
+      "genus": "HADATH",
+      "derivational_direction": "FI3L_AMR",
+      "weight_conditions": ["اِفعَل", "اِفعِل", "اُفعُل", "أَفعِل", "فَعِّل"],
+      "root_conditions": ["triliteral", "quadriliteral"],
+      "boundary": "HADD_FASIL"
+    }
+  ],
+  "relations": [
+    {
+      "source": "DIR_MASDAR",
+      "target": "DIR_FI3L_MADI",
+      "relation": "WIRATHA",
+      "conditions": ["same_root"],
+      "confidence": 1.0
+    },
+    {
+      "source": "DIR_MASDAR",
+      "target": "DIR_ISM_FA3IL",
+      "relation": "WIRATHA",
+      "conditions": ["same_root"],
+      "confidence": 1.0
+    },
+    {
+      "source": "DIR_MASDAR",
+      "target": "DIR_ISM_MAF3UL",
+      "relation": "WIRATHA",
+      "conditions": ["same_root"],
+      "confidence": 1.0
+    },
+    {
+      "source": "DIR_ISM_FA3IL",
+      "target": "DIR_ISM_MAF3UL",
+      "relation": "MAN3",
+      "conditions": ["same_token"],
+      "confidence": 1.0
+    },
+    {
+      "source": "DIR_ISM_ZAMAN",
+      "target": "DIR_ISM_MAKAN",
+      "relation": "TAWAFUQ",
+      "conditions": ["shared_weight"],
+      "confidence": 0.9
+    },
+    {
+      "source": "DIR_FI3L_MADI",
+      "target": "DIR_FI3L_MUDARI3",
+      "relation": "TAHAWWUL",
+      "conditions": ["tense_shift"],
+      "confidence": 1.0
+    },
+    {
+      "source": "DIR_FI3L_MUDARI3",
+      "target": "DIR_FI3L_AMR",
+      "relation": "TAHAWWUL",
+      "conditions": ["mood_shift"],
+      "confidence": 1.0
+    },
+    {
+      "source": "DIR_ISM_JAMID",
+      "target": "DIR_MASDAR",
+      "relation": "RADD",
+      "conditions": ["no_derivational_link"],
+      "confidence": 0.8
+    },
+    {
+      "source": "DIR_MASDAR",
+      "target": "DIR_ISM_ALA",
+      "relation": "ISHTIRAT",
+      "conditions": ["transitive_root"],
+      "confidence": 0.85
+    },
+    {
+      "source": "DIR_ISM_FA3IL",
+      "target": "DIR_SIFA_MUSHABBAHA",
+      "relation": "TAWAFUQ",
+      "conditions": ["intransitive_root"],
+      "confidence": 0.8
+    },
+    {
+      "source": "DIR_FI3L_MADI",
+      "target": "DIR_ISM_FA3IL",
+      "relation": "ISQAT_TARKIBI",
+      "conditions": ["syntactic_nominalization"],
+      "confidence": 0.9
+    }
+  ]
+}

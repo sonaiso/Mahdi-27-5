@@ -89,8 +89,19 @@ from .enums import (
 from .enums import (
     DecisionCode as DecisionCode,
 )
+
+# ── Semantic Direction Space & Weight Fractal enum re-exports ──────
+from .enums import (
+    DerivationalDirection as DerivationalDirection,
+)
 from .enums import (
     DiachronicStatus as DiachronicStatus,
+)
+from .enums import (
+    DirectionBoundary as DirectionBoundary,
+)
+from .enums import (
+    DirectionRelation as DirectionRelation,
 )
 from .enums import (
     DiscourseGapType as DiscourseGapType,
@@ -291,6 +302,9 @@ from .enums import (
     SelfModelAspect as SelfModelAspect,
 )
 from .enums import (
+    SemanticDirectionGenus as SemanticDirectionGenus,
+)
+from .enums import (
     SemanticType as SemanticType,
 )
 from .enums import (
@@ -379,6 +393,33 @@ from .enums import (
 )
 from .enums import (
     ValidationState as ValidationState,
+)
+from .enums import (
+    WeightCarryingMode as WeightCarryingMode,
+)
+from .enums import (
+    WeightClass as WeightClass,
+)
+from .enums import (
+    WeightFractalPhase as WeightFractalPhase,
+)
+from .enums import (
+    WeightKind as WeightKind,
+)
+from .enums import (
+    WeightPossibilityDimension as WeightPossibilityDimension,
+)
+from .enums import (
+    WeightValidationStatus as WeightValidationStatus,
+)
+from .enums import (
+    ThulathiBab as ThulathiBab,
+)
+from .enums import (
+    AugmentedSemanticLayer as AugmentedSemanticLayer,
+)
+from .enums import (
+    NasikhCategory as NasikhCategory,
 )
 
 # ── Kernel re-exports ───────────────────────────────────────────────
@@ -495,6 +536,14 @@ from .types import (
 from .types import (
     DecisionTrace as DecisionTrace,
 )
+
+# ── Semantic Direction Space & Weight Fractal type re-exports ──────
+from .types import (
+    DirectionAssignment as DirectionAssignment,
+)
+from .types import (
+    DirectionRelationRecord as DirectionRelationRecord,
+)
 from .types import (
     DiscourseCarrierRecord as DiscourseCarrierRecord,
 )
@@ -607,6 +656,9 @@ from .types import (
     MethodRecord as MethodRecord,
 )
 from .types import (
+    MufradClosureResult as MufradClosureResult,
+)
+from .types import (
     OntologicalConstraintRecord as OntologicalConstraintRecord,
 )
 from .types import (
@@ -662,6 +714,12 @@ from .types import (
 )
 from .types import (
     SelfNode as SelfNode,
+)
+from .types import (
+    SemanticDirection as SemanticDirection,
+)
+from .types import (
+    SemanticDirectionSpace as SemanticDirectionSpace,
 )
 from .types import (
     SenderRoleRecord as SenderRoleRecord,
@@ -722,6 +780,39 @@ from .types import (
 )
 from .types import (
     ValidationResult as ValidationResult,
+)
+from .types import (
+    WeightDirectionMapping as WeightDirectionMapping,
+)
+from .types import (
+    WeightFractalNode as WeightFractalNode,
+)
+from .types import (
+    WeightFractalResult as WeightFractalResult,
+)
+from .types import (
+    WeightProfile as WeightProfile,
+)
+from .types import (
+    WeightFormalTuple as WeightFormalTuple,
+)
+from .types import (
+    VerbDoor as VerbDoor,
+)
+from .types import (
+    WeightPossibilityResult as WeightPossibilityResult,
+)
+from .types import (
+    WeightMWCScore as WeightMWCScore,
+)
+from .types import (
+    WeightFractalScore as WeightFractalScore,
+)
+from .types import (
+    WeightDirectionSuitability as WeightDirectionSuitability,
+)
+from .types import (
+    WeightValidationResult as WeightValidationResult,
 )
 from .types import (
     WorldFact as WorldFact,
@@ -836,6 +927,20 @@ __all__ = [
     "UtteredFormClass",
     "ValidationOutcome",
     "ValidationState",
+    # ── Semantic Direction Space & Weight Fractal enums ────────────
+    "DerivationalDirection",
+    "DirectionBoundary",
+    "DirectionRelation",
+    "SemanticDirectionGenus",
+    "WeightCarryingMode",
+    "WeightClass",
+    "WeightFractalPhase",
+    "WeightKind",
+    "WeightPossibilityDimension",
+    "WeightValidationStatus",
+    "ThulathiBab",
+    "AugmentedSemanticLayer",
+    "NasikhCategory",
     # ── Fractal Kernel enums ───────────────────────────────────────
     "ActivationStage",
     "ConflictState",
@@ -973,4 +1078,21 @@ __all__ = [
     "StructuralProfileRecord",
     "TransformationProfileRecord",
     "TransitionGate",
+    # ── Semantic Direction Space & Weight Fractal types ────────────
+    "DirectionAssignment",
+    "DirectionRelationRecord",
+    "MufradClosureResult",
+    "SemanticDirection",
+    "SemanticDirectionSpace",
+    "WeightDirectionMapping",
+    "WeightFractalNode",
+    "WeightFractalResult",
+    "WeightProfile",
+    "WeightFormalTuple",
+    "VerbDoor",
+    "WeightPossibilityResult",
+    "WeightMWCScore",
+    "WeightFractalScore",
+    "WeightDirectionSuitability",
+    "WeightValidationResult",
 ]

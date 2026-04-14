@@ -2051,3 +2051,246 @@ class ReceptionValidationOutcome(Enum):
     ACCEPTED = auto()                  # مقبول — passes all constitutional checks
     REJECTED_CONSTITUTIONALLY = auto()  # مرفوض دستوريًا — violates articles
     INCOMPLETE = auto()                # غير مكتمل — subject not fully classified
+
+
+# ── Semantic Direction Space Constitution v1 ────────────────────────
+
+
+class SemanticDirectionGenus(Enum):
+    """الأجناس العليا للجهات — supreme genera of semantic directions (Art. 1–5).
+
+    These classify the *intrinsic semantic bearing* of a word before any
+    reception or judgment.  Logically distinct from :class:`SubjectGenre`
+    which classifies what arrives to the rational self.
+
+    WUJUD  — وجود  : existence — what establishes being
+    SIFA   — صفة   : attribute — what describes quality or state
+    HADATH — حدث   : event — what establishes occurrence or change
+    NISBA  — نسبة  : relation — what establishes linkage or direction
+    """
+
+    WUJUD = auto()   # وجود — existence
+    SIFA = auto()    # صفة — attribute
+    HADATH = auto()  # حدث — event
+    NISBA = auto()   # نسبة — relation
+
+
+class DerivationalDirection(Enum):
+    """الجهات الاشتقاقية المركزية — core derivational directions (Art. 6–12).
+
+    Each value represents a direction that a root can project into via
+    morphological derivation.  Extends :class:`DerivationTarget` with
+    direction-aware classification.
+
+    ISM_FA3IL       — اسم فاعل   : active participle
+    ISM_MAF3UL      — اسم مفعول  : passive participle
+    ISM_ZAMAN       — اسم زمان   : noun of time
+    ISM_MAKAN       — اسم مكان   : noun of place
+    ISM_ALA         — اسم آلة    : noun of instrument
+    ISM_HAY2A       — اسم هيئة   : noun of manner
+    ISM_TAFDIL      — اسم تفضيل  : elative / comparative
+    SIFA_MUSHABBAHA — صفة مشبهة  : resembling adjective
+    MASDAR          — مصدر       : verbal noun
+    FI3L_MADI       — فعل ماضٍ   : past-tense verb
+    FI3L_MUDARI3    — فعل مضارع  : present-tense verb
+    FI3L_AMR        — فعل أمر    : imperative verb
+    ISM_JAMID       — اسم جامد   : non-derived (rigid) noun
+    """
+
+    ISM_FA3IL = auto()        # اسم فاعل — active participle
+    ISM_MAF3UL = auto()       # اسم مفعول — passive participle
+    ISM_ZAMAN = auto()        # اسم زمان — noun of time
+    ISM_MAKAN = auto()        # اسم مكان — noun of place
+    ISM_ALA = auto()          # اسم آلة — noun of instrument
+    ISM_HAY2A = auto()        # اسم هيئة — noun of manner
+    ISM_TAFDIL = auto()       # اسم تفضيل — elative / comparative
+    SIFA_MUSHABBAHA = auto()  # صفة مشبهة — resembling adjective
+    MASDAR = auto()           # مصدر — verbal noun
+    FI3L_MADI = auto()        # فعل ماضٍ — past-tense verb
+    FI3L_MUDARI3 = auto()     # فعل مضارع — present-tense verb
+    FI3L_AMR = auto()         # فعل أمر — imperative verb
+    ISM_JAMID = auto()        # اسم جامد — rigid noun
+
+
+class DirectionRelation(Enum):
+    """العلاقات بين الجهات — permitted relations between directions (Art. 34–40).
+
+    WIRATHA       — الوراثة         : direction inherits from a parent
+    TAWAFUQ       — التوافق         : two directions may co-occur
+    MAN3          — المنع           : two directions are mutually exclusive
+    TAHAWWUL      — التحول          : one transforms into another
+    ISHTIRAT      — الاشتراط        : one requires another as precondition
+    ISQAT_TARKIBI — الإسقاط التركيبي : projects into syntactic structure
+    RADD          — الردّ            : rejects or reverses another
+    """
+
+    WIRATHA = auto()        # الوراثة — inheritance
+    TAWAFUQ = auto()        # التوافق — compatibility
+    MAN3 = auto()           # المنع — prohibition
+    TAHAWWUL = auto()       # التحول — transformation
+    ISHTIRAT = auto()       # الاشتراط — conditioning
+    ISQAT_TARKIBI = auto()  # الإسقاط التركيبي — syntactic projection
+    RADD = auto()           # الردّ — return / rejection
+
+
+class DirectionBoundary(Enum):
+    """الفواصل الحدّية — boundary types between directions (Art. 13–19).
+
+    HADD_FASIL     — حد فاصل    : absolute boundary — no overlap
+    HADD_INTIQALI  — حد انتقالي : transitional boundary — gradual shift
+    HADD_MUSHTARAK — حد مشترك   : shared boundary — partial overlap
+    """
+
+    HADD_FASIL = auto()      # حد فاصل — absolute boundary
+    HADD_INTIQALI = auto()   # حد انتقالي — transitional boundary
+    HADD_MUSHTARAK = auto()  # حد مشترك — shared boundary
+
+
+# ── Weight Fractal Constitution v1 ──────────────────────────────────
+
+
+class WeightCarryingMode(Enum):
+    """معيار حمل الوزن — how a weight carries a semantic direction (Art. 11–15).
+
+    ASLI     — أصلي    : weight carries the direction originally and directly
+    TABI3I   — تابعي   : weight carries it via subsidiary derivation
+    MUSHTAQ  — مشتق    : weight carries it through derived re-projection
+    MUMTANI3 — ممتنع   : impossible for this weight to carry this direction
+    """
+
+    ASLI = auto()      # أصلي — original / direct carrying
+    TABI3I = auto()    # تابعي — subsidiary carrying
+    MUSHTAQ = auto()   # مشتق — derived carrying
+    MUMTANI3 = auto()  # ممتنع — impossible carrying
+
+
+class WeightFractalPhase(Enum):
+    """أطوار الدورة الفراكتالية للوزن — phases of weight fractal cycle (Art. 16–20).
+
+    TA3YIN  — تعيين  : assignment — declaring the weight identity
+    TAMYIZ  — تمييز  : distinction — distinguishing from other weights
+    TAHMIL  — تحميل  : loading — assigning a semantic direction to carry
+    TAHQIQ  — تحقيق  : verification — proving weight↔direction non-arbitrary
+    TAWLID  — توليد  : generation — producing derived fractal nodes
+    RADD    — ردّ    : return to source — tracing back to root+weight origin
+    """
+
+    TA3YIN = auto()  # تعيين — assignment
+    TAMYIZ = auto()  # تمييز — distinction
+    TAHMIL = auto()  # تحميل — loading
+    TAHQIQ = auto()  # تحقيق — verification
+    TAWLID = auto()  # توليد — generation
+    RADD = auto()    # ردّ — return to source
+
+
+class WeightClass(Enum):
+    """تصنيف الوزن الصرفي — morphological weight classification (Art. 1–5).
+
+    THULATHI_MUJARRAD — ثلاثي مجرد  : base tri-literal
+    THULATHI_MAZEED  — ثلاثي مزيد   : augmented tri-literal
+    RUBA3I_MUJARRAD  — رباعي مجرد   : base quadri-literal
+    RUBA3I_MAZEED    — رباعي مزيد   : augmented quadri-literal
+    KHUMASI          — خماسي        : quinqui-literal
+    """
+
+    THULATHI_MUJARRAD = auto()  # ثلاثي مجرد — base tri-literal
+    THULATHI_MAZEED = auto()    # ثلاثي مزيد — augmented tri-literal
+    RUBA3I_MUJARRAD = auto()    # رباعي مجرد — base quadri-literal
+    RUBA3I_MAZEED = auto()      # رباعي مزيد — augmented quadri-literal
+    KHUMASI = auto()            # خماسي — quinqui-literal
+
+
+class WeightKind(Enum):
+    """نوع الوزن — distinguishes productive weights from closed templates (Art. 4–8).
+
+    PRODUCTIVE      — منتج        : active derivational weight
+    CLOSED_TEMPLATE — قالب مغلق   : non-generative fixed template
+    MEASURE_ONLY    — قياسي فقط   : measurable but non-productive
+    """
+
+    PRODUCTIVE = auto()       # منتج — active derivational weight
+    CLOSED_TEMPLATE = auto()  # قالب مغلق — non-generative fixed template
+    MEASURE_ONLY = auto()     # قياسي فقط — measurable but non-productive
+
+
+class WeightPossibilityDimension(Enum):
+    """أبعاد شرط الإمكان للوزن — 6 dimensions of weight possibility (Art. 9–17).
+
+    BINYAWI  — بنيوي   : structural possibility
+    MAQTA3I  — مقطعي   : syllabic possibility
+    SARFI    — صرفي    : morphological possibility
+    DALALI   — دلالي   : semantic possibility
+    TAWLIDI  — توليدي  : generative possibility
+    RADDI    — ردّي    : return / trace-back possibility
+    """
+
+    BINYAWI = auto()   # بنيوي — structural
+    MAQTA3I = auto()   # مقطعي — syllabic
+    SARFI = auto()     # صرفي — morphological
+    DALALI = auto()    # دلالي — semantic
+    TAWLIDI = auto()   # توليدي — generative
+    RADDI = auto()     # ردّي — return / trace-back
+
+
+class ThulathiBab(Enum):
+    """أبواب الثلاثي المجرد — trilateral base verb doors (Art. 43–46).
+
+    FA3ALA_YAF3ULU — فَعَلَ يَفْعُلُ
+    FA3ALA_YAF3ILU — فَعَلَ يَفْعِلُ
+    FA3ALA_YAF3ALU — فَعَلَ يَفْعَلُ
+    FA3ILA_YAF3ALU — فَعِلَ يَفْعَلُ
+    FA3ULA_YAF3ULU — فَعُلَ يَفْعُلُ
+    """
+
+    FA3ALA_YAF3ULU = auto()  # فَعَلَ يَفْعُلُ
+    FA3ALA_YAF3ILU = auto()  # فَعَلَ يَفْعِلُ
+    FA3ALA_YAF3ALU = auto()  # فَعَلَ يَفْعَلُ
+    FA3ILA_YAF3ALU = auto()  # فَعِلَ يَفْعَلُ
+    FA3ULA_YAF3ULU = auto()  # فَعُلَ يَفْعُلُ
+
+
+class AugmentedSemanticLayer(Enum):
+    """الطبقة الدلالية للمزيد — semantic layer of augmented weights (Art. 47–50).
+
+    SABABIYYA  — سببية   : causation
+    MUSHARAKA  — مشاركة  : reciprocity / participation
+    MUTAWA3A   — مطاوعة  : compliance / reflexivity
+    TADARRUJ   — تدرّج   : gradation
+    TALAB      — طلب     : seeking / requesting
+    TAKALLUF   — تكلّف   : affectation / effort
+    TAHAWWUL   — تحوّل   : transformation
+    """
+
+    SABABIYYA = auto()   # سببية — causation
+    MUSHARAKA = auto()   # مشاركة — reciprocity
+    MUTAWA3A = auto()    # مطاوعة — compliance / reflexivity
+    TADARRUJ = auto()    # تدرّج — gradation
+    TALAB = auto()       # طلب — seeking
+    TAKALLUF = auto()    # تكلّف — affectation
+    TAHAWWUL = auto()    # تحوّل — transformation
+
+
+class NasikhCategory(Enum):
+    """تصنيف النواسخ — copula/nasikh verb categories (Art. 55–58).
+
+    KANA_WA_AKHAWAT  — كان وأخواتها  : existential / temporal copulae
+    KADA_WA_AKHAWAT   — كاد وأخواتها  : near-action copulae
+    ZANNA_WA_AKHAWAT  — ظنّ وأخواتها  : cognitive / epistemic copulae
+    """
+
+    KANA_WA_AKHAWAT = auto()   # كان وأخواتها
+    KADA_WA_AKHAWAT = auto()   # كاد وأخواتها
+    ZANNA_WA_AKHAWAT = auto()  # ظنّ وأخواتها
+
+
+class WeightValidationStatus(Enum):
+    """حالة قبول الوزن — weight acceptance/rejection status (Art. 63–64).
+
+    ACCEPTED  — مقبول  : weight passes all criteria
+    REJECTED  — مرفوض  : weight fails mandatory criteria
+    DEFICIENT — ناقص   : weight partially meets criteria
+    """
+
+    ACCEPTED = auto()   # مقبول — passes all criteria
+    REJECTED = auto()   # مرفوض — fails mandatory criteria
+    DEFICIENT = auto()  # ناقص — partially meets criteria

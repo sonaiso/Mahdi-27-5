@@ -35,8 +35,11 @@ from .enums import (
     DalaalaKind,
     DalalaType,
     DecisionCode,
+    DerivationalDirection,
     DerivationTarget,
     DiachronicStatus,
+    DirectionBoundary,
+    DirectionRelation,
     DiscourseGapType,
     DiscourseValidationOutcome,
     ElementClass,
@@ -103,6 +106,7 @@ from .enums import (
     SalienceLevel,
     ScriptPhase,
     SelfModelAspect,
+    SemanticDirectionGenus,
     SemanticType,
     SenderRoleType,
     SenseModality,
@@ -115,6 +119,7 @@ from .enums import (
     StyleKind,
     SubjectGenre,
     SyllablePosition,
+    ThulathiBab,
     TimeRef,
     TraceMode,
     TraceQuality,
@@ -132,6 +137,11 @@ from .enums import (
     UtteredFormClass,
     ValidationOutcome,
     ValidationState,
+    WeightCarryingMode,
+    WeightClass,
+    WeightFractalPhase,
+    WeightKind,
+    WeightValidationStatus,
 )
 
 # ── Signifier layer ─────────────────────────────────────────────────
@@ -2740,3 +2750,257 @@ class EpistemicReceptionResult:
     corrected_assignments: Tuple[CarryingAssignment, ...] = ()
     path: Optional[ReceptionPathRecord] = None
     messages: Tuple[str, ...] = ()
+
+
+# ── Semantic Direction Space Constitution v1 ────────────────────────
+
+
+@dataclass(frozen=True)
+class SemanticDirection:
+    """جهة دلالية — a single direction point in the semantic space (Art. 6–12).
+
+    Each direction is classified under one of the four supreme genera
+    (:class:`SemanticDirectionGenus`) and indicates which weight patterns
+    and root types can carry it.
+    """
+
+    direction_id: str                              # معرف الجهة
+    genus: SemanticDirectionGenus                   # الجنس الأعلى
+    derivational_direction: DerivationalDirection   # الجهة الاشتقاقية
+    weight_conditions: Tuple[str, ...] = ()         # شروط حمل الوزن
+    root_conditions: Tuple[str, ...] = ()           # شروط حمل الجذر
+    boundary: DirectionBoundary = DirectionBoundary.HADD_FASIL  # الحد
+
+
+@dataclass(frozen=True)
+class DirectionRelationRecord:
+    """سجل العلاقة بين جهتين — a relation edge in the direction space (Art. 34–40)."""
+
+    source_direction_id: str         # الجهة المصدر
+    target_direction_id: str         # الجهة الهدف
+    relation: DirectionRelation      # نوع العلاقة
+    conditions: Tuple[str, ...] = ()  # شروط العلاقة
+    confidence: float = 1.0          # درجة الثقة
+
+
+@dataclass(frozen=True)
+class SemanticDirectionSpace:
+    """فضاء الجهات الدلالية — the complete direction space (Art. 41–45).
+
+    Gathers all directions and their inter-relations.  ``complete`` is
+    True only when the space meets the minimum completeness condition:
+    every genus has at least one direction, and all mandatory relations
+    are present.
+    """
+
+    directions: Tuple[SemanticDirection, ...]              # الجهات
+    relations: Tuple[DirectionRelationRecord, ...] = ()    # العلاقات
+    genera: Tuple[SemanticDirectionGenus, ...] = ()         # الأجناس
+    complete: bool = False                                  # اكتمال الفضاء
+
+
+@dataclass(frozen=True)
+class DirectionAssignment:
+    """إسناد الجهة — assignment of a word to a semantic direction."""
+
+    word_surface: str                            # اللفظ
+    root: Tuple[str, ...]                        # الجذر
+    pattern: str                                 # الوزن
+    assigned_direction: SemanticDirection         # الجهة المسندة
+    genus: SemanticDirectionGenus                 # الجنس الأعلى
+    confidence: float = 1.0                      # درجة الثقة
+
+
+# ── Weight Fractal Constitution v1 ──────────────────────────────────
+
+
+@dataclass(frozen=True)
+class WeightFormalTuple:
+    """الصيغة الرسمية للوزن — formal 6-component tuple W = (R, V, A, S, D, P) (Art. 59).
+
+    R: positional structure of root consonants
+    V: vowel pattern structure
+    A: augmentation positions
+    S: syllabic structure
+    D: general semantic direction
+    P: carrying capacity for lexeme/derivative type
+    """
+
+    root_positions: Tuple[int, ...] = ()           # R — مواضع الرتب الجذرية
+    vowel_pattern: Tuple[str, ...] = ()            # V — بنية الحركات
+    augmentation_positions: Tuple[int, ...] = ()   # A — مواضع الزيادة
+    syllable_structure: Tuple[str, ...] = ()       # S — البنية المقطعية
+    semantic_direction_label: str = ""             # D — الجهة الدلالية العامة
+    carrying_capacity: Tuple[str, ...] = ()        # P — القدرة على حمل نوع مفردي
+
+
+@dataclass(frozen=True)
+class VerbDoor:
+    """باب فعلي — trilateral verb door linking past↔present patterns (Art. 43–46)."""
+
+    bab: ThulathiBab                   # رقم الباب
+    past_pattern: str                  # وزن الماضي (e.g. فَعَلَ)
+    present_pattern: str               # وزن المضارع (e.g. يَفْعُلُ)
+    example_root: Tuple[str, ...] = () # جذر مثال
+    example_past: str = ""             # مثال ماضٍ
+    example_present: str = ""          # مثال مضارع
+
+
+@dataclass(frozen=True)
+class WeightPossibilityResult:
+    """نتيجة شرط الإمكان — 6-dimension possibility evaluation (Art. 9–17).
+
+    Each dimension scores 0.0–1.0; the aggregate is their mean.
+    """
+
+    structural: float = 0.0     # بنيوي — BINYAWI
+    syllabic: float = 0.0       # مقطعي — MAQTA3I
+    morphological: float = 0.0  # صرفي — SARFI
+    semantic: float = 0.0       # دلالي — DALALI
+    generative: float = 0.0     # توليدي — TAWLIDI
+    traceback: float = 0.0      # ردّي — RADDI
+    aggregate: float = 0.0      # المجموع
+
+
+@dataclass(frozen=True)
+class WeightMWCScore:
+    """الحد الأدنى المكتمل — 8-dimension Minimum Weight Completeness (Art. 18–26, 60).
+
+    MWC(W) = (Th + Hd + Ex + Muq + Rel + Ord + Uni + Det) / 8
+    """
+
+    stability: float = 0.0            # الثبوت — Th
+    boundary: float = 0.0             # الحد — Hd
+    extension: float = 0.0            # الامتداد — Ex
+    constituent: float = 0.0          # المقوِّم — Muq
+    structural_relation: float = 0.0  # العلاقة البنائية — Rel
+    regularity: float = 0.0           # الانتظام — Ord
+    unity: float = 0.0                # الوحدة — Uni
+    assignability: float = 0.0        # قابلية التعيين — Det
+    aggregate: float = 0.0            # MWC(W)
+
+
+@dataclass(frozen=True)
+class WeightFractalScore:
+    """درجة القانون الفراكتالي — 6-phase fractal law score (Art. 27–34, 61).
+
+    FW(W) = (Id + Pr + Rb + Jd + Tr + Rc) / 6
+    """
+
+    identification: float = 0.0  # التعيين — Id
+    preservation: float = 0.0    # الحفظ — Pr
+    linkage: float = 0.0         # الربط — Rb
+    judgement: float = 0.0       # الحكم — Jd
+    transition: float = 0.0     # الانتقال — Tr
+    return_score: float = 0.0   # الرد — Rc
+    aggregate: float = 0.0      # FW(W)
+
+
+@dataclass(frozen=True)
+class WeightDirectionSuitability:
+    """ملاءمة حمل الوزن للجهة — 4-condition suitability check (Art. 35–42, 62).
+
+    Carrier(W, s_i) = 1 iff f(W1, W2, W3, W4) >= θ_w
+    """
+
+    structural_suitability: float = 0.0    # الملاءمة البنيوية — W1
+    syllabic_suitability: float = 0.0      # الملاءمة المقطعية — W2
+    morphological_suitability: float = 0.0 # الملاءمة الصرفية — W3
+    semantic_suitability: float = 0.0      # الملاءمة الدلالية العامة — W4
+    aggregate: float = 0.0                 # f(W1, W2, W3, W4)
+    carries: bool = False                  # هل يحمل؟
+
+
+@dataclass(frozen=True)
+class WeightValidationResult:
+    """نتيجة قبول/رفض الوزن — weight acceptance/rejection result (Art. 63–64)."""
+
+    status: WeightValidationStatus = WeightValidationStatus.DEFICIENT
+    acceptance_scores: Tuple[float, ...] = ()   # 6 acceptance criteria scores
+    rejection_flags: Tuple[bool, ...] = ()      # 5 rejection criteria flags
+    reason: str = ""                            # سبب الحكم
+
+
+@dataclass(frozen=True)
+class WeightProfile:
+    """ملف الوزن — full weight profile for a single word (Art. 1–5).
+
+    Captures the morphological pattern, its classification, radical count,
+    augmentation letters, and how it carries a semantic direction.
+    """
+
+    pattern: str                                       # الوزن (فَعْل، فِعالة)
+    weight_class: WeightClass                           # تصنيف الوزن
+    radical_count: int                                  # عدد الحروف الأصلية
+    augmentation_letters: Tuple[str, ...] = ()          # حروف الزيادة
+    semantic_direction: SemanticDirectionGenus = SemanticDirectionGenus.WUJUD
+    carrying_mode: WeightCarryingMode = WeightCarryingMode.ASLI
+    weight_kind: WeightKind = WeightKind.PRODUCTIVE     # نوع الوزن (Art. 4–8)
+    formal_tuple: Optional[WeightFormalTuple] = None    # الصيغة الرسمية (Art. 59)
+    verb_door: Optional[VerbDoor] = None                # باب الفعل (Art. 43–46)
+
+
+@dataclass(frozen=True)
+class WeightDirectionMapping:
+    """تطبيق الوزن على الجهات — maps a weight to permitted directions (Art. 11–15)."""
+
+    pattern: str                                                            # الوزن
+    permitted_directions: Tuple[DerivationalDirection, ...] = ()            # الجهات المباحة
+    prohibited_directions: Tuple[DerivationalDirection, ...] = ()           # الجهات الممنوعة
+    carrying_matrix: Tuple[Tuple[str, str], ...] = ()                       # مصفوفة الحمل
+
+
+@dataclass(frozen=True)
+class WeightFractalNode:
+    """عقدة فراكتالية للوزن — a node in the fractal weight derivation tree (Art. 16–20)."""
+
+    node_id: str                                           # معرف العقدة
+    weight_profile: WeightProfile                          # ملف الوزن
+    source_root: Tuple[str, ...] = ()                      # الجذر المصدر
+    phase: WeightFractalPhase = WeightFractalPhase.TA3YIN  # الطور
+    children: Tuple[str, ...] = ()                         # عقد الأبناء
+    parent: Optional[str] = None                           # العقدة الأم
+    direction_assignment: Optional[DirectionAssignment] = None  # إسناد الجهة
+
+
+@dataclass(frozen=True)
+class WeightFractalResult:
+    """نتيجة التحليل الفراكتالي للوزن — result of weight fractal analysis."""
+
+    root: Tuple[str, ...]                             # الجذر
+    base_weight: WeightProfile                        # الوزن الأساسي
+    fractal_tree: Tuple[WeightFractalNode, ...] = ()  # الشجرة الفراكتالية
+    direction_map: Optional[WeightDirectionMapping] = None  # تطبيق الجهات
+    completeness_score: float = 0.0                   # درجة الاكتمال
+    is_closed: bool = False                           # هل أُقفل؟
+    mwc_score: Optional[WeightMWCScore] = None        # الحد الأدنى المكتمل (Art. 60)
+    fractal_score: Optional[WeightFractalScore] = None  # درجة الفراكتالية (Art. 61)
+    possibility_result: Optional[WeightPossibilityResult] = None  # شرط الإمكان (Art. 9–17)
+    validation: Optional[WeightValidationResult] = None  # حالة القبول/الرفض (Art. 63–64)
+
+
+# ── Mufrad Closure (إقفال اللفظ المفرد) ─────────────────────────────
+
+
+@dataclass(frozen=True)
+class MufradClosureResult:
+    """نتيجة إقفال اللفظ المفرد — complete, closed record for a single word.
+
+    Assembles ALL dimensions of a single Arabic word into one
+    deterministic, hierarchical, fractal structure.
+
+    Ω(w) = R ∘ E ∘ D ∘ W ∘ S ∘ M ∘ P ∘ C ∘ N(w)
+    """
+
+    surface: str                                                 # الصورة السطحية
+    normalized: str                                              # الصورة المعيارية
+    lexical_closure: Optional[LexicalClosure] = None             # الإقفال المعجمي
+    dmin: Optional[DMin] = None                                  # الأدنى المكتمل
+    direction_assignment: Optional[DirectionAssignment] = None   # إسناد الجهة
+    weight_fractal: Optional[WeightFractalResult] = None         # الوزن الفراكتالي
+    masdar_record: Optional[MasdarRecord] = None                 # سجل المصدر
+    concept: Optional[Concept] = None                            # المفهوم
+    dalala_link: Optional[DalalaLink] = None                     # رابط الدلالة
+    epistemic_reception: Optional[EpistemicReceptionResult] = None  # الاستقبال المعرفي
+    is_closed: bool = False                                      # هل أُقفل كليًا؟
+    closure_confidence: float = 0.0                              # درجة ثقة الإقفال
