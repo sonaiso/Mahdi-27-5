@@ -105,6 +105,17 @@ layers:
       - "contains event/agent/patient keys"
       - "all values are strings"
 
+  # ── Layer 7c: Masdar Analysis (v3) ──────────────────────────────────
+  - name: masdar_analysis
+    module: arabic_engine.signifier.masdar
+    function: extract_masdar_from_surface
+    input_type: str
+    output_type: "Optional[MasdarRecord]"
+    invariants:
+      - "if result is not None, masdar_id is non-empty"
+      - "if result is not None, root is a non-empty tuple"
+      - "if result is not None, kawn_type is KawnType.MASDAR_BRIDGE"
+
   # ── Layer 8: Evaluation ───────────────────────────────────────────
   - name: evaluation
     module: arabic_engine.cognition.evaluation

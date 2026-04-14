@@ -1,0 +1,317 @@
+{
+  "version": "1.0.0",
+  "dataset_name": "arabic_masdar_patterns_v1",
+  "description": "Masdar pattern tables: verb form → masdar weight mappings",
+  "patterns": {
+    "thulathi_mujarrad": {
+      "description": "الثلاثي المجرد — masdar patterns of the base tri-literal verb (6 common patterns)",
+      "entries": [
+        {
+          "bab": "FA3L",
+          "verb_pattern": "فَعَلَ",
+          "masdar_pattern": "فَعْل",
+          "example_root": [
+            "ض",
+            "ر",
+            "ب"
+          ],
+          "example_verb": "ضَرَبَ",
+          "example_masdar": "ضَرْب"
+        },
+        {
+          "bab": "FI3ALA",
+          "verb_pattern": "فَعَلَ",
+          "masdar_pattern": "فِعالة",
+          "example_root": [
+            "ك",
+            "ت",
+            "ب"
+          ],
+          "example_verb": "كَتَبَ",
+          "example_masdar": "كِتابة"
+        },
+        {
+          "bab": "FU3UL",
+          "verb_pattern": "فَعَلَ",
+          "masdar_pattern": "فُعول",
+          "example_root": [
+            "خ",
+            "ر",
+            "ج"
+          ],
+          "example_verb": "خَرَجَ",
+          "example_masdar": "خُروج"
+        },
+        {
+          "bab": "FA3AL",
+          "verb_pattern": "فَعِلَ",
+          "masdar_pattern": "فَعَل",
+          "example_root": [
+            "ط",
+            "ل",
+            "ب"
+          ],
+          "example_verb": "طَلَبَ",
+          "example_masdar": "طَلَب"
+        },
+        {
+          "bab": "FA3IL",
+          "verb_pattern": "فَعَلَ",
+          "masdar_pattern": "فَعيل",
+          "example_root": [
+            "ر",
+            "ح",
+            "ل"
+          ],
+          "example_verb": "رَحَلَ",
+          "example_masdar": "رَحيل"
+        },
+        {
+          "bab": "FU3AL",
+          "verb_pattern": "فَعُلَ",
+          "masdar_pattern": "فُعال",
+          "example_root": [
+            "س",
+            "ع",
+            "ل"
+          ],
+          "example_verb": "سَعَلَ",
+          "example_masdar": "سُعال"
+        }
+      ]
+    },
+    "thulathi_mazeed": {
+      "description": "الثلاثي المزيد — augmented tri-literal verb forms",
+      "entries": [
+        {
+          "bab": "IF3AL",
+          "verb_pattern": "أَفْعَلَ",
+          "masdar_pattern": "إفعال",
+          "example_root": [
+            "ك",
+            "ر",
+            "م"
+          ],
+          "example_verb": "أَكْرَمَ",
+          "example_masdar": "إكرام"
+        },
+        {
+          "bab": "TAF3IL",
+          "verb_pattern": "فَعَّلَ",
+          "masdar_pattern": "تفعيل",
+          "example_root": [
+            "ع",
+            "ل",
+            "م"
+          ],
+          "example_verb": "عَلَّمَ",
+          "example_masdar": "تعليم"
+        },
+        {
+          "bab": "MUFA3ALA",
+          "verb_pattern": "فاعَلَ",
+          "masdar_pattern": "مُفاعلة",
+          "example_root": [
+            "ق",
+            "ت",
+            "ل"
+          ],
+          "example_verb": "قاتَلَ",
+          "example_masdar": "مُقاتلة"
+        },
+        {
+          "bab": "INFI3AL",
+          "verb_pattern": "انفَعَلَ",
+          "masdar_pattern": "انفعال",
+          "example_root": [
+            "ك",
+            "س",
+            "ر"
+          ],
+          "example_verb": "انكَسَرَ",
+          "example_masdar": "انكسار"
+        },
+        {
+          "bab": "IFTI3AL",
+          "verb_pattern": "افتَعَلَ",
+          "masdar_pattern": "افتعال",
+          "example_root": [
+            "ج",
+            "م",
+            "ع"
+          ],
+          "example_verb": "اجتَمَعَ",
+          "example_masdar": "اجتماع"
+        },
+        {
+          "bab": "TAFA33UL",
+          "verb_pattern": "تَفَعَّلَ",
+          "masdar_pattern": "تَفَعُّل",
+          "example_root": [
+            "ع",
+            "ل",
+            "م"
+          ],
+          "example_verb": "تَعَلَّمَ",
+          "example_masdar": "تَعَلُّم"
+        },
+        {
+          "bab": "TAFA3UL",
+          "verb_pattern": "تَفاعَلَ",
+          "masdar_pattern": "تَفاعُل",
+          "example_root": [
+            "ع",
+            "و",
+            "ن"
+          ],
+          "example_verb": "تَعاوَنَ",
+          "example_masdar": "تَعاوُن"
+        },
+        {
+          "bab": "IF3I3AL",
+          "verb_pattern": "افعَلَّ",
+          "masdar_pattern": "افعِلال",
+          "example_root": [
+            "ح",
+            "م",
+            "ر"
+          ],
+          "example_verb": "احمَرَّ",
+          "example_masdar": "احمرار"
+        },
+        {
+          "bab": "ISTIF3AL",
+          "verb_pattern": "استَفعَلَ",
+          "masdar_pattern": "استفعال",
+          "example_root": [
+            "غ",
+            "ف",
+            "ر"
+          ],
+          "example_verb": "استَغفَرَ",
+          "example_masdar": "استغفار"
+        }
+      ]
+    },
+    "special_patterns": {
+      "description": "أنماط خاصة — mīmī masdar, masdar of manner, masdar of once",
+      "entries": [
+        {
+          "type": "MIMI",
+          "masdar_pattern": "مَفْعَل",
+          "example_root": [
+            "و",
+            "ع",
+            "د"
+          ],
+          "example_masdar": "مَوْعِد",
+          "note": "المصدر الميمي — mīmī masdar"
+        },
+        {
+          "type": "MARRAH",
+          "masdar_pattern": "فَعْلة",
+          "example_root": [
+            "ض",
+            "ر",
+            "ب"
+          ],
+          "example_masdar": "ضَرْبة",
+          "note": "مصدر المرة — masdar of single occurrence"
+        },
+        {
+          "type": "HAY2A",
+          "masdar_pattern": "فِعْلة",
+          "example_root": [
+            "ج",
+            "ل",
+            "س"
+          ],
+          "example_masdar": "جِلْسة",
+          "note": "مصدر الهيئة — masdar of manner"
+        },
+        {
+          "type": "INDUSTRIAL",
+          "masdar_pattern": "فَعَالِيّة",
+          "example_root": [
+            "إ",
+            "ن",
+            "س"
+          ],
+          "example_masdar": "إنسانية",
+          "note": "المصدر الصناعي — industrial masdar (noun + ية)"
+        }
+      ]
+    },
+    "derivation_targets": {
+      "description": "أهداف الاشتقاق — patterns for forms derived from masdar",
+      "entries": [
+        {
+          "target": "ISM_FA3IL",
+          "pattern": "فاعِل",
+          "example_root": [
+            "ك",
+            "ت",
+            "ب"
+          ],
+          "example": "كاتِب",
+          "note": "اسم الفاعل — active participle"
+        },
+        {
+          "target": "ISM_MAF3UL",
+          "pattern": "مَفْعول",
+          "example_root": [
+            "ك",
+            "ت",
+            "ب"
+          ],
+          "example": "مَكْتوب",
+          "note": "اسم المفعول — passive participle"
+        },
+        {
+          "target": "ISM_ZAMAN",
+          "pattern": "مَفْعَل",
+          "example_root": [
+            "و",
+            "ل",
+            "د"
+          ],
+          "example": "مَوْلِد",
+          "note": "اسم الزمان — noun of time"
+        },
+        {
+          "target": "ISM_MAKAN",
+          "pattern": "مَفْعَل",
+          "example_root": [
+            "ك",
+            "ت",
+            "ب"
+          ],
+          "example": "مَكْتَب",
+          "note": "اسم المكان — noun of place"
+        },
+        {
+          "target": "ISM_HAY2A",
+          "pattern": "فِعْلة",
+          "example_root": [
+            "ج",
+            "ل",
+            "س"
+          ],
+          "example": "جِلْسة",
+          "note": "اسم الهيئة — noun of manner"
+        },
+        {
+          "target": "ISM_ALA",
+          "pattern": "مِفْعَل",
+          "example_root": [
+            "ف",
+            "ت",
+            "ح"
+          ],
+          "example": "مِفْتاح",
+          "note": "اسم الآلة — noun of instrument"
+        }
+      ]
+    }
+  }
+}

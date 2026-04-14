@@ -582,6 +582,143 @@
       "Deep_Form": "time-bound existential state",
       "Evidence_Type": "DEEP_ANALYSIS",
       "Notes": "De-temporalization of existential structure."
+    },
+    {
+      "Transition_ID": "TR_034",
+      "Source_Cell": "CELL_EVENT_SOURCE",
+      "Target_Cell": "CELL_MASDAR_EXPLICIT",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "root_identified",
+        "verb_pattern_known",
+        "bab_assigned"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 1,
+      "Reversible": "YES",
+      "Surface_Form": "مصدر صريح",
+      "Deep_Form": "جذر + وزن فعلي → مصدر صريح",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Root + verb pattern → explicit masdar"
+    },
+    {
+      "Transition_ID": "TR_035",
+      "Source_Cell": "CELL_EVENT_TEMPORAL",
+      "Target_Cell": "CELL_MASDAR_INTERPRETED",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "particle_an_present",
+        "verb_follows_particle"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "NO",
+      "Surface_Form": "مصدر مؤوّل",
+      "Deep_Form": "أن + فعل مضارع → مصدر مؤوّل",
+      "Evidence_Type": "MORPH_CONTEXT",
+      "Notes": "أن + present verb → interpreted masdar"
+    },
+    {
+      "Transition_ID": "TR_036",
+      "Source_Cell": "CELL_MASDAR_EXPLICIT",
+      "Target_Cell": "C_ROOT_PLAIN",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "masdar_identified",
+        "derivation_target_fa3il"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "اسم فاعل",
+      "Deep_Form": "مصدر → اسم فاعل",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Masdar → active participle"
+    },
+    {
+      "Transition_ID": "TR_037",
+      "Source_Cell": "CELL_MASDAR_EXPLICIT",
+      "Target_Cell": "C_ROOT_PLAIN",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "masdar_identified",
+        "derivation_target_maf3ul"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 2,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "اسم مفعول",
+      "Deep_Form": "مصدر → اسم مفعول",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Masdar → passive participle"
+    },
+    {
+      "Transition_ID": "TR_038",
+      "Source_Cell": "CELL_MASDAR_EXPLICIT",
+      "Target_Cell": "CELL_EXISTENTIAL_TEMPORAL",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "masdar_identified",
+        "derivation_target_zaman"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 3,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "اسم زمان",
+      "Deep_Form": "مصدر → اسم زمان",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Masdar → noun of time"
+    },
+    {
+      "Transition_ID": "TR_039",
+      "Source_Cell": "CELL_MASDAR_EXPLICIT",
+      "Target_Cell": "CELL_EXISTENTIAL",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "masdar_identified",
+        "derivation_target_makan"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 3,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "اسم مكان",
+      "Deep_Form": "مصدر → اسم مكان",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Masdar → noun of place"
+    },
+    {
+      "Transition_ID": "TR_040",
+      "Source_Cell": "CELL_MASDAR_EXPLICIT",
+      "Target_Cell": "C_ROOT_PLAIN",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "masdar_identified",
+        "derivation_target_hay2a"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 3,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "اسم هيئة",
+      "Deep_Form": "مصدر → اسم هيئة",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Masdar → noun of manner"
+    },
+    {
+      "Transition_ID": "TR_041",
+      "Source_Cell": "CELL_MASDAR_EXPLICIT",
+      "Target_Cell": "C_ROOT_PLAIN",
+      "Transition_Class": "MORPHOLOGICAL",
+      "Preconditions": [
+        "masdar_identified",
+        "derivation_target_ala"
+      ],
+      "Blocking_Conditions": [],
+      "Priority": 3,
+      "Reversible": "CONDITIONAL",
+      "Surface_Form": "اسم آلة",
+      "Deep_Form": "مصدر → اسم آلة",
+      "Evidence_Type": "PATTERN",
+      "Notes": "Masdar → noun of instrument"
     }
   ]
 }

@@ -20,6 +20,8 @@ class POS(Enum):
     SIFA = auto()  # صفة
     ZARF = auto()  # ظرف
     DAMIR = auto()  # ضمير
+    MASDAR_SARIH = auto()  # مصدر صريح
+    MASDAR_MUAWWAL = auto()  # مصدر مؤوّل
     UNKNOWN = auto()
 
 
@@ -34,6 +36,8 @@ class SemanticType(Enum):
     ATTRIBUTE = auto()  # صفة
     RELATION = auto()  # علاقة
     NORM = auto()  # حكم شرعي / قاعدة
+    NOMINALIZED_EVENT = auto()  # حدث مصدري — nominalized event (masdar)
+    EVENT_CONCEPT = auto()  # مفهوم حدثي مجرد — abstract event concept
 
 
 # ── Dalāla (signification) type ─────────────────────────────────────
@@ -49,6 +53,7 @@ class DalalaType(Enum):
     TAQYID = auto()  # تقييد – restriction / qualification
     IDAFA = auto()  # إضافة – genitive construction
     IHALA = auto()  # إحالة – referential link
+    MASDAR_BRIDGE = auto()  # جسر مصدري – masdar bridge (existential ↔ transformational)
 
 
 # ── Truth state ─────────────────────────────────────────────────────
@@ -121,6 +126,7 @@ class TimeRef(Enum):
     PRESENT = auto()  # حاضر
     FUTURE = auto()  # مستقبل
     ETERNAL = auto()  # أزلي / دائم
+    MASDAR_POTENTIAL = auto()  # إمكان زمني مصدري — masdar temporal potential
     UNSPECIFIED = auto()
 
 
@@ -130,6 +136,7 @@ class SpaceRef(Enum):
     HERE = auto()  # هنا
     THERE = auto()  # هناك
     NAMED = auto()  # مكان محدد بالاسم
+    MASDAR_POTENTIAL = auto()  # إمكان مكاني مصدري — masdar spatial potential
     UNSPECIFIED = auto()
 
 
@@ -443,6 +450,10 @@ class CellType(Enum):
     CELL_EVENT_TEMPORAL = auto()
     CELL_CAUSAL_INTERNAL = auto()
     CELL_CAUSAL_EXTERNAL = auto()
+    # Masdar meta-cells (خانات مصدرية)
+    CELL_MASDAR_EXPLICIT = auto()  # مصدر صريح — explicit verbal noun
+    CELL_MASDAR_INTERPRETED = auto()  # مصدر مؤوّل — interpreted verbal noun
+    CELL_MASDAR_BRIDGE = auto()  # جسر مصدري — masdar bridge node
 
 
 class FuncTransitionClass(Enum):
@@ -552,6 +563,19 @@ class ConditionToken(Enum):
     TEMPORAL_OPERATOR_APPLIED = auto()
     EXISTENTIAL_STATE_BOUND_TO_TIME = auto()
     TEMPORAL_OPERATOR_REMOVED = auto()
+    # Masdar / verbal noun conditions
+    ROOT_IDENTIFIED = auto()
+    VERB_PATTERN_KNOWN = auto()
+    BAB_ASSIGNED = auto()
+    PARTICLE_AN_PRESENT = auto()
+    VERB_FOLLOWS_PARTICLE = auto()
+    MASDAR_IDENTIFIED = auto()
+    DERIVATION_TARGET_FA3IL = auto()
+    DERIVATION_TARGET_MAF3UL = auto()
+    DERIVATION_TARGET_ZAMAN = auto()
+    DERIVATION_TARGET_MAKAN = auto()
+    DERIVATION_TARGET_HAY2A = auto()
+    DERIVATION_TARGET_ALA = auto()
 
 
 # ── AEU Periodic-Table enums ────────────────────────────────────────
@@ -1860,3 +1884,86 @@ class TransitionGateStatus(Enum):
     PASSED = auto()
     BLOCKED = auto()
     INSUFFICIENT_DATA = auto()
+
+
+# ── Masdar (verbal noun) enums ──────────────────────────────────────
+
+
+class MasdarType(Enum):
+    """نوع المصدر — classification of the verbal noun.
+
+    ORIGINAL   — المصدر الأصلي  (e.g. كِتابة، خُروج)
+    MIMI       — المصدر الميمي  (e.g. مَكْتَب → مَوْعِد)
+    INDUSTRIAL — المصدر الصناعي (e.g. إنسانية، حرية)
+    MARRAH     — مصدر المرة     (e.g. ضَرْبة واحدة)
+    HAY2A      — مصدر الهيئة    (e.g. جِلْسة، مِشْية)
+    MUAWWAL    — المصدر المؤوّل  (أن + فعل)
+    """
+
+    ORIGINAL = auto()
+    MIMI = auto()
+    INDUSTRIAL = auto()
+    MARRAH = auto()
+    HAY2A = auto()
+    MUAWWAL = auto()
+
+
+class MasdarBab(Enum):
+    """باب المصدر — morphological masdar pattern (verb form → masdar weight).
+
+    Tri-literal base forms (الثلاثي المجرد):
+        FA3L, FI3ALA, FU3UL, FA3AL, FA3IL, FU3AL
+
+    Augmented forms (الثلاثي المزيد):
+        IF3AL, TAF3IL, MUFA3ALA, INFI3AL, IFTI3AL,
+        TAFA33UL, TAFA3UL, IF3I3AL, ISTIF3AL
+    """
+
+    # Tri-literal base (أبواب الثلاثي المجرد)
+    FA3L = auto()       # فَعْل   (e.g. ضَرْب، فَتْح)
+    FI3ALA = auto()     # فِعالة  (e.g. كِتابة، صِناعة)
+    FU3UL = auto()      # فُعول   (e.g. خُروج، دُخول)
+    FA3AL = auto()      # فَعَل   (e.g. طَلَب، عَمَل)
+    FA3IL = auto()      # فَعِيل  (e.g. رَحيل، صَهيل)
+    FU3AL = auto()      # فُعال   (e.g. سُعال، دُعاء)
+    # Augmented forms (أبواب المزيد)
+    IF3AL = auto()      # إفعال   (e.g. إكرام، إسلام)
+    TAF3IL = auto()     # تفعيل   (e.g. تعليم، تكريم)
+    MUFA3ALA = auto()   # مُفاعلة (e.g. مُقاتلة، مُكاتبة)
+    INFI3AL = auto()    # انفعال  (e.g. انكسار، انفتاح)
+    IFTI3AL = auto()    # افتعال  (e.g. اجتماع، اقتراح)
+    TAFA33UL = auto()   # تَفَعُّل (e.g. تَعَلُّم، تَقَدُّم)
+    TAFA3UL = auto()    # تَفاعُل (e.g. تَعاوُن، تَبادُل)
+    IF3I3AL = auto()    # افعِلال (e.g. احمرار، اصفرار)
+    ISTIF3AL = auto()   # استفعال (e.g. استغفار، استخراج)
+
+
+class DerivationTarget(Enum):
+    """هدف الاشتقاق — what can be derived from a masdar.
+
+    Each target corresponds to a derivational output type that branches
+    from the masdar as a fractal node.
+    """
+
+    FI3L = auto()             # فعل        — verb
+    ISM_FA3IL = auto()        # اسم فاعل   — active participle
+    ISM_MAF3UL = auto()       # اسم مفعول  — passive participle
+    ISM_ZAMAN = auto()        # اسم زمان   — noun of time
+    ISM_MAKAN = auto()        # اسم مكان   — noun of place
+    ISM_HAY2A = auto()        # اسم هيئة   — noun of manner
+    ISM_ALA = auto()          # اسم آلة    — noun of instrument
+    SIFA_MUSHABBAHA = auto()  # صفة مشبهة  — resembling adjective
+    ISM_TAFDIL = auto()       # اسم تفضيل  — elative / comparative
+
+
+class KawnType(Enum):
+    """نوع الكينونة — ontological being-mode.
+
+    WUJUDI        — كينونة وجودية  (existential being — static nouns)
+    TAHAWWULI     — كينونة تحولية  (transformational being — verbs/events)
+    MASDAR_BRIDGE — عقدة الربط المصدرية (bridge node linking both)
+    """
+
+    WUJUDI = auto()
+    TAHAWWULI = auto()
+    MASDAR_BRIDGE = auto()

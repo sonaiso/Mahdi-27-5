@@ -24,8 +24,8 @@ from arabic_engine.signifier.functional_transition import (
 # ── New enum completeness ────────────────────────────────────────────
 
 class TestNewEnums:
-    def test_cell_type_has_25_members(self):
-        assert len(CellType) == 25
+    def test_cell_type_has_28_members(self):
+        assert len(CellType) == 28
 
     def test_func_transition_class_has_seven_members(self):
         assert len(FuncTransitionClass) == 7
@@ -121,8 +121,8 @@ class TestLoadSeedDataset:
     def test_returns_list(self, records):
         assert isinstance(records, list)
 
-    def test_has_33_records(self, records):
-        assert len(records) == 33
+    def test_has_41_records(self, records):
+        assert len(records) == 41
 
     def test_all_records_are_functional_transition_record(self, records):
         for r in records:
