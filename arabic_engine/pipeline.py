@@ -30,6 +30,7 @@ from arabic_engine.core.types import (
     ConceptRecord,
     ConflictRuleRecord,
     DalalaLink,
+    DirectionAssignment,
     EvalResult,
     EvaluationResult,
     InferenceResult,
@@ -52,12 +53,22 @@ from arabic_engine.core.types import (
     SyntaxNode,
     TimeSpaceTag,
     UtteranceRecord,
+    WeightFractalResult,
 )
 from arabic_engine.linkage.dalala import full_validation
 from arabic_engine.linkage.semantic_roles import derive_semantic_roles
 from arabic_engine.signified.ontology import batch_map
+from arabic_engine.signified.semantic_direction import (
+    assign_direction as _assign_direction,
+)
+from arabic_engine.signified.semantic_direction import (
+    build_direction_space,
+)
 from arabic_engine.signifier.root_pattern import batch_closure
 from arabic_engine.signifier.unicode_norm import normalize, tokenize
+from arabic_engine.signifier.weight_fractal import (
+    run_weight_fractal as _run_weight_fractal,
+)
 from arabic_engine.syntax.syntax import analyse as syntax_analyse
 
 # ── Pipeline result ─────────────────────────────────────────────────
@@ -88,6 +99,8 @@ class PipelineResult:
     world_update: Dict[str, object] = field(default_factory=dict)
     explanation: Dict[str, object] = field(default_factory=dict)
     layer_traces: List[LayerTraceRecord] = field(default_factory=list)
+    direction_assignments: List[DirectionAssignment] = field(default_factory=list)
+    weight_fractals: List[WeightFractalResult] = field(default_factory=list)
 
 
 def _to_validation_state(outcome: ValidationOutcome) -> ValidationState:
@@ -216,6 +229,13 @@ def run(
 
     # L3 — Syntax (v2)
     syntax_nodes = syntax_analyse(closures)
+
+    # L3b — Semantic Direction Assignment
+    _direction_space = build_direction_space()
+    direction_assignments = [_assign_direction(cl, _direction_space) for cl in closures]
+
+    # L3c — Weight Fractal Analysis
+    weight_fractals = [_run_weight_fractal(cl) for cl in closures]
 
     # L4 — Ontological Mapping
     concepts = batch_map(closures)
@@ -358,4 +378,6 @@ def run(
         world_update=world_update,
         explanation=explanation,
         layer_traces=layer_traces,
+        direction_assignments=direction_assignments,
+        weight_fractals=weight_fractals,
     )

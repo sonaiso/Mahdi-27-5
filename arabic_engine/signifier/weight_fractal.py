@@ -25,18 +25,17 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 
 from arabic_engine.core.enums import (
-    DerivationalDirection,
     POS,
+    DerivationalDirection,
     SemanticDirectionGenus,
     WeightCarryingMode,
     WeightClass,
     WeightFractalPhase,
 )
 from arabic_engine.core.types import (
-    DirectionAssignment,
     LexicalClosure,
     SemanticDirection,
     WeightDirectionMapping,

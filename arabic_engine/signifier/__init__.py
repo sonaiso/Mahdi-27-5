@@ -16,6 +16,8 @@ Public sub-modules
 * :mod:`arabic_engine.signifier.functional_transition` — الانتقال الوظيفي
   المنضبط: JSON-Schema-backed functional transition loader, Condition DSL,
   and filter helpers.
+* :mod:`arabic_engine.signifier.weight_fractal` — دستور الوزن الفراكتالي:
+  Weight Fractal Constitution v1.
 """
 
 __all__ = [
@@ -25,4 +27,5 @@ __all__ = [
     "dmin",
     "transition",
     "functional_transition",
+    "weight_fractal",
 ]

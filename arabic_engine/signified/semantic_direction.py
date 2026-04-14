@@ -32,10 +32,10 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 from arabic_engine.core.enums import (
+    POS,
     DerivationalDirection,
     DirectionBoundary,
     DirectionRelation,
-    POS,
     SemanticDirectionGenus,
 )
 from arabic_engine.core.types import (

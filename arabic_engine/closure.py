@@ -279,6 +279,33 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "description": "Epistemic reception — validation of received knowledge",
         "description_ar": "دستور الاستقبال المعرفي",
     },
+    {
+        "symbol": "Ω_dir",
+        "name": "semantic_direction",
+        "name_ar": "فضاء الجهات الدلالية",
+        "module": "arabic_engine.signified.semantic_direction",
+        "function": "assign_direction",
+        "description": "Semantic Direction Space — direction assignment",
+        "description_ar": "إسناد الجهة الدلالية للمفرد",
+    },
+    {
+        "symbol": "Ω_wf",
+        "name": "weight_fractal",
+        "name_ar": "الوزن الفراكتالي",
+        "module": "arabic_engine.signifier.weight_fractal",
+        "function": "run_weight_fractal",
+        "description": "Weight Fractal Constitution — weight analysis",
+        "description_ar": "دستور الوزن الفراكتالي — تحليل الوزن",
+    },
+    {
+        "symbol": "Ω",
+        "name": "mufrad_closure",
+        "name_ar": "إقفال اللفظ المفرد",
+        "module": "arabic_engine.mufrad_closure",
+        "function": "close_mufrad",
+        "description": "Total single-word closure — إقفال جامع مانع",
+        "description_ar": "إقفال اللفظ المفرد إقفالاً جامعاً مانعاً",
+    },
 ]
 
 

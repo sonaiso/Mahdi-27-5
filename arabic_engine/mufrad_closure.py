@@ -46,7 +46,6 @@ from arabic_engine.core.types import (
     LexicalClosure,
     MasdarRecord,
     MufradClosureResult,
-    SubjectClassification,
 )
 from arabic_engine.linkage.dalala import validate_link
 from arabic_engine.signified.ontology import map_concept
