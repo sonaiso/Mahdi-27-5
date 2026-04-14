@@ -71,3 +71,49 @@ FOR (cr:ConflictRule) REQUIRE cr.rule_id IS UNIQUE;
 // ── ValidationResult ─────────────────────────────────────────────────────
 CREATE CONSTRAINT validation_result_episode_id_unique IF NOT EXISTS
 FOR (vr:ValidationResult) REQUIRE vr.episode_id IS UNIQUE;
+
+// ── Rational Self Ontology v1 — Lexeme Epistemic Core ───────────────────
+
+// ── WeightNode ──────────────────────────────────────────────────────────
+CREATE CONSTRAINT weight_node_id_unique IF NOT EXISTS
+FOR (w:WeightNode) REQUIRE w.id IS UNIQUE;
+
+CREATE CONSTRAINT weight_node_form_exists IF NOT EXISTS
+FOR (w:WeightNode) REQUIRE w.weight_form IS NOT NULL;
+
+// ── ClosedTemplateNode ──────────────────────────────────────────────────
+CREATE CONSTRAINT closed_template_id_unique IF NOT EXISTS
+FOR (ct:ClosedTemplateNode) REQUIRE ct.id IS UNIQUE;
+
+// ── LexemeNode ──────────────────────────────────────────────────────────
+CREATE CONSTRAINT lexeme_node_id_unique IF NOT EXISTS
+FOR (ln:LexemeNode) REQUIRE ln.id IS UNIQUE;
+
+CREATE CONSTRAINT lexeme_node_surface_exists IF NOT EXISTS
+FOR (ln:LexemeNode) REQUIRE ln.surface_form IS NOT NULL;
+
+CREATE CONSTRAINT lexeme_node_pos_exists IF NOT EXISTS
+FOR (ln:LexemeNode) REQUIRE ln.pos_final IS NOT NULL;
+
+// ── NounNode ────────────────────────────────────────────────────────────
+CREATE CONSTRAINT noun_node_ref_exists IF NOT EXISTS
+FOR (nn:NounNode) REQUIRE nn.lexeme_ref IS NOT NULL;
+
+// ── VerbNode ────────────────────────────────────────────────────────────
+CREATE CONSTRAINT verb_node_ref_exists IF NOT EXISTS
+FOR (vn:VerbNode) REQUIRE vn.lexeme_ref IS NOT NULL;
+
+// ── ParticleNode ────────────────────────────────────────────────────────
+CREATE CONSTRAINT particle_node_ref_exists IF NOT EXISTS
+FOR (pn:ParticleNode) REQUIRE pn.lexeme_ref IS NOT NULL;
+
+// ── CompositionReadyNode ────────────────────────────────────────────────
+CREATE CONSTRAINT composition_ready_ref_exists IF NOT EXISTS
+FOR (cr:CompositionReadyNode) REQUIRE cr.lexeme_ref IS NOT NULL;
+
+// ── RationalSelfRecord ──────────────────────────────────────────────────
+CREATE CONSTRAINT rational_self_id_unique IF NOT EXISTS
+FOR (rs:RationalSelfRecord) REQUIRE rs.self_id IS UNIQUE;
+
+CREATE CONSTRAINT rational_self_name_exists IF NOT EXISTS
+FOR (rs:RationalSelfRecord) REQUIRE rs.name IS NOT NULL;

@@ -41,6 +41,48 @@ layers:
       - "each LexicalClosure has a valid POS enum"
       - "root is a tuple of strings or empty tuple"
 
+  # ── Layer 2w: Weight Extraction (Lexeme Epistemic Core) ──────────
+  - name: weight_extraction
+    module: arabic_engine.lexeme.weight
+    function: extract_weight
+    input_type: "Tuple[Tuple[str, ...], str]"
+    output_type: WeightNode
+    invariants:
+      - "weight_form is non-empty"
+      - "completeness_score in [0, 1]"
+      - "recoverability_score in [0, 1]"
+
+  # ── Layer 2l: Lexeme Construction (Lexeme Epistemic Core) ────────
+  - name: lexeme_construction
+    module: arabic_engine.lexeme.lexeme_builder
+    function: build_lexeme
+    input_type: "Tuple[LexicalClosure, Optional[WeightNode]]"
+    output_type: LexemeNode
+    invariants:
+      - "surface_form is non-empty"
+      - "pos_final is a valid POS enum"
+      - "readiness_score in [0, 1]"
+
+  # ── Layer 2p: POS Finalisation (Lexeme Epistemic Core) ───────────
+  - name: pos_finalization
+    module: arabic_engine.lexeme.pos_finalization
+    function: auto_finalize
+    input_type: LexemeNode
+    output_type: "Union[NounNode, VerbNode, ParticleNode]"
+    invariants:
+      - "lexeme_ref is non-empty"
+      - "matching_mode is a valid MatchingMode enum"
+
+  # ── Layer 2c: Composition Gate (Lexeme Epistemic Core) ───────────
+  - name: composition_gate
+    module: arabic_engine.lexeme.composition_gate
+    function: check_composition_readiness
+    input_type: LexemeNode
+    output_type: CompositionReadyNode
+    invariants:
+      - "lexeme_ref is non-empty"
+      - "ready is bool"
+
   # ── Layer 3: Syntactic Analysis (v2) ──────────────────────────────
   - name: syntax
     module: arabic_engine.syntax.syntax

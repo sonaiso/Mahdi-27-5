@@ -74,3 +74,15 @@ FOR (n:Constraint) REQUIRE n.constraint_type IS NOT NULL;
 
 CREATE CONSTRAINT kernel_state_type_exists IF NOT EXISTS
 FOR (n:State) REQUIRE n.state_type IS NOT NULL;
+
+// ── Rational Self Ontology v1 — extensions ──────────────────────────────
+
+// The DESIGNATES relation: Self → LexemeNode (the self designates lexemes)
+// The INTENDS_COMPOSITION relation: Self → CompositionReadyNode
+
+// Self extensions for rational self model
+CREATE CONSTRAINT kernel_self_perception_mode_exists IF NOT EXISTS
+FOR (n:Self) REQUIRE n.perception_mode IS NOT NULL;
+
+CREATE CONSTRAINT kernel_self_judgment_capacity_exists IF NOT EXISTS
+FOR (n:Self) REQUIRE n.judgment_capacity IS NOT NULL;

@@ -122,6 +122,17 @@ from .enums import (
     UtteredFormClass,
     ValidationOutcome,
     ValidationState,
+    CompositionReadiness,
+    IndependenceType,
+    JamidDerivedType,
+    LexemeEdgeType,
+    LexemeLayer,
+    MatchingMode,
+    ParticleRelationType,
+    ProductivityMode,
+    ReferentialMode,
+    VerbActionType,
+    WeightTemplateType,
 )
 
 # ── Signifier layer ─────────────────────────────────────────────────
@@ -2585,3 +2596,154 @@ class LayerTraceRecord:
     layer_6: Optional[RepresentationRecord] = None
     gates: Tuple[TransitionGate, ...] = ()
     final_gate_status: TransitionGateStatus = TransitionGateStatus.INSUFFICIENT_DATA
+
+
+# ── Rational Self Ontology v1 — Lexeme Epistemic Core types ─────────
+
+
+@dataclass(frozen=True)
+class WeightNode:
+    """عقدة الوزن — the central weight/pattern node.
+
+    The weight is the structural template that organises root material,
+    augmentations, and vowelling into a form classifiable by semantic type.
+    It is the epistemic minimum that transforms raw material into a
+    lexeme with a determinable semantic direction.
+    """
+
+    id: str                                     # معرف
+    weight_form: str                            # e.g. "فاعل", "مفعول", "افتعل"
+    template_type: WeightTemplateType           # اسمي / فعلي / مغلق
+    slots: Tuple[str, ...]                      # مواضع الجذر والزيادة والحركات
+    semantic_tendency: str                       # جهة دلالية عامة
+    recoverability_score: float                 # إمكان الرد إلى الجذر/القالب [0, 1]
+    completeness_score: float                   # درجة استيفاء الحد الأدنى [0, 1]
+    productivity_mode: ProductivityMode         # حي / مغلق / تاريخي
+    pos_affinity: POS                           # ميل إلى اسم / فعل / حرف
+
+
+@dataclass(frozen=True)
+class ClosedTemplateNode:
+    """عقدة القالب المغلق — for particles and built forms.
+
+    Represents templates that are frozen and do not participate in
+    productive derivation.
+    """
+
+    id: str                                     # معرف
+    template_form: str                          # الصورة الظاهرة
+    function_type: ParticleRelationType         # نوع الوظيفة
+    frozen: bool = True                         # مجمد
+
+
+@dataclass(frozen=True)
+class LexemeNode:
+    """عقدة المفرد — the formal lexeme unit.
+
+    A lexeme is an independent (or functionally independent) word-unit
+    that has completed weight assignment and concept-type tagging,
+    making it ready for POS finalisation and composition.
+    """
+
+    id: str                                     # معرف
+    surface_form: str                           # الصورة الظاهرة
+    normalized_form: str                        # الصورة المعيارية
+    root_ref: Optional[str]                     # مرجع الجذر إن وجد
+    weight_ref: Optional[str]                   # مرجع الوزن أو القالب المغلق
+    closed_template_ref: Optional[str]          # للمبنيات / الأدوات
+    independence_type: IndependenceType         # مستقل بمعنى / بوظيفة / غير مستقل
+    concept_type: str                           # ذات / حدث / صفة / نسبة / إشارة…
+    pos_final: POS                              # اسم / فعل / حرف
+    readiness_score: float                      # الجاهزية للتركيب [0, 1]
+
+
+@dataclass(frozen=True)
+class NounNode:
+    """عقدة الاسم — extended noun record.
+
+    Captures the referential, derivational, and matching properties
+    of a noun lexeme.
+    """
+
+    lexeme_ref: str                             # مرجع المفرد
+    referential_mode: ReferentialMode           # علم / جنس / نوع / عدد / مكان / زمان
+    jamid_or_derived: JamidDerivedType          # جامد / مشتق
+    match_mode: MatchingMode                    # مطابقة / تضمن / التزام
+    countability: Optional[str] = None          # مفرد / جمع / عدد
+    ontological_class: Optional[str] = None     # إنسان / حيوان / جماد / مكان…
+
+
+@dataclass(frozen=True)
+class VerbNode:
+    """عقدة الفعل — extended verb record.
+
+    Captures the actional, temporal, transitivity, and matching
+    properties of a verb lexeme.
+    """
+
+    lexeme_ref: str                             # مرجع المفرد
+    action_type: VerbActionType                 # حدث / ربط / نسخ
+    tense_direction: TimeRef                    # ماض / مضارع / أمر / زمن محوّل
+    transitivity: Optional[str]                 # لازم / متعد
+    matching_mode: MatchingMode                 # مطابقة / تضمن / التزام
+    predicate_power: float = 1.0               # قوة حمل الحدث أو الربط [0, 1]
+
+
+@dataclass(frozen=True)
+class ParticleNode:
+    """عقدة الحرف — extended particle record.
+
+    The particle is not merely "meaningless" but independently
+    carries a relational/functional meaning.
+    """
+
+    lexeme_ref: str                             # مرجع المفرد
+    relation_type: ParticleRelationType         # جر / عطف / شرط / نفي / …
+    independence_mode: IndependenceType         # مستقل بوظيفة لا بمعنى ذاتي
+    matching_mode: MatchingMode                 # مطابقة / تضمن / التزام
+    governing_scope: str                        # ما الذي يتسلط عليه
+
+
+@dataclass(frozen=True)
+class CompositionReadyNode:
+    """عقدة جاهزية التركيب — pre-composition gate.
+
+    A lexeme must pass through this gate before entering the
+    composition/syntax layer.
+    """
+
+    lexeme_ref: str                             # مرجع المفرد
+    pos_final: POS                              # اسم / فعل / حرف
+    concept_type: str                           # النوع المفهومي
+    weight_or_template: str                     # الوزن أو القالب
+    ready: bool = False                         # جاهز؟
+
+
+@dataclass(frozen=True)
+class RationalSelfRecord:
+    """سجل الذات العاقلة — extended self model.
+
+    The rational self is the epistemic agent that drives the chain:
+    perception → designation → classification → judgement → composition.
+    """
+
+    self_id: str                                # معرف الذات
+    name: str                                   # اسم الذات
+    perception_mode: str                        # نمط الإدراك
+    judgment_capacity: float                    # قدرة الحكم [0, 1]
+    intent_vector: Optional[dict] = None        # متجه القصد
+    epistemic_autonomy: bool = True             # الاستقلال المعرفي
+    lexicon_boundary: int = 0                   # حدود المعجم
+
+
+@dataclass(frozen=True)
+class BareLexicalMaterial:
+    """المادة اللفظية العارية — bare lexical material before weight assignment.
+
+    A sequence of characters/marks before being structured by a weight
+    template. May be a root candidate, affix, tool, or unstructured material.
+    """
+
+    material: str                               # المادة الخام
+    source_layer: LexemeLayer = LexemeLayer.BARE_MATERIAL
+    grapheme_count: int = 0                     # عدد الوحدات الكتابية

@@ -25,6 +25,8 @@ from arabic_engine.core.enums import (
     ValidationState,
 )
 from arabic_engine.core.types import (
+    ClosedTemplateNode,
+    CompositionReadyNode,
     Concept,
     ConceptNode,
     ConceptRecord,
@@ -37,11 +39,14 @@ from arabic_engine.core.types import (
     KnowledgeEpisode,
     KnowledgeEpisodeInput,
     LayerTraceRecord,
+    LexemeNode,
     LexicalClosure,
     LinguisticCarrierRecord,
     LinkingTraceRecord,
     LinkOperation,
     MethodRecord,
+    NounNode,
+    ParticleNode,
     PerceptTrace,
     PriorInfoRecord,
     PriorKnowledgeUnit,
@@ -52,6 +57,8 @@ from arabic_engine.core.types import (
     SyntaxNode,
     TimeSpaceTag,
     UtteranceRecord,
+    VerbNode,
+    WeightNode,
 )
 from arabic_engine.linkage.dalala import full_validation
 from arabic_engine.linkage.semantic_roles import derive_semantic_roles
@@ -59,6 +66,10 @@ from arabic_engine.signified.ontology import batch_map
 from arabic_engine.signifier.root_pattern import batch_closure
 from arabic_engine.signifier.unicode_norm import normalize, tokenize
 from arabic_engine.syntax.syntax import analyse as syntax_analyse
+from arabic_engine.lexeme.weight import extract_weight
+from arabic_engine.lexeme.lexeme_builder import build_lexeme
+from arabic_engine.lexeme.pos_finalization import auto_finalize
+from arabic_engine.lexeme.composition_gate import check_composition_readiness
 
 # ── Pipeline result ─────────────────────────────────────────────────
 
@@ -88,6 +99,10 @@ class PipelineResult:
     world_update: Dict[str, object] = field(default_factory=dict)
     explanation: Dict[str, object] = field(default_factory=dict)
     layer_traces: List[LayerTraceRecord] = field(default_factory=list)
+    # ── Lexeme Epistemic Core outputs ────────────────────────────
+    weight_nodes: List[WeightNode] = field(default_factory=list)
+    lexeme_nodes: List[LexemeNode] = field(default_factory=list)
+    composition_ready: List[CompositionReadyNode] = field(default_factory=list)
 
 
 def _to_validation_state(outcome: ValidationOutcome) -> ValidationState:
@@ -213,6 +228,43 @@ def run(
             rp = extract_root_pattern(closure.surface)
             traces = _analyze_word(closure.surface, root_pattern=rp)
             layer_traces.extend(traces)
+
+    # L2w — Lexeme Epistemic Core: Weight Extraction
+    weight_nodes: List[WeightNode] = []
+    for cl in closures:
+        if cl.root:
+            w = extract_weight(cl.root, cl.surface, cl.pattern)
+            weight_nodes.append(w)
+        else:
+            weight_nodes.append(
+                WeightNode(
+                    id=f"W_closed_{cl.surface}",
+                    weight_form=cl.surface,
+                    template_type=__import__(
+                        "arabic_engine.core.enums", fromlist=["WeightTemplateType"]
+                    ).WeightTemplateType.CLOSED,
+                    slots=(),
+                    semantic_tendency="وظيفة",
+                    recoverability_score=0.0,
+                    completeness_score=0.5,
+                    productivity_mode=__import__(
+                        "arabic_engine.core.enums", fromlist=["ProductivityMode"]
+                    ).ProductivityMode.CLOSED,
+                    pos_affinity=cl.pos,
+                )
+            )
+
+    # L2l — Lexeme Epistemic Core: Lexeme Construction
+    lexeme_nodes: List[LexemeNode] = []
+    for cl, wn in zip(closures, weight_nodes):
+        lex = build_lexeme(cl, weight=wn)
+        lexeme_nodes.append(lex)
+
+    # L2c — Lexeme Epistemic Core: Composition Readiness
+    composition_ready: List[CompositionReadyNode] = []
+    for lex in lexeme_nodes:
+        cr = check_composition_readiness(lex)
+        composition_ready.append(cr)
 
     # L3 — Syntax (v2)
     syntax_nodes = syntax_analyse(closures)
@@ -358,4 +410,7 @@ def run(
         world_update=world_update,
         explanation=explanation,
         layer_traces=layer_traces,
+        weight_nodes=weight_nodes,
+        lexeme_nodes=lexeme_nodes,
+        composition_ready=composition_ready,
     )

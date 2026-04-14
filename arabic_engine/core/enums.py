@@ -1860,3 +1860,129 @@ class TransitionGateStatus(Enum):
     PASSED = auto()
     BLOCKED = auto()
     INSUFFICIENT_DATA = auto()
+
+
+# ── Lexeme Epistemic Core enums ─────────────────────────────────────
+
+
+class LexemeLayer(Enum):
+    """طبقات المفرد — the representational layers of a lexeme before composition.
+
+    The chain Unicode → … → COMPOSITION_READY is non-breakable.
+    """
+
+    UNICODE = auto()
+    GRAPHEME = auto()
+    PHONO = auto()
+    HARAKA = auto()
+    BARE_MATERIAL = auto()
+    ROOT_CANDIDATE = auto()
+    WEIGHT = auto()
+    LEXEME = auto()
+    CONCEPT_TYPE = auto()
+    POS_FINAL = auto()
+    COMPOSITION_READY = auto()
+
+
+class WeightTemplateType(Enum):
+    """نوع القالب الوزني — weight/pattern classification."""
+
+    NOMINAL = auto()   # اسمي
+    VERBAL = auto()    # فعلي
+    CLOSED = auto()    # مغلق / مبنيات
+
+
+class ProductivityMode(Enum):
+    """نمط الإنتاجية — weight productivity mode."""
+
+    LIVING = auto()      # حي
+    CLOSED = auto()      # مغلق
+    HISTORICAL = auto()  # تاريخي
+
+
+class IndependenceType(Enum):
+    """نوع الاستقلال — lexeme independence type."""
+
+    MEANING_INDEPENDENT = auto()    # مستقل بمعنى
+    FUNCTION_INDEPENDENT = auto()   # مستقل بوظيفة
+    DEPENDENT = auto()              # غير مستقل
+
+
+class JamidDerivedType(Enum):
+    """نوع الجمود والاشتقاق — noun derivation classification."""
+
+    JAMID = auto()     # جامد
+    MUSHTAQ = auto()   # مشتق
+
+
+class VerbActionType(Enum):
+    """نوع الفعلية — verb action classification."""
+
+    EVENT = auto()          # حدث
+    LINKING = auto()        # ربط
+    COPULA_NASIKH = auto()  # نسخ
+
+
+class ParticleRelationType(Enum):
+    """نوع العلاقة الحرفية — particle function type."""
+
+    JARR = auto()       # جر
+    ATF = auto()        # عطف
+    SHART = auto()      # شرط
+    NAFY = auto()       # نفي
+    IBTIDA = auto()     # ابتداء
+    NIDA = auto()       # نداء
+    ISTIFHAM = auto()   # استفهام
+    TAMANNI = auto()    # تمني
+    TARAJI = auto()     # ترجي
+
+
+class ReferentialMode(Enum):
+    """نمط الإحالة — noun referential mode."""
+
+    ALAM = auto()    # علم
+    JINS = auto()    # جنس
+    NAW = auto()     # نوع
+    ADAD = auto()    # عدد
+    MAKAN = auto()   # مكان
+    ZAMAN = auto()   # زمان
+
+
+class MatchingMode(Enum):
+    """نمط المطابقة — dalāla sub-mode for POS matching."""
+
+    MUTABAQA = auto()   # مطابقة
+    TADAMMUN = auto()   # تضمن
+    ILTIZAM = auto()    # التزام
+
+
+class CompositionReadiness(Enum):
+    """جاهزية التركيب — readiness state machine for composition."""
+
+    RAW = auto()
+    MATERIAL = auto()
+    WEIGHTED = auto()
+    TYPED = auto()
+    POS_ASSIGNED = auto()
+    READY = auto()
+
+
+class LexemeEdgeType(Enum):
+    """أنواع الحواف المعجمية — edge types in the lexeme ontology graph."""
+
+    ENCODES = auto()             # UnicodeUnit → GraphemeUnit
+    REALIZES = auto()            # GraphemeUnit → PhonoUnit
+    MODULATES = auto()           # HarakaUnit → PhonoUnit / WeightNode
+    FORMS_MATERIAL = auto()      # writing/sound units → BareLexicalMaterial
+    INSTANTIATES_ROOT = auto()   # BareLexicalMaterial → RootNode
+    INSTANTIATES_WEIGHT = auto() # BareLexicalMaterial → WeightNode
+    FILLS_TEMPLATE = auto()      # RootNode → WeightNode
+    STABILIZES_AS = auto()       # WeightNode / ClosedTemplateNode → LexemeNode
+    TYPED_AS = auto()            # LexemeNode → ConceptNode
+    FINALIZED_AS = auto()        # LexemeNode → NounNode / VerbNode / ParticleNode
+    DERIVED_FROM = auto()        # DerivedNode → RootNode
+    REFERS_TO = auto()           # NounNode → ReferentialNode
+    DENOTES_EVENT = auto()       # VerbNode → ActionalityNode
+    BINDS_RELATION = auto()      # ParticleNode → RelationalNode
+    PREPARES_FOR = auto()        # LexemeNode → CompositionReadyNode
+    RECOVERS_TO = auto()         # any rank → lower rank (recovery)

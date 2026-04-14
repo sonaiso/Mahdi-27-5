@@ -49,6 +49,9 @@ class KernelRelation(Enum):
     PARTICIPATES_IN = "PARTICIPATES_IN"
     INVOLVES = "INVOLVES"
     FORMS = "FORMS"
+    # ── Rational Self Ontology v1 extensions ─────────────────────
+    DESIGNATES = "DESIGNATES"          # Self → LexemeNode
+    INTENDS_COMPOSITION = "INTENDS_COMPOSITION"  # Self → CompositionReadyNode
 
 
 KERNEL_REQUIRED_FIELDS: dict[KernelLabel, frozenset[str]] = {
@@ -89,6 +92,11 @@ KERNEL_RELATION_PAIRS: dict[KernelRelation, tuple[tuple[KernelLabel, KernelLabel
     KernelRelation.PARTICIPATES_IN: ((KernelLabel.CARRIER, KernelLabel.EXCHANGE),),
     KernelRelation.INVOLVES: ((KernelLabel.EXCHANGE, KernelLabel.SELF),),
     KernelRelation.FORMS: ((KernelLabel.EXCHANGE, KernelLabel.MODEL),),
+    # ── Rational Self Ontology v1 extensions ─────────────────────
+    # DESIGNATES: Self designates (perceives / names) a lexeme
+    KernelRelation.DESIGNATES: ((KernelLabel.SELF, KernelLabel.CONCEPT),),
+    # INTENDS_COMPOSITION: Self intends to compose lexemes
+    KernelRelation.INTENDS_COMPOSITION: ((KernelLabel.SELF, KernelLabel.CONCEPT),),
 }
 
 

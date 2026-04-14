@@ -30,6 +30,7 @@ class PipelineStage(Enum):
     """المراحل التشغيلية — operational pipeline stages."""
 
     UTTERANCE = auto()
+    LEXEME = auto()      # Lexeme Epistemic Core stage
     CONCEPT = auto()
     AXIS = auto()
     RELATION = auto()
@@ -68,6 +69,17 @@ class UtteranceUnit:
     pattern_candidate: str = ""
     syntactic_potential: str = ""
     semantic_trigger: str = ""
+
+
+@dataclass(frozen=True)
+class LexemeUnit:
+    """وحدة مفرد — a lexeme unit produced by the Lexeme Epistemic Core."""
+
+    token: str
+    weight_form: str = ""
+    independence_type: str = ""
+    concept_type: str = ""
+    composition_ready: bool = False
 
 
 @dataclass(frozen=True)
@@ -148,6 +160,7 @@ class RuntimeState:
 
     raw_text: str = ""
     utterance_units: List[UtteranceUnit] = field(default_factory=list)
+    lexeme_units: List[LexemeUnit] = field(default_factory=list)
     concepts: List[ConceptUnit] = field(default_factory=list)
     axes: List[AxisActivation] = field(default_factory=list)
     relations: List[RelationUnit] = field(default_factory=list)
@@ -209,7 +222,43 @@ def resolve_utterance_units(state: RuntimeState) -> RuntimeState:
     return state
 
 
-# ── Stage B: Concept ────────────────────────────────────────────────
+# ── Stage B: Lexeme ─────────────────────────────────────────────────
+
+
+def resolve_lexeme_units(state: RuntimeState) -> RuntimeState:
+    """المرحلة B — تحليل المفرد اللفظي (Lexeme Epistemic Core).
+
+    For each utterance unit, identify weight, independence, concept type,
+    and composition readiness.
+    """
+    units: List[LexemeUnit] = []
+    for uu in state.utterance_units:
+        weight_form = _guess_pattern(uu.token)
+        independence = "مستقل_بمعنى" if _is_nominal(uu.token) else "مستقل_بوظيفة"
+        concept_type = "ذات" if _is_nominal(uu.token) else "حدث"
+        is_particle = uu.token in ("إلى", "من", "في", "على", "عن", "ب")
+        if is_particle:
+            independence = "مستقل_بوظيفة"
+            concept_type = "نسبة"
+        units.append(
+            LexemeUnit(
+                token=uu.token,
+                weight_form=weight_form,
+                independence_type=independence,
+                concept_type=concept_type,
+                composition_ready=True,
+            )
+        )
+    state.lexeme_units = units
+    state.append_trace(
+        PipelineStage.LEXEME,
+        input_summary=f"{len(state.utterance_units)} utterance units",
+        output_summary=f"{len(units)} lexeme units",
+    )
+    return state
+
+
+# ── Stage C: Concept ────────────────────────────────────────────────
 
 
 def resolve_concepts(state: RuntimeState) -> RuntimeState:
@@ -383,6 +432,7 @@ def build_judgement(state: RuntimeState) -> RuntimeState:
 
 _STAGES = [
     resolve_utterance_units,
+    resolve_lexeme_units,
     resolve_concepts,
     activate_axes,
     build_relations,
