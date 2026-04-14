@@ -26,11 +26,15 @@ from arabic_engine.particle.registry import forms_by_type
 
 # ── Particle / tool lists for proposition type detection ────────────
 
+# Interrogative particles from the registry + interrogative pronouns/adverbs
+# (أسماء الاستفهام) which are grammatically nouns but function as question words.
 _INTERROGATIVE_PARTICLES = forms_by_type(ParticleType.ISTIFHAM) | frozenset({
     "ما", "من", "أين", "كيف", "متى", "لماذا",
     "أي", "أنّى", "كم", "أيّ", "ماذا",
 })
 
+# Vocative particles from the registry + extended vocative forms
+# (أيا، هيا are rare variants not in the core catalog).
 _VOCATIVE_PARTICLES = forms_by_type(ParticleType.NIDA) | frozenset({"أيا", "هيا"})
 
 _OATH_PARTICLES = frozenset({"والله", "تالله", "بالله", "وربّ", "لعمر"})

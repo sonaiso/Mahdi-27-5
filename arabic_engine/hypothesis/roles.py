@@ -28,6 +28,9 @@ _KANA_VERBS = frozenset({
 
 _VOCATIVE_PARTICLES = forms_by_type(ParticleType.NIDA)
 
+# Interrogative particles from the registry + interrogative pronouns/adverbs
+# that function as question words but are grammatically nouns (أسماء الاستفهام),
+# not pure particles. They are included here for role detection purposes.
 _INTERROGATIVE_PARTICLES = forms_by_type(ParticleType.ISTIFHAM) | frozenset({
     "ما", "من", "أين", "كيف", "متى", "لماذا",
     "أي", "أنّى", "كم", "أيّ", "ماذا",

@@ -66,6 +66,17 @@ def tadammun(record: ParticleRecord) -> Dict[str, str]:
 def iltizam(record: ParticleRecord) -> List[str]:
     """Return the syntactic positions/effects the particle commits to.
 
+    Each commitment is a descriptive Arabic string with underscore
+    separators, indicating the syntactic obligation the particle
+    imposes.  The format is:
+
+    * ``يلتزم_بـ_<effect>`` — grammatical case effect (jarr, jazm, nasb)
+    * ``يفتح_موضع_<scope>`` — opens a slot for noun/verb/clause
+    * ``يوجّه_إلى_<direction>`` — directs toward a semantic direction
+
+    These strings are intended for hypothesis annotation and trace
+    inspection, not for computational matching.
+
     Parameters
     ----------
     record : ParticleRecord
