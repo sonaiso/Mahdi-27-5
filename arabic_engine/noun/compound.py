@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from arabic_engine.core.enums import CompoundType, POS
+from arabic_engine.core.enums import POS, CompoundType
 from arabic_engine.core.types import LexicalClosure
 
 # ── Known blend compounds (مركب مزجي) ──────────────────────────────

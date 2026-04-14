@@ -7,7 +7,7 @@ vocative, or indefinite.
 
 from __future__ import annotations
 
-from arabic_engine.core.enums import Definiteness, POS
+from arabic_engine.core.enums import POS, Definiteness
 from arabic_engine.core.types import LexicalClosure
 
 # ── Demonstrative pronouns ──────────────────────────────────────────

@@ -10,13 +10,11 @@ from __future__ import annotations
 from typing import List, Optional
 
 from arabic_engine.core.enums import (
-    POS,
     DerivationStatus,
     NounFractalStage,
     NounKind,
 )
 from arabic_engine.core.types import Concept, LexicalClosure, NounNode
-
 from arabic_engine.noun.attribute import resolve_noun_attribute
 from arabic_engine.noun.borrowed import resolve_borrowed
 from arabic_engine.noun.compound import resolve_compound
@@ -100,7 +98,12 @@ def classify_noun(
     compound_type = None
     if all_tokens is not None:
         compound_type = resolve_compound(all_tokens, token_index)
-    if compound_type is not None and noun_kind == NounKind.ENTITY:
+    else:
+        # Still detect single-token blend compounds
+        compound_type = resolve_compound([closure], 0)
+    if compound_type is not None and noun_kind in (
+        NounKind.ENTITY, NounKind.INDIVIDUAL, NounKind.PROPER,
+    ):
         noun_kind = NounKind.COMPOUND
 
     # 10. Borrowed detection
