@@ -16,6 +16,7 @@ pass/fail with a human-readable justification (Arabic + English).
 from __future__ import annotations
 
 import importlib
+import types
 from dataclasses import dataclass, field
 from enum import Enum, auto
 from pathlib import Path
@@ -528,13 +529,24 @@ def _check_mantuq_boundary() -> bool:
       - المآل الخارجي (external consequent)
 
     with the current Manṭūq layers.  We verify this by checking that
-    the cognition module does NOT contain any Mafhūm-level constructs.
+    the cognition module does NOT re-export any Mafhūm-level constructs
+    (functions, classes) at the package level.  A *submodule* named
+    ``mafhum`` is acceptable — it is a separate analysis module, not a
+    conflation of Mafhūm into the Manṭūq layers.
     """
     try:
         cognition_mod = importlib.import_module("arabic_engine.cognition")
-        # Check that no 'mafhum' symbol is exported
+        # Check that no mafhum functions/classes are re-exported at the
+        # package level.  Submodule objects (types.ModuleType) are fine;
+        # conflation would mean pulling analyse_mafhum, MafhumResult,
+        # etc. directly into the cognition namespace.
         exports = dir(cognition_mod)
-        mafhum_symbols = [s for s in exports if "mafhum" in s.lower()]
+        mafhum_symbols = [
+            s
+            for s in exports
+            if "mafhum" in s.lower()
+            and not isinstance(getattr(cognition_mod, s, None), types.ModuleType)
+        ]
         return len(mafhum_symbols) == 0
     except ImportError:
         return False

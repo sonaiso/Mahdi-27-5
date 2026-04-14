@@ -105,6 +105,17 @@ layers:
       - "contains event/agent/patient keys"
       - "all values are strings"
 
+  # ── Layer 7c: Masdar Analysis (v3) ──────────────────────────────────
+  - name: masdar_analysis
+    module: arabic_engine.signifier.masdar
+    function: extract_masdar_from_surface
+    input_type: str
+    output_type: "Optional[MasdarRecord]"
+    invariants:
+      - "if result is not None, masdar_id is non-empty"
+      - "if result is not None, root is a non-empty tuple"
+      - "if result is not None, kawn_type is KawnType.MASDAR_BRIDGE"
+
   # ── Layer 8: Evaluation ───────────────────────────────────────────
   - name: evaluation
     module: arabic_engine.cognition.evaluation
@@ -146,6 +157,17 @@ layers:
       - "contains why_agent"
       - "contains why_judgement"
       - "contains why_rank"
+
+  # ── Epistemic Reception (Constitution v1) ─────────────────────────
+  - name: epistemic_reception
+    module: arabic_engine.cognition.epistemic_reception
+    function: validate_reception
+    input_type: EpistemicReceptionInput
+    output_type: EpistemicReceptionResult
+    invariants:
+      - "outcome is a valid ReceptionValidationOutcome enum"
+      - "codes is a tuple of ReceptionDecisionCode values"
+      - "corrected_assignments are matrix-compliant CarryingAssignment values"
 
 # ── Closure proof ───────────────────────────────────────────────────
 # The composition F = L10 ∘ L9 ∘ … ∘ L0 is well-typed if for every

@@ -9,9 +9,10 @@ from __future__ import annotations
 
 from typing import List
 
-from arabic_engine.core.enums import ActivationStage, HypothesisStatus
+from arabic_engine.core.enums import POS, ActivationStage, HypothesisStatus
 from arabic_engine.core.types import HypothesisNode
-from arabic_engine.signifier.root_pattern import extract_root_pattern
+from arabic_engine.signifier.masdar import extract_masdar_from_surface
+from arabic_engine.signifier.root_pattern import extract_root_pattern, lexical_closure
 
 
 def generate(segments: List[HypothesisNode]) -> List[HypothesisNode]:
@@ -20,6 +21,9 @@ def generate(segments: List[HypothesisNode]) -> List[HypothesisNode]:
     For each segment, attempts root/pattern extraction via the lexicon.
     If found, produces a high-confidence hypothesis.  Otherwise produces
     a fallback hypothesis with lower confidence.
+
+    Additionally generates masdar-specific hypotheses when a segment
+    matches a known masdar pattern.
 
     Parameters
     ----------
@@ -54,21 +58,67 @@ def generate(segments: List[HypothesisNode]) -> List[HypothesisNode]:
                     status=HypothesisStatus.ACTIVE,
                 )
             )
+
+            # Check if this is also a masdar
+            closure = lexical_closure(str(token))
+            if closure.pos in (POS.MASDAR_SARIH, POS.MASDAR_MUAWWAL):
+                masdar = extract_masdar_from_surface(str(token))
+                if masdar is not None:
+                    hypotheses.append(
+                        HypothesisNode(
+                            node_id=f"MORPH_MASDAR_{seg.node_id}",
+                            hypothesis_type="morphology_masdar",
+                            stage=ActivationStage.MORPHOLOGY,
+                            source_refs=(seg.node_id,),
+                            payload=(
+                                ("lemma", str(token)),
+                                ("root", masdar.root),
+                                ("pattern", masdar.pattern),
+                                ("masdar_type", masdar.masdar_type.name),
+                                ("masdar_bab", masdar.masdar_bab.name),
+                                ("event_core", masdar.event_core),
+                            ),
+                            confidence=0.92,
+                            status=HypothesisStatus.ACTIVE,
+                        )
+                    )
         else:
-            # Fallback: unknown morphology
-            hypotheses.append(
-                HypothesisNode(
-                    node_id=f"MORPH_{seg.node_id}",
-                    hypothesis_type="morphology",
-                    stage=ActivationStage.MORPHOLOGY,
-                    source_refs=(seg.node_id,),
-                    payload=(
-                        ("lemma", str(token)),
-                        ("root", ()),
-                        ("pattern", ""),
-                    ),
-                    confidence=0.3,
-                    status=HypothesisStatus.ACTIVE,
+            # Still check masdar lexicon for unknown tokens
+            masdar = extract_masdar_from_surface(str(token))
+            if masdar is not None:
+                hypotheses.append(
+                    HypothesisNode(
+                        node_id=f"MORPH_MASDAR_{seg.node_id}",
+                        hypothesis_type="morphology_masdar",
+                        stage=ActivationStage.MORPHOLOGY,
+                        source_refs=(seg.node_id,),
+                        payload=(
+                            ("lemma", str(token)),
+                            ("root", masdar.root),
+                            ("pattern", masdar.pattern),
+                            ("masdar_type", masdar.masdar_type.name),
+                            ("masdar_bab", masdar.masdar_bab.name),
+                            ("event_core", masdar.event_core),
+                        ),
+                        confidence=0.90,
+                        status=HypothesisStatus.ACTIVE,
+                    )
                 )
-            )
+            else:
+                # Fallback: unknown morphology
+                hypotheses.append(
+                    HypothesisNode(
+                        node_id=f"MORPH_{seg.node_id}",
+                        hypothesis_type="morphology",
+                        stage=ActivationStage.MORPHOLOGY,
+                        source_refs=(seg.node_id,),
+                        payload=(
+                            ("lemma", str(token)),
+                            ("root", ()),
+                            ("pattern", ""),
+                        ),
+                        confidence=0.3,
+                        status=HypothesisStatus.ACTIVE,
+                    )
+                )
     return hypotheses

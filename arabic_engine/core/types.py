@@ -17,6 +17,7 @@ from .enums import (
     AuthorityLevel,
     CarrierClass,
     CarrierType,
+    CarryingMode,
     CategorizationMode,
     CausalRole,
     CellType,
@@ -34,6 +35,7 @@ from .enums import (
     DalaalaKind,
     DalalaType,
     DecisionCode,
+    DerivationTarget,
     DiachronicStatus,
     DiscourseGapType,
     DiscourseValidationOutcome,
@@ -62,8 +64,11 @@ from .enums import (
     IrabRole,
     JudgementType,
     JudgmentCategory,
+    KawnType,
     LinkKind,
     MafhumType,
+    MasdarBab,
+    MasdarType,
     MentalIntentionalType,
     MetaConceptualLevel,
     MethodFamily,
@@ -87,8 +92,12 @@ from .enums import (
     ReceiverExpectedAction,
     ReceiverRoleType,
     ReceiverState,
+    ReceptionDecisionCode,
+    ReceptionLayer,
     ReceptionMode,
+    ReceptionRank,
     ReceptionStateType,
+    ReceptionValidationOutcome,
     ReversibleValue,
     RevisionType,
     SalienceLevel,
@@ -104,6 +113,7 @@ from .enums import (
     SpaceRef,
     StrictLayerID,
     StyleKind,
+    SubjectGenre,
     SyllablePosition,
     TimeRef,
     TraceMode,
@@ -2585,3 +2595,148 @@ class LayerTraceRecord:
     layer_6: Optional[RepresentationRecord] = None
     gates: Tuple[TransitionGate, ...] = ()
     final_gate_status: TransitionGateStatus = TransitionGateStatus.INSUFFICIENT_DATA
+
+
+# ── Masdar (verbal noun) types ──────────────────────────────────────
+
+
+@dataclass
+class MasdarRecord:
+    """سجل المصدر — full record for a verbal noun (masdar).
+
+    The masdar is the central bridge node between existential being
+    (الكينونة الوجودية) and transformational being (الكينونة التحولية).
+    It abstracts the event from temporal/personal assignment and fixes
+    it as a conceptual unit ready for classification and derivation.
+    """
+
+    masdar_id: str                                  # معرف فريد
+    surface: str                                    # الصورة اللفظية (كتابة، خروج)
+    root: Tuple[str, ...]                           # الجذر الثلاثي
+    pattern: str                                    # الوزن المصدري (فِعالة، فَعْل)
+    masdar_type: MasdarType                         # نوع المصدر
+    masdar_bab: MasdarBab                           # باب المصدر
+    verb_form: str                                  # صورة الفعل المولّد
+    kawn_type: KawnType = KawnType.MASDAR_BRIDGE    # نوع الكينونة
+    event_core: str = ""                            # جوهر الحدث المجرد
+    derivation_capacity: List[DerivationTarget] = field(default_factory=list)
+    confidence: float = 1.0
+
+
+@dataclass
+class MasdarDerivation:
+    """اشتقاق مصدري — a single derivation from a masdar to a target form.
+
+    Records the derivational relationship from a masdar (source) to a
+    derived form (target) such as active participle, passive participle,
+    noun of time/place, noun of manner, or noun of instrument.
+    """
+
+    source_masdar_id: str           # معرف المصدر المصدر
+    target_type: DerivationTarget   # نوع الهدف الاشتقاقي
+    target_surface: str             # الصورة اللفظية للمشتق
+    target_pattern: str             # الوزن الاشتقاقي
+    derivation_rule_id: str = ""    # معرف قاعدة الاشتقاق
+    confidence: float = 1.0
+
+
+@dataclass
+class FractalMasdarNode:
+    """عقدة المصدر الفراكتالية — fractal node for the masdar constitution.
+
+    The masdar fractal node is the central linking node in the
+    constitutional architecture:
+      Existential being → Masdar bridge → Transformational being
+                                        → Weight fractal → Derivations
+
+    completeness_score evaluates the 8 conditions of the minimal
+    complete threshold (الحد الأدنى المكتمل):
+      1. Thubūt  (الثبوت)    — has a lexical or interpretive form
+      2. Ḥadd    (الحد)      — distinguished from verb, noun, adjective
+      3. Imtidād (الامتداد)  — event, derivational, conceptual extension
+      4. Muqawwim(المقوِّم)   — event core + nominal abstraction + derivability
+      5. ʿAlāqa  (العلاقة)   — links root, pattern, verb, derivatives
+      6. Intiẓām (الانتظام)  — ordered in morpho-semantic network
+      7. Waḥda   (الوحدة)    — forms one event essence
+      8. Taʿyīn  (التعيين)   — assignable as explicit/interpreted masdar
+    """
+
+    node_id: str
+    masdar: MasdarRecord
+    existential_link: str = ""                      # ربط بالكينونة الوجودية (الجامد)
+    transformational_links: List[MasdarDerivation] = field(default_factory=list)
+    fractal_children: List[str] = field(default_factory=list)
+    fractal_depth: int = 0                          # عمق التكرار الذاتي
+    completeness_score: float = 0.0                 # درجة اكتمال الحد الأدنى
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Epistemic Reception Constitution v1 — دستور الاستقبال المعرفي
+# ═══════════════════════════════════════════════════════════════════════
+
+
+@dataclass(frozen=True)
+class SubjectClassification:
+    """تصنيف الموضوع الوارد — incoming subject classified into a genre (Art. 5–10)."""
+
+    classification_id: str
+    genre: SubjectGenre
+    description: str
+    is_closed: bool  # True when genre is determined; False = unclosed material (Art. 10)
+
+
+@dataclass(frozen=True)
+class ReceptionRankRecord:
+    """سجل رتبة التلقي — a reception rank with its layer mapping (Art. 13–14)."""
+
+    rank_id: str
+    rank: ReceptionRank
+    layer: ReceptionLayer
+    description: str
+
+
+@dataclass(frozen=True)
+class CarryingAssignment:
+    """خلية في المصفوفة الدستورية — a single cell in the carrying matrix (Art. 40)."""
+
+    genre: SubjectGenre
+    rank: ReceptionRank
+    mode: CarryingMode
+    qualification: str  # e.g. "أصيل في المحسوس / تبعي في غيره"
+
+
+@dataclass(frozen=True)
+class ReceptionPathRecord:
+    """مسار الاستقبال — a subject's full journey through reception ranks."""
+
+    path_id: str
+    subject: SubjectClassification
+    assignments: Tuple[CarryingAssignment, ...]
+    current_rank: ReceptionRank
+
+
+@dataclass(frozen=True)
+class EpistemicReceptionInput:
+    """مدخل التحقق من الاستقبال المعرفي — input to the reception validator."""
+
+    reception_id: str
+    subject: Optional[SubjectClassification] = None
+    sense_present: bool = False
+    feeling_present: bool = False
+    thought_present: bool = False
+    intention_present: bool = False
+    choice_present: bool = False
+    will_present: bool = False
+    claimed_assignments: Tuple[CarryingAssignment, ...] = ()
+
+
+@dataclass(frozen=True)
+class EpistemicReceptionResult:
+    """نتيجة التحقق من الاستقبال المعرفي — output of the reception validator."""
+
+    reception_id: str
+    outcome: ReceptionValidationOutcome
+    codes: Tuple[ReceptionDecisionCode, ...] = ()
+    corrected_assignments: Tuple[CarryingAssignment, ...] = ()
+    path: Optional[ReceptionPathRecord] = None
+    messages: Tuple[str, ...] = ()
