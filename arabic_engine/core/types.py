@@ -73,6 +73,8 @@ from .enums import (
     OntologicalLayer,
     OntologicalMode,
     OperationalCapacity,
+    ParticleRelationType,
+    ParticleType,
     PathKind,
     PhonCategory,
     PhonFeature,
@@ -2585,3 +2587,93 @@ class LayerTraceRecord:
     layer_6: Optional[RepresentationRecord] = None
     gates: Tuple[TransitionGate, ...] = ()
     final_gate_status: TransitionGateStatus = TransitionGateStatus.INSUFFICIENT_DATA
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Particle Fractal Constitution — باب الحرف الفراكتالي
+# ═══════════════════════════════════════════════════════════════════════
+
+
+@dataclass(frozen=True)
+class ParticleRecord:
+    """سجل الحرف — the formal 5-tuple H = (F, R, S, G, O).
+
+    Represents a particle as a first-class fractal node with:
+
+    * **form** (F) — the lexical/surface form of the particle
+    * **relation_type** (R) — the relational function it carries
+    * **scope** (S) — the operational scope (what it governs)
+    * **direction** (G) — the general semantic orientation/direction (الجهة)
+    * **effect** (O) — the expected syntactic effect
+    """
+
+    form: str                                  # الصورة اللفظية
+    particle_type: ParticleType                # نوع الحرف
+    relation_type: ParticleRelationType        # نوع العلاقة
+    scope: str                                 # مجال العمل
+    direction: str                             # الجهة العامة
+    effect: str                                # الأثر التركيبي المتوقع
+
+
+@dataclass(frozen=True)
+class ParticleFractalScore:
+    """نتيجة الاكتمال الفراكتالي — fractal completeness score FH(H).
+
+    Implements the 6-stage fractal law:
+        تعيين → حفظ → ربط → حكم → انتقال → رد
+
+    Each stage is scored in [0.0, 1.0].  The ``fractal_score`` is the
+    arithmetic mean of the six stages.  A particle is a valid fractal
+    node when ``fractal_score >= theta``.
+    """
+
+    identification: float    # Id — التعيين: can the particle type be determined?
+    preservation: float      # Pr — الحفظ: does it retain identity across contexts?
+    binding: float           # Rb — الربط: does it bind / direct / restrict?
+    judgment: float          # Jd — الحكم: can we judge type, scope, conditions?
+    transition: float        # Tr — الانتقال: does it open / restrict / redirect?
+    return_trace: float      # Rc — الرد: can its syntactic effect be traced back?
+
+    @property
+    def fractal_score(self) -> float:
+        """FH(H) = (Id + Pr + Rb + Jd + Tr + Rc) / 6."""
+        return (
+            self.identification
+            + self.preservation
+            + self.binding
+            + self.judgment
+            + self.transition
+            + self.return_trace
+        ) / 6.0
+
+
+@dataclass(frozen=True)
+class ParticleMinimalCompleteness:
+    """الحد الأدنى المكتمل — the 8 conditions of minimal completeness.
+
+    A particle is accepted as a valid epistemic singular only when
+    **all eight** conditions hold.
+    """
+
+    existence: bool           # ثبوت           — is it attested?
+    boundary: bool            # حد             — is it distinct from other particles?
+    extension: bool           # امتداد          — phonological / written / functional reach?
+    constituent: bool         # مقوّم           — form + relational meaning + scope?
+    structural_relation: bool  # علاقة بنائية   — is its essence relational?
+    regularity: bool          # انتظام          — does it follow patterns?
+    unity: bool               # وحدة           — does it form a single functional unit?
+    assignability: bool       # قابلية التعيين  — can it be classified?
+
+    @property
+    def is_complete(self) -> bool:
+        """True iff all 8 conditions are satisfied."""
+        return (
+            self.existence
+            and self.boundary
+            and self.extension
+            and self.constituent
+            and self.structural_relation
+            and self.regularity
+            and self.unity
+            and self.assignability
+        )

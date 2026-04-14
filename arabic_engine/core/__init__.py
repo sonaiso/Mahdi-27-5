@@ -381,6 +381,14 @@ from .enums import (
     ValidationState as ValidationState,
 )
 
+# ── Particle Fractal Constitution enum re-exports ───────────────────
+from .enums import (
+    ParticleRelationType as ParticleRelationType,
+)
+from .enums import (
+    ParticleType as ParticleType,
+)
+
 # ── Kernel re-exports ───────────────────────────────────────────────
 from .kernel import (
     KERNEL_RELATION_PAIRS as KERNEL_RELATION_PAIRS,
@@ -730,6 +738,17 @@ from .types import (
     ZeroSlotRecord as ZeroSlotRecord,
 )
 
+# ── Particle Fractal Constitution type re-exports ───────────────────
+from .types import (
+    ParticleFractalScore as ParticleFractalScore,
+)
+from .types import (
+    ParticleMinimalCompleteness as ParticleMinimalCompleteness,
+)
+from .types import (
+    ParticleRecord as ParticleRecord,
+)
+
 __all__ = [
     # ── enums ───────────────────────────────────────────────────────
     "POS",
@@ -836,6 +855,9 @@ __all__ = [
     "UtteredFormClass",
     "ValidationOutcome",
     "ValidationState",
+    # ── Particle Fractal Constitution enums ────────────────────────
+    "ParticleRelationType",
+    "ParticleType",
     # ── Fractal Kernel enums ───────────────────────────────────────
     "ActivationStage",
     "ConflictState",
@@ -937,6 +959,10 @@ __all__ = [
     "ValidationResult",
     "WorldFact",
     "ZeroSlotRecord",
+    # ── Particle Fractal Constitution types ────────────────────────
+    "ParticleFractalScore",
+    "ParticleMinimalCompleteness",
+    "ParticleRecord",
     # ── Fractal Kernel types ───────────────────────────────────────
     "ActivationRecord",
     "ConflictEdge",

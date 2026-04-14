@@ -1,0 +1,314 @@
+[
+  {
+    "form": "في",
+    "particle_type": "JARR",
+    "relation_type": "RESTRICTION",
+    "direction": "ظرفية",
+    "scope": "noun",
+    "effect": "jarr"
+  },
+  {
+    "form": "من",
+    "particle_type": "JARR",
+    "relation_type": "DIRECTION",
+    "direction": "ابتداء",
+    "scope": "noun",
+    "effect": "jarr"
+  },
+  {
+    "form": "إلى",
+    "particle_type": "JARR",
+    "relation_type": "DIRECTION",
+    "direction": "انتهاء",
+    "scope": "noun",
+    "effect": "jarr"
+  },
+  {
+    "form": "على",
+    "particle_type": "JARR",
+    "relation_type": "RESTRICTION",
+    "direction": "استعلاء",
+    "scope": "noun",
+    "effect": "jarr"
+  },
+  {
+    "form": "عن",
+    "particle_type": "JARR",
+    "relation_type": "DIRECTION",
+    "direction": "مجاوزة",
+    "scope": "noun",
+    "effect": "jarr"
+  },
+  {
+    "form": "ب",
+    "particle_type": "JARR",
+    "relation_type": "RESTRICTION",
+    "direction": "إلصاق",
+    "scope": "noun",
+    "effect": "jarr"
+  },
+  {
+    "form": "ل",
+    "particle_type": "JARR",
+    "relation_type": "RESTRICTION",
+    "direction": "ملك",
+    "scope": "noun",
+    "effect": "jarr"
+  },
+  {
+    "form": "ك",
+    "particle_type": "JARR",
+    "relation_type": "RESTRICTION",
+    "direction": "تشبيه",
+    "scope": "noun",
+    "effect": "jarr"
+  },
+  {
+    "form": "حتى",
+    "particle_type": "JARR",
+    "relation_type": "DIRECTION",
+    "direction": "غاية",
+    "scope": "noun",
+    "effect": "jarr"
+  },
+  {
+    "form": "منذ",
+    "particle_type": "JARR",
+    "relation_type": "DIRECTION",
+    "direction": "ابتداء_زمني",
+    "scope": "noun",
+    "effect": "jarr"
+  },
+  {
+    "form": "مذ",
+    "particle_type": "JARR",
+    "relation_type": "DIRECTION",
+    "direction": "ابتداء_زمني",
+    "scope": "noun",
+    "effect": "jarr"
+  },
+  {
+    "form": "و",
+    "particle_type": "ATF",
+    "relation_type": "BINDING",
+    "direction": "جمع",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "ف",
+    "particle_type": "ATF",
+    "relation_type": "BINDING",
+    "direction": "تعقيب",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "ثم",
+    "particle_type": "ATF",
+    "relation_type": "BINDING",
+    "direction": "تراخي",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "أو",
+    "particle_type": "ATF",
+    "relation_type": "BINDING",
+    "direction": "تخيير",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "أم",
+    "particle_type": "ATF",
+    "relation_type": "BINDING",
+    "direction": "معادلة",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "بل",
+    "particle_type": "ATF",
+    "relation_type": "BINDING",
+    "direction": "إضراب",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "لكن",
+    "particle_type": "ATF",
+    "relation_type": "BINDING",
+    "direction": "استدراك",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "لا",
+    "particle_type": "NAFY",
+    "relation_type": "NEGATION",
+    "direction": "نفي",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "لم",
+    "particle_type": "NAFY",
+    "relation_type": "NEGATION",
+    "direction": "نفي_ماضي",
+    "scope": "verb",
+    "effect": "jazm"
+  },
+  {
+    "form": "لن",
+    "particle_type": "NAFY",
+    "relation_type": "NEGATION",
+    "direction": "نفي_مستقبل",
+    "scope": "verb",
+    "effect": "nasb"
+  },
+  {
+    "form": "ما",
+    "particle_type": "NAFY",
+    "relation_type": "NEGATION",
+    "direction": "نفي",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "إن",
+    "particle_type": "SHART",
+    "relation_type": "SUSPENSION",
+    "direction": "شرط",
+    "scope": "clause",
+    "effect": "jazm"
+  },
+  {
+    "form": "لو",
+    "particle_type": "SHART",
+    "relation_type": "SUSPENSION",
+    "direction": "امتناع",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "إذا",
+    "particle_type": "SHART",
+    "relation_type": "SUSPENSION",
+    "direction": "شرط_زمني",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "هل",
+    "particle_type": "ISTIFHAM",
+    "relation_type": "INTERROGATION",
+    "direction": "استفهام",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "أ",
+    "particle_type": "ISTIFHAM",
+    "relation_type": "INTERROGATION",
+    "direction": "استفهام",
+    "scope": "clause",
+    "effect": "none"
+  },
+  {
+    "form": "إنّ",
+    "particle_type": "MASHABBAH",
+    "relation_type": "TRANSFORMATION",
+    "direction": "توكيد",
+    "scope": "clause",
+    "effect": "nasb"
+  },
+  {
+    "form": "أنّ",
+    "particle_type": "MASHABBAH",
+    "relation_type": "TRANSFORMATION",
+    "direction": "توكيد",
+    "scope": "clause",
+    "effect": "nasb"
+  },
+  {
+    "form": "لكنّ",
+    "particle_type": "MASHABBAH",
+    "relation_type": "TRANSFORMATION",
+    "direction": "استدراك",
+    "scope": "clause",
+    "effect": "nasb"
+  },
+  {
+    "form": "كأنّ",
+    "particle_type": "MASHABBAH",
+    "relation_type": "TRANSFORMATION",
+    "direction": "تشبيه",
+    "scope": "clause",
+    "effect": "nasb"
+  },
+  {
+    "form": "ليت",
+    "particle_type": "MASHABBAH",
+    "relation_type": "TRANSFORMATION",
+    "direction": "تمني",
+    "scope": "clause",
+    "effect": "nasb"
+  },
+  {
+    "form": "لعل",
+    "particle_type": "MASHABBAH",
+    "relation_type": "TRANSFORMATION",
+    "direction": "ترجي",
+    "scope": "clause",
+    "effect": "nasb"
+  },
+  {
+    "form": "يا",
+    "particle_type": "NIDA",
+    "relation_type": "DIRECTION",
+    "direction": "نداء",
+    "scope": "noun",
+    "effect": "nasb"
+  },
+  {
+    "form": "أيّها",
+    "particle_type": "NIDA",
+    "relation_type": "DIRECTION",
+    "direction": "نداء",
+    "scope": "noun",
+    "effect": "nasb"
+  },
+  {
+    "form": "أيّتها",
+    "particle_type": "NIDA",
+    "relation_type": "DIRECTION",
+    "direction": "نداء",
+    "scope": "noun",
+    "effect": "nasb"
+  },
+  {
+    "form": "قد",
+    "particle_type": "TAWKID",
+    "relation_type": "TRANSFORMATION",
+    "direction": "تحقيق",
+    "scope": "verb",
+    "effect": "none"
+  },
+  {
+    "form": "سوف",
+    "particle_type": "TANFIS",
+    "relation_type": "DIRECTION",
+    "direction": "استقبال",
+    "scope": "verb",
+    "effect": "none"
+  },
+  {
+    "form": "لمّا",
+    "particle_type": "JAZM",
+    "relation_type": "NEGATION",
+    "direction": "نفي_مستمر",
+    "scope": "verb",
+    "effect": "jazm"
+  }
+]

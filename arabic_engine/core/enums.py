@@ -1640,6 +1640,7 @@ class ActivationStage(Enum):
     SIGNAL = auto()
     MORPHOLOGY = auto()
     CONCEPT = auto()
+    PARTICLE = auto()
     AXIS = auto()
     RELATION = auto()
     ROLE = auto()
@@ -1860,3 +1861,44 @@ class TransitionGateStatus(Enum):
     PASSED = auto()
     BLOCKED = auto()
     INSUFFICIENT_DATA = auto()
+
+
+# ── Particle Fractal Constitution enums ─────────────────────────────
+
+
+class ParticleType(Enum):
+    """نوع الحرف — particle type classification (باب الحرف الفراكتالي).
+
+    Comprehensive classification of Arabic particles (حروف) covering
+    all functional categories that carry relational, directional,
+    negational, conditional, interrogative, or transformational meaning.
+    """
+
+    JARR = auto()       # جر         — prepositions (في، من، إلى، على، عن، ب، ل، ك)
+    ATF = auto()        # عطف        — conjunctions (و، ف، ثم، أو، أم، بل، لكن)
+    NAFY = auto()       # نفي        — negation (لا، لم، لن، ما)
+    SHART = auto()      # شرط        — conditional (إن، لو، إذا)
+    ISTIFHAM = auto()   # استفهام     — interrogative (هل، أ)
+    IBTIDA = auto()     # ابتداء      — inception / beginning marker
+    GHAYA = auto()      # غاية       — goal / terminus (إلى، حتى)
+    MASHABBAH = auto()  # مشبه بالفعل — verb-like particles (إنّ، أنّ، لكنّ، كأنّ، ليت، لعل)
+    NIDA = auto()       # نداء       — vocative (يا، أيّها)
+    TAWKID = auto()     # توكيد      — emphasis (إنّ، قد، لـ)
+    TANFIS = auto()     # تنفيس      — future marker (سـ، سوف)
+    JAZM = auto()       # جزم        — jussive (لم، لمّا، لا الناهية)
+
+
+class ParticleRelationType(Enum):
+    """نوع العلاقة الحرفية — the relational function a particle establishes.
+
+    Every particle (حرف) carries a relational meaning (معنى نسبي)
+    that falls into one of these functional categories.
+    """
+
+    BINDING = auto()         # ربط        — connects two elements
+    RESTRICTION = auto()     # تقييد      — restricts / qualifies scope
+    DIRECTION = auto()       # توجيه      — directs a relation (beginning / end)
+    NEGATION = auto()        # نفي        — negates
+    SUSPENSION = auto()      # تعليق      — conditionally suspends judgment
+    INTERROGATION = auto()   # استفهام     — opens a question
+    TRANSFORMATION = auto()  # تحويل      — transforms grammatical state
