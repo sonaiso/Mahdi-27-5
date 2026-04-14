@@ -11,15 +11,13 @@ validate_all                    Run all applicable rules.
 
 from __future__ import annotations
 
-from typing import Any, List, Optional, Tuple, Union
+from typing import List, Optional, Tuple, Union
 
 from arabic_engine.core.enums import (
     POS,
     IndependenceType,
     JamidDerivedType,
     LexemeLayer,
-    MatchingMode,
-    VerbActionType,
 )
 from arabic_engine.core.types import (
     CompositionReadyNode,

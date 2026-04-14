@@ -19,7 +19,7 @@ from __future__ import annotations
 
 from typing import Optional, Tuple, Union
 
-from arabic_engine.core.enums import POS, LexemeLayer
+from arabic_engine.core.enums import LexemeLayer
 from arabic_engine.core.types import (
     BareLexicalMaterial,
     ClosedTemplateNode,

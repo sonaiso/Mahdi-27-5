@@ -89,3 +89,33 @@ Only minimum fields are required; anything else is optional metadata.
   operational layers.
 - They are interpreted as **derived/application layers** over the kernel, not
   additional ontological roots.
+
+## 6) Rational Self Ontology v1 Extensions
+
+### New Kernel Relations
+
+Two new relations extend the Self node's capabilities:
+
+- `(:Self)-[:DESIGNATES]->(:Concept)` — The rational self designates
+  (perceives/names) lexemes as concept instances.
+- `(:Self)-[:INTENDS_COMPOSITION]->(:Concept)` — The rational self intends
+  to compose lexemes into larger structures.
+
+### Self Node Extended Fields
+
+The `Self` node in Neo4j now supports:
+
+- `perception_mode` (NOT NULL) — The self's perception mode (بصري/سمعي/…)
+- `judgment_capacity` (NOT NULL) — The self's judgement capacity [0, 1]
+
+### Relationship to Lexeme Epistemic Core
+
+The `RationalSelfRecord` dataclass bridges the Self kernel node to the
+Lexeme Epistemic Core module. It provides the epistemic agent model that
+drives the chain:
+
+```
+perception → designation → classification → judgement → composition
+```
+
+See `docs/rational_self_ontology_v1.md` for the complete specification.

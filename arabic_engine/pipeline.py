@@ -25,7 +25,6 @@ from arabic_engine.core.enums import (
     ValidationState,
 )
 from arabic_engine.core.types import (
-    ClosedTemplateNode,
     CompositionReadyNode,
     Concept,
     ConceptNode,
@@ -45,8 +44,6 @@ from arabic_engine.core.types import (
     LinkingTraceRecord,
     LinkOperation,
     MethodRecord,
-    NounNode,
-    ParticleNode,
     PerceptTrace,
     PriorInfoRecord,
     PriorKnowledgeUnit,
@@ -57,19 +54,17 @@ from arabic_engine.core.types import (
     SyntaxNode,
     TimeSpaceTag,
     UtteranceRecord,
-    VerbNode,
     WeightNode,
 )
+from arabic_engine.lexeme.composition_gate import check_composition_readiness
+from arabic_engine.lexeme.lexeme_builder import build_lexeme
+from arabic_engine.lexeme.weight import extract_weight
 from arabic_engine.linkage.dalala import full_validation
 from arabic_engine.linkage.semantic_roles import derive_semantic_roles
 from arabic_engine.signified.ontology import batch_map
 from arabic_engine.signifier.root_pattern import batch_closure
 from arabic_engine.signifier.unicode_norm import normalize, tokenize
 from arabic_engine.syntax.syntax import analyse as syntax_analyse
-from arabic_engine.lexeme.weight import extract_weight
-from arabic_engine.lexeme.lexeme_builder import build_lexeme
-from arabic_engine.lexeme.pos_finalization import auto_finalize
-from arabic_engine.lexeme.composition_gate import check_composition_readiness
 
 # ── Pipeline result ─────────────────────────────────────────────────
 

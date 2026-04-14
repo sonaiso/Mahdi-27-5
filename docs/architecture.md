@@ -239,3 +239,37 @@ It validates:
    * `tests/`
    * `docs/`
    * `db/`
+
+---
+
+## Lexeme Epistemic Core (Rational Self Ontology v1)
+
+Between Lexical Closure (L2) and Syntax (L3), the pipeline now includes
+a **Lexeme Epistemic Core** that implements the formal model of the single
+word (المفرد اللفظي) as an epistemic unit before composition.
+
+### Key Components
+
+- **Weight Engine** (`lexeme/weight.py`): Extracts the structural weight/pattern
+  (الوزن) from root + surface, scoring completeness and recoverability.
+- **Lexeme Builder** (`lexeme/lexeme_builder.py`): Constructs a formal
+  `LexemeNode` from `LexicalClosure` + `WeightNode`.
+- **POS Finalisation** (`lexeme/pos_finalization.py`): Transforms a generic
+  lexeme into `NounNode`, `VerbNode`, or `ParticleNode`.
+- **Composition Gate** (`lexeme/composition_gate.py`): Ensures no lexeme enters
+  the syntax layer without POS + concept type + weight/template.
+- **Validation** (`lexeme/validation.py`): 12 rules (RS-01 … RS-12) that must
+  hold before composition.
+- **Recovery** (`lexeme/recovery.py`): 6 rules (RR-01 … RR-06) ensuring every
+  node can be traced back to its source layer.
+- **Rational Self Bridge** (`lexeme/rational_self.py`): Connects the
+  `RationalSelfRecord` (the epistemic agent) to the lexeme pipeline.
+
+### Non-Breakable Chain
+
+```
+Unicode → Grapheme → Phono → Haraka → Bare Material
+→ Root/Weight → Lexeme → Concept Type → POS Final → Composition Ready
+```
+
+See `docs/rational_self_ontology_v1.md` for the full formal specification.

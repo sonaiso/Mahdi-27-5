@@ -53,6 +53,7 @@ from .enums import (
     GapSeverity,
     GuidanceState,
     HypothesisStatus,
+    IndependenceType,
     InfoKind,
     InsertionPolicy,
     InstitutionalCategory,
@@ -60,10 +61,13 @@ from .enums import (
     InterpretiveStability,
     IrabCase,
     IrabRole,
+    JamidDerivedType,
     JudgementType,
     JudgmentCategory,
+    LexemeLayer,
     LinkKind,
     MafhumType,
+    MatchingMode,
     MentalIntentionalType,
     MetaConceptualLevel,
     MethodFamily,
@@ -73,11 +77,13 @@ from .enums import (
     OntologicalLayer,
     OntologicalMode,
     OperationalCapacity,
+    ParticleRelationType,
     PathKind,
     PhonCategory,
     PhonFeature,
     PhonGroup,
     PhonTransform,
+    ProductivityMode,
     ProofPathKind,
     ProofStatus,
     PurposeType,
@@ -89,6 +95,7 @@ from .enums import (
     ReceiverState,
     ReceptionMode,
     ReceptionStateType,
+    ReferentialMode,
     ReversibleValue,
     RevisionType,
     SalienceLevel,
@@ -122,15 +129,6 @@ from .enums import (
     UtteredFormClass,
     ValidationOutcome,
     ValidationState,
-    CompositionReadiness,
-    IndependenceType,
-    JamidDerivedType,
-    LexemeEdgeType,
-    LexemeLayer,
-    MatchingMode,
-    ParticleRelationType,
-    ProductivityMode,
-    ReferentialMode,
     VerbActionType,
     WeightTemplateType,
 )
@@ -2720,8 +2718,8 @@ class CompositionReadyNode:
 
 
 @dataclass(frozen=True)
-class RationalSelfRecord:
-    """سجل الذات العاقلة — extended self model.
+class RationalSelfExtendedRecord:
+    """سجل الذات العاقلة الموسع — extended self model for Lexeme Epistemic Core.
 
     The rational self is the epistemic agent that drives the chain:
     perception → designation → classification → judgement → composition.

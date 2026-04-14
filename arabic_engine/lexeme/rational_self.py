@@ -3,7 +3,7 @@
 The rational self is the epistemic agent that drives the chain:
 perception → designation → classification → judgement → composition.
 
-This module provides the bridge between the :class:`RationalSelfRecord`
+This module provides the bridge between the :class:`RationalSelfExtendedRecord`
 and the lexeme construction pipeline.
 
 Public API
@@ -18,13 +18,13 @@ from __future__ import annotations
 
 from typing import Optional
 
-from arabic_engine.core.enums import POS, LexemeLayer
+from arabic_engine.core.enums import LexemeLayer
 from arabic_engine.core.types import (
     BareLexicalMaterial,
     CompositionReadyNode,
     LexemeNode,
     LexicalClosure,
-    RationalSelfRecord,
+    RationalSelfExtendedRecord,
     WeightNode,
 )
 from arabic_engine.lexeme.composition_gate import check_composition_readiness
@@ -33,7 +33,7 @@ from arabic_engine.lexeme.weight import extract_weight
 
 
 def self_perceives_material(
-    self_record: RationalSelfRecord,
+    self_record: RationalSelfExtendedRecord,
     material: str,
 ) -> BareLexicalMaterial:
     """Self perceives raw Unicode/text as bare material.
@@ -44,7 +44,7 @@ def self_perceives_material(
 
     Parameters
     ----------
-    self_record : RationalSelfRecord
+    self_record : RationalSelfExtendedRecord
         The rational self performing perception.
     material : str
         The raw text to perceive.
@@ -61,7 +61,7 @@ def self_perceives_material(
 
 
 def self_identifies_weight(
-    self_record: RationalSelfRecord,
+    self_record: RationalSelfExtendedRecord,
     material: BareLexicalMaterial,
     root: tuple[str, ...] = (),
     pattern: str = "",
@@ -73,7 +73,7 @@ def self_identifies_weight(
 
     Parameters
     ----------
-    self_record : RationalSelfRecord
+    self_record : RationalSelfExtendedRecord
         The rational self performing recognition.
     material : BareLexicalMaterial
         The bare material to analyse.
@@ -93,7 +93,7 @@ def self_identifies_weight(
 
 
 def self_builds_lexeme(
-    self_record: RationalSelfRecord,
+    self_record: RationalSelfExtendedRecord,
     closure: LexicalClosure,
     weight: Optional[WeightNode] = None,
 ) -> LexemeNode:
@@ -101,7 +101,7 @@ def self_builds_lexeme(
 
     Parameters
     ----------
-    self_record : RationalSelfRecord
+    self_record : RationalSelfExtendedRecord
         The rational self performing construction.
     closure : LexicalClosure
         The morphological record.
@@ -116,14 +116,14 @@ def self_builds_lexeme(
 
 
 def self_prepares_composition(
-    self_record: RationalSelfRecord,
+    self_record: RationalSelfExtendedRecord,
     lexeme: LexemeNode,
 ) -> CompositionReadyNode:
     """Self prepares a lexeme for composition.
 
     Parameters
     ----------
-    self_record : RationalSelfRecord
+    self_record : RationalSelfExtendedRecord
         The rational self.
     lexeme : LexemeNode
         The lexeme to prepare.
