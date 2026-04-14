@@ -190,6 +190,9 @@ layers:
       - "fractal_tree contains exactly 6 phases"
       - "completeness_score in [0, 1]"
       - "is_closed iff completeness_score >= 0.75"
+      - "mwc_score.aggregate >= 0 when present"
+      - "fractal_score.aggregate >= 0 when present"
+      - "validation.status in {ACCEPTED, REJECTED, DEFICIENT} when present"
 
   # ── Mufrad Closure (إقفال اللفظ المفرد) ──────────────────────────
   - name: mufrad_closure

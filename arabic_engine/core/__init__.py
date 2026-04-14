@@ -403,6 +403,24 @@ from .enums import (
 from .enums import (
     WeightFractalPhase as WeightFractalPhase,
 )
+from .enums import (
+    WeightKind as WeightKind,
+)
+from .enums import (
+    WeightPossibilityDimension as WeightPossibilityDimension,
+)
+from .enums import (
+    WeightValidationStatus as WeightValidationStatus,
+)
+from .enums import (
+    ThulathiBab as ThulathiBab,
+)
+from .enums import (
+    AugmentedSemanticLayer as AugmentedSemanticLayer,
+)
+from .enums import (
+    NasikhCategory as NasikhCategory,
+)
 
 # ── Kernel re-exports ───────────────────────────────────────────────
 from .kernel import (
@@ -776,6 +794,27 @@ from .types import (
     WeightProfile as WeightProfile,
 )
 from .types import (
+    WeightFormalTuple as WeightFormalTuple,
+)
+from .types import (
+    VerbDoor as VerbDoor,
+)
+from .types import (
+    WeightPossibilityResult as WeightPossibilityResult,
+)
+from .types import (
+    WeightMWCScore as WeightMWCScore,
+)
+from .types import (
+    WeightFractalScore as WeightFractalScore,
+)
+from .types import (
+    WeightDirectionSuitability as WeightDirectionSuitability,
+)
+from .types import (
+    WeightValidationResult as WeightValidationResult,
+)
+from .types import (
     WorldFact as WorldFact,
 )
 from .types import (
@@ -896,6 +935,12 @@ __all__ = [
     "WeightCarryingMode",
     "WeightClass",
     "WeightFractalPhase",
+    "WeightKind",
+    "WeightPossibilityDimension",
+    "WeightValidationStatus",
+    "ThulathiBab",
+    "AugmentedSemanticLayer",
+    "NasikhCategory",
     # ── Fractal Kernel enums ───────────────────────────────────────
     "ActivationStage",
     "ConflictState",
@@ -1043,4 +1088,11 @@ __all__ = [
     "WeightFractalNode",
     "WeightFractalResult",
     "WeightProfile",
+    "WeightFormalTuple",
+    "VerbDoor",
+    "WeightPossibilityResult",
+    "WeightMWCScore",
+    "WeightFractalScore",
+    "WeightDirectionSuitability",
+    "WeightValidationResult",
 ]

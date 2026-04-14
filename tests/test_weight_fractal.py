@@ -9,6 +9,15 @@ Covers:
 * Full weight fractal run
 * Weight classes
 * Fractal phases
+* Formal tuple (Art. 59)
+* Weight possibility (Art. 9–17)
+* Minimum weight completeness (Art. 18–26)
+* Fractal score (Art. 27–34)
+* Direction suitability (Art. 35–42)
+* Verb doors (Art. 43–46)
+* Augmented weight validation (Art. 47–50)
+* Weight acceptance/rejection (Art. 63–64)
+* Expanded run_weight_fractal integration
 """
 
 from __future__ import annotations
@@ -19,24 +28,44 @@ from arabic_engine.core.enums import (
     POS,
     DerivationalDirection,
     SemanticDirectionGenus,
+    ThulathiBab,
     WeightCarryingMode,
     WeightClass,
     WeightFractalPhase,
+    WeightKind,
+    WeightValidationStatus,
 )
 from arabic_engine.core.types import (
     LexicalClosure,
     SemanticDirection,
+    VerbDoor,
     WeightDirectionMapping,
+    WeightDirectionSuitability,
+    WeightFormalTuple,
     WeightFractalResult,
+    WeightFractalScore,
+    WeightMWCScore,
+    WeightPossibilityResult,
     WeightProfile,
+    WeightValidationResult,
 )
 from arabic_engine.signifier.weight_fractal import (
+    THETA_1,
+    THETA_2,
+    build_formal_tuple,
     build_fractal_tree,
     build_weight_direction_map,
     check_weight_carrying,
+    classify_verb_door,
     classify_weight,
+    compute_fractal_score,
+    compute_mwc,
+    evaluate_direction_suitability,
     run_weight_fractal,
+    validate_augmented_weight,
+    validate_weight_acceptance,
     validate_weight_non_arbitrariness,
+    validate_weight_possibility,
 )
 
 # ── Helpers ─────────────────────────────────────────────────────────
@@ -111,6 +140,15 @@ class TestClassifyWeight:
     def test_noun_genus(self):
         p = classify_weight("فَعْل", pos=POS.ISM)
         assert p.semantic_direction == SemanticDirectionGenus.WUJUD
+
+    def test_weight_kind_productive(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        assert p.weight_kind == WeightKind.PRODUCTIVE
+
+    def test_formal_tuple_present(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        assert p.formal_tuple is not None
+        assert isinstance(p.formal_tuple, WeightFormalTuple)
 
 
 # ── Weight direction mapping ────────────────────────────────────────
@@ -263,3 +301,376 @@ class TestRunWeightFractal:
         cl = _closure(surface="ضَرَبَ", lemma="ضَرَبَ", pos=POS.FI3L, pattern="فَعَلَ")
         result = run_weight_fractal(cl)
         assert result.base_weight.semantic_direction == SemanticDirectionGenus.HADATH
+
+
+# ══════════════════════════════════════════════════════════════════════
+# Expanded Constitution Tests (Art. 4–66)
+# ══════════════════════════════════════════════════════════════════════
+
+
+# ── Formal tuple (Art. 59) ──────────────────────────────────────────
+
+
+class TestBuildFormalTuple:
+    """Tests for build_formal_tuple()."""
+
+    def test_returns_formal_tuple(self):
+        ft = build_formal_tuple("فَعْل", radical_count=3)
+        assert isinstance(ft, WeightFormalTuple)
+
+    def test_root_positions(self):
+        ft = build_formal_tuple("فَعْل", radical_count=3)
+        assert ft.root_positions == (1, 2, 3)
+
+    def test_root_positions_quadrilateral(self):
+        ft = build_formal_tuple("فَعلَل", radical_count=4)
+        assert ft.root_positions == (1, 2, 3, 4)
+
+    def test_syllable_structure_present(self):
+        ft = build_formal_tuple("فَعْل", radical_count=3)
+        assert len(ft.syllable_structure) > 0
+
+    def test_carrying_capacity_non_empty(self):
+        ft = build_formal_tuple("فَعْل", radical_count=3)
+        assert len(ft.carrying_capacity) > 0
+
+
+# ── Weight possibility (Art. 9–17) ─────────────────────────────────
+
+
+class TestWeightPossibility:
+    """Tests for validate_weight_possibility()."""
+
+    def test_returns_result(self):
+        p = classify_weight("فَعْل")
+        r = validate_weight_possibility(p)
+        assert isinstance(r, WeightPossibilityResult)
+
+    def test_structural_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        r = validate_weight_possibility(p)
+        assert r.structural == 1.0
+
+    def test_syllabic_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        r = validate_weight_possibility(p)
+        assert r.syllabic == 1.0
+
+    def test_morphological_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        r = validate_weight_possibility(p)
+        assert r.morphological == 1.0
+
+    def test_semantic_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        r = validate_weight_possibility(p)
+        assert r.semantic == 1.0
+
+    def test_generative_score_productive(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        r = validate_weight_possibility(p)
+        assert r.generative == 1.0
+
+    def test_traceback_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        r = validate_weight_possibility(p)
+        assert r.traceback == 1.0
+
+    def test_aggregate_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        r = validate_weight_possibility(p)
+        assert 0.0 < r.aggregate <= 1.0
+
+
+# ── Minimum Weight Completeness (Art. 18–26) ───────────────────────
+
+
+class TestWeightMWC:
+    """Tests for compute_mwc()."""
+
+    def test_returns_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        m = compute_mwc(p)
+        assert isinstance(m, WeightMWCScore)
+
+    def test_stability_productive(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        m = compute_mwc(p)
+        assert m.stability == 1.0
+
+    def test_boundary_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        m = compute_mwc(p)
+        assert m.boundary == 1.0
+
+    def test_constituent_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        m = compute_mwc(p)
+        assert m.constituent == 1.0
+
+    def test_regularity_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        m = compute_mwc(p)
+        assert m.regularity == 1.0
+
+    def test_unity_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        m = compute_mwc(p)
+        assert m.unity == 1.0
+
+    def test_assignability_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        m = compute_mwc(p)
+        assert m.assignability == 1.0
+
+    def test_aggregate_above_theta_1(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        m = compute_mwc(p)
+        assert m.aggregate >= THETA_1
+
+
+# ── Fractal score (Art. 27–34) ──────────────────────────────────────
+
+
+class TestWeightFractalScore:
+    """Tests for compute_fractal_score()."""
+
+    def test_returns_score(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        f = compute_fractal_score(p)
+        assert isinstance(f, WeightFractalScore)
+
+    def test_identification(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        f = compute_fractal_score(p)
+        assert f.identification == 1.0
+
+    def test_preservation(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        f = compute_fractal_score(p)
+        assert f.preservation == 1.0
+
+    def test_linkage(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        f = compute_fractal_score(p)
+        assert f.linkage == 1.0
+
+    def test_judgement(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        f = compute_fractal_score(p)
+        assert f.judgement == 1.0
+
+    def test_transition(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        f = compute_fractal_score(p)
+        assert f.transition == 1.0
+
+    def test_aggregate_above_theta_2(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        f = compute_fractal_score(p)
+        assert f.aggregate >= THETA_2
+
+
+# ── Direction suitability (Art. 35–42) ──────────────────────────────
+
+
+class TestWeightDirectionSuitability:
+    """Tests for evaluate_direction_suitability()."""
+
+    def test_returns_suitability(self):
+        p = classify_weight("فَعْل")
+        d = _direction(deriv=DerivationalDirection.MASDAR)
+        s = evaluate_direction_suitability(p, d)
+        assert isinstance(s, WeightDirectionSuitability)
+
+    def test_permitted_direction_carries(self):
+        p = classify_weight("فَعْل")
+        d = _direction(deriv=DerivationalDirection.MASDAR)
+        s = evaluate_direction_suitability(p, d)
+        assert s.carries is True
+
+    def test_prohibited_direction_does_not_carry(self):
+        p = classify_weight("فَعْل")
+        d = _direction(deriv=DerivationalDirection.ISM_FA3IL)
+        s = evaluate_direction_suitability(p, d)
+        assert s.carries is False
+
+    def test_aggregate_range(self):
+        p = classify_weight("فَعْل")
+        d = _direction(deriv=DerivationalDirection.MASDAR)
+        s = evaluate_direction_suitability(p, d)
+        assert 0.0 <= s.aggregate <= 1.0
+
+    def test_structural_suitability_from_matrix(self):
+        p = classify_weight("فَعْل")
+        d = _direction(deriv=DerivationalDirection.MASDAR)
+        s = evaluate_direction_suitability(p, d)
+        assert s.structural_suitability > 0
+
+
+# ── Verb doors (Art. 43–46) ─────────────────────────────────────────
+
+
+class TestVerbDoors:
+    """Tests for classify_verb_door()."""
+
+    def test_fa3ala_yaf3ulu(self):
+        door = classify_verb_door("فَعَلَ", "يَفْعُلُ")
+        assert door is not None
+        assert door.bab == ThulathiBab.FA3ALA_YAF3ULU
+
+    def test_fa3ala_yaf3ilu(self):
+        door = classify_verb_door("فَعَلَ", "يَفْعِلُ")
+        assert door is not None
+        assert door.bab == ThulathiBab.FA3ALA_YAF3ILU
+
+    def test_fa3ala_yaf3alu(self):
+        door = classify_verb_door("فَعَلَ", "يَفْعَلُ")
+        assert door is not None
+        assert door.bab == ThulathiBab.FA3ALA_YAF3ALU
+
+    def test_fa3ila_yaf3alu(self):
+        door = classify_verb_door("فَعِلَ", "يَفْعَلُ")
+        assert door is not None
+        assert door.bab == ThulathiBab.FA3ILA_YAF3ALU
+
+    def test_fa3ula_yaf3ulu(self):
+        door = classify_verb_door("فَعُلَ", "يَفْعُلُ")
+        assert door is not None
+        assert door.bab == ThulathiBab.FA3ULA_YAF3ULU
+
+    def test_unknown_door_returns_none(self):
+        door = classify_verb_door("xxx", "yyy")
+        assert door is None
+
+    def test_returns_verb_door_type(self):
+        door = classify_verb_door("فَعَلَ", "يَفْعُلُ")
+        assert isinstance(door, VerbDoor)
+
+    def test_has_example(self):
+        door = classify_verb_door("فَعَلَ", "يَفْعُلُ")
+        assert door is not None
+        assert len(door.example_root) > 0
+
+
+# ── Augmented weight validation (Art. 47–50) ────────────────────────
+
+
+class TestAugmentedWeight:
+    """Tests for validate_augmented_weight()."""
+
+    def test_augmented_valid(self):
+        p = classify_weight("إفعال", radical_count=3)
+        assert validate_augmented_weight(p) is True
+
+    def test_non_augmented_passes(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        assert validate_augmented_weight(p) is True
+
+    def test_augmented_needs_augmentation_letters(self):
+        # Force an augmented class with no augmentation letters
+        p = WeightProfile(
+            pattern="x",
+            weight_class=WeightClass.THULATHI_MAZEED,
+            radical_count=3,
+            augmentation_letters=(),
+            weight_kind=WeightKind.PRODUCTIVE,
+        )
+        assert validate_augmented_weight(p) is False
+
+
+# ── Weight validation (Art. 63–64) ──────────────────────────────────
+
+
+class TestWeightValidation:
+    """Tests for validate_weight_acceptance()."""
+
+    def test_returns_result(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        v = validate_weight_acceptance(p)
+        assert isinstance(v, WeightValidationResult)
+
+    def test_standard_weight_accepted(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        v = validate_weight_acceptance(p)
+        assert v.status == WeightValidationStatus.ACCEPTED
+
+    def test_has_acceptance_scores(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        v = validate_weight_acceptance(p)
+        assert len(v.acceptance_scores) == 6
+
+    def test_has_rejection_flags(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        v = validate_weight_acceptance(p)
+        assert len(v.rejection_flags) == 5
+
+    def test_rejected_has_reason(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        v = validate_weight_acceptance(p)
+        assert v.reason != ""
+
+    def test_acceptance_scores_all_high(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        v = validate_weight_acceptance(p)
+        assert all(s >= 1.0 for s in v.acceptance_scores)
+
+    def test_rejection_flags_all_false(self):
+        p = classify_weight("فَعْل", radical_count=3)
+        v = validate_weight_acceptance(p)
+        assert not any(v.rejection_flags)
+
+
+# ── Expanded run_weight_fractal integration ─────────────────────────
+
+
+class TestRunWeightFractalExpanded:
+    """Integration tests for the enriched run_weight_fractal()."""
+
+    def test_has_mwc_score(self):
+        result = run_weight_fractal(_closure())
+        assert result.mwc_score is not None
+        assert isinstance(result.mwc_score, WeightMWCScore)
+
+    def test_has_fractal_score(self):
+        result = run_weight_fractal(_closure())
+        assert result.fractal_score is not None
+        assert isinstance(result.fractal_score, WeightFractalScore)
+
+    def test_has_possibility_result(self):
+        result = run_weight_fractal(_closure())
+        assert result.possibility_result is not None
+        assert isinstance(result.possibility_result, WeightPossibilityResult)
+
+    def test_has_validation(self):
+        result = run_weight_fractal(_closure())
+        assert result.validation is not None
+        assert isinstance(result.validation, WeightValidationResult)
+
+    def test_mwc_aggregate_positive(self):
+        result = run_weight_fractal(_closure())
+        assert result.mwc_score is not None
+        assert result.mwc_score.aggregate > 0
+
+    def test_fractal_score_aggregate_positive(self):
+        result = run_weight_fractal(_closure())
+        assert result.fractal_score is not None
+        assert result.fractal_score.aggregate > 0
+
+    def test_possibility_aggregate_positive(self):
+        result = run_weight_fractal(_closure())
+        assert result.possibility_result is not None
+        assert result.possibility_result.aggregate > 0
+
+    def test_validation_status_accepted(self):
+        result = run_weight_fractal(_closure())
+        assert result.validation is not None
+        assert result.validation.status == WeightValidationStatus.ACCEPTED
+
+    def test_weight_kind_in_profile(self):
+        result = run_weight_fractal(_closure())
+        assert result.base_weight.weight_kind == WeightKind.PRODUCTIVE
+
+    def test_formal_tuple_in_profile(self):
+        result = run_weight_fractal(_closure())
+        assert result.base_weight.formal_tuple is not None
