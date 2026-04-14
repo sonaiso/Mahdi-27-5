@@ -158,6 +158,17 @@ layers:
       - "contains why_judgement"
       - "contains why_rank"
 
+  # ── Epistemic Reception (Constitution v1) ─────────────────────────
+  - name: epistemic_reception
+    module: arabic_engine.cognition.epistemic_reception
+    function: validate_reception
+    input_type: EpistemicReceptionInput
+    output_type: EpistemicReceptionResult
+    invariants:
+      - "outcome is a valid ReceptionValidationOutcome enum"
+      - "codes is a tuple of ReceptionDecisionCode values"
+      - "corrected_assignments are matrix-compliant CarryingAssignment values"
+
 # ── Closure proof ───────────────────────────────────────────────────
 # The composition F = L10 ∘ L9 ∘ … ∘ L0 is well-typed if for every
 # adjacent pair (Lᵢ, Lᵢ₊₁), output_type(Lᵢ) ⊆ input_type(Lᵢ₊₁).
