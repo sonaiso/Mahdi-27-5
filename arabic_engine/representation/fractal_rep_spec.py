@@ -38,7 +38,6 @@ from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Sequence
 
-
 # ── FRS-v1 §1 — Fractal origin ──────────────────────────────────────
 
 
