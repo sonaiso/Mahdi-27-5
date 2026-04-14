@@ -759,7 +759,7 @@ def _check_ascending_order() -> bool:
             # Allow non-strict connections when the input is a compound
             # type (Tuple, Dict) — the output may be one component
             if "Tuple" not in next_in and "Dict" not in next_in:
-                continue  # Non-blocking: log but don't fail
+                continue  # Non-strict: skip non-compound mismatches
 
     return True
 
@@ -818,9 +818,6 @@ def _is_decomposable_type(annotation: Any, visited: Optional[set] = None) -> boo
 
     # Dataclasses — check all fields recursively
     if hasattr(annotation, "__dataclass_fields__"):
-        for fld in annotation.__dataclass_fields__.values():
-            if fld is None:
-                return False
         return True
 
     # Strings used as forward references are accepted
@@ -846,8 +843,6 @@ def _check_decomposability() -> bool:
         if not hasattr(cls, "__dataclass_fields__"):
             return False
         for fname, fld in cls.__dataclass_fields__.items():
-            if fld is None:
-                return False
             if not _is_decomposable_type(fld.type):
                 return False
 
