@@ -14,11 +14,23 @@ from __future__ import annotations
 
 from arabic_engine.representation.fractal_rep_spec import (
     FractalOrigin as FractalOrigin,
+)
+from arabic_engine.representation.fractal_rep_spec import (
     FractalRepresentation as FractalRepresentation,
+)
+from arabic_engine.representation.fractal_rep_spec import (
     LayerTrace as LayerTrace,
+)
+from arabic_engine.representation.fractal_rep_spec import (
     RepresentationFormat as RepresentationFormat,
+)
+from arabic_engine.representation.fractal_rep_spec import (
     RepresentationMode as RepresentationMode,
+)
+from arabic_engine.representation.fractal_rep_spec import (
     build_fractal_representation as build_fractal_representation,
+)
+from arabic_engine.representation.fractal_rep_spec import (
     validate_fractal_origin as validate_fractal_origin,
 )
 

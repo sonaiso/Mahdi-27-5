@@ -28,11 +28,11 @@ from __future__ import annotations
 import pytest
 
 from arabic_engine.core.fractal_constitution import (
+    DERIVED_SPECS,
     ConstitutionConstraint,
     ConstitutionLayer,
     ConstitutionReport,
     ConstitutionValidator,
-    DERIVED_SPECS,
     DerivedSpec,
     validate_constitution,
 )
@@ -46,7 +46,6 @@ from arabic_engine.representation.fractal_rep_spec import (
     build_fractal_representation,
     validate_fractal_origin,
 )
-
 
 # ─────────────────────────────────────────────────────────────────────
 # Helpers
