@@ -80,10 +80,11 @@ def resolve_number(closure: LexicalClosure) -> NounNumber:
     if stripped.endswith("ان") or stripped.endswith("ين"):
         # Could be dual or sound masculine plural
         # Dual: nominative ان, accusative/genitive ين
+        # Limitation: distinguishing dual-acc/gen from SMP-acc/gen
+        # requires syntactic context not available at the noun level.
         if stripped.endswith("ان"):
             return NounNumber.DUAL
-        # Need context to distinguish dual-acc/gen from SMP-acc/gen
-        # Default to SOUND_MASC_PLURAL for ين
+        # Default to SOUND_MASC_PLURAL for ين suffix.
         return NounNumber.SOUND_MASC_PLURAL
 
     if stripped.endswith("ون"):

@@ -61,8 +61,10 @@ def resolve_borrowed(
     if lemma in _BORROWED_NOUNS:
         return True, _BORROWED_NOUNS[lemma]
 
-    # Heuristic: no Arabic root (empty root tuple) may indicate borrowing
-    if not closure.root and closure.lemma:
+    # Heuristic: no Arabic root (empty root tuple) may indicate borrowing,
+    # but only if the noun is not already identified as a compound or blend.
+    # Compound nouns and other native Arabic constructions may also lack roots.
+    if not closure.root and closure.lemma and not closure.features.get("is_compound"):
         return True, None
 
     return False, None
