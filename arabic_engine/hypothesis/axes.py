@@ -143,7 +143,12 @@ def _resolve_axis(
 
 
 def _resolve_definiteness(determination: str) -> str:
-    """Resolve معرفة/نكرة axis."""
+    """Resolve معرفة/نكرة axis.
+
+    When the noun subsystem has already classified the noun,
+    *determination* will carry the result.  Otherwise falls back to
+    the simple definite/indefinite heuristic.
+    """
     return "معرفة" if determination == "definite" else "نكرة"
 
 

@@ -41,6 +41,22 @@ layers:
       - "each LexicalClosure has a valid POS enum"
       - "root is a tuple of strings or empty tuple"
 
+  # ── Layer 2c: Noun Constitution (v3) ───────────────────────────────
+  - name: noun_constitution
+    module: arabic_engine.noun.constitution
+    function: classify_noun
+    input_type: "LexicalClosure"
+    output_type: "NounNode"
+    invariants:
+      - "output has a valid NounKind enum"
+      - "output has a valid Gender enum"
+      - "output has a valid NounNumber enum"
+      - "output has a valid Definiteness enum"
+      - "output has a valid UniversalParticular enum"
+      - "output has a valid DerivationStatus enum"
+      - "output has a valid NounFractalStage enum"
+      - "confidence in [0, 1]"
+
   # ── Layer 3: Syntactic Analysis (v2) ──────────────────────────────
   - name: syntax
     module: arabic_engine.syntax.syntax

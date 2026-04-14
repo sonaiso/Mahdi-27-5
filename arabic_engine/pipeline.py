@@ -13,6 +13,7 @@ from arabic_engine.cognition.time_space import tag as time_space_tag
 from arabic_engine.cognition.world_model import WorldModel
 from arabic_engine.core.contracts import verify_contracts  # noqa: F401 — re-export
 from arabic_engine.core.enums import (
+    POS,
     CarrierType,
     JudgementType,
     LinkKind,
@@ -55,6 +56,7 @@ from arabic_engine.core.types import (
 )
 from arabic_engine.linkage.dalala import full_validation
 from arabic_engine.linkage.semantic_roles import derive_semantic_roles
+from arabic_engine.noun.constitution import classify_noun as _classify_noun
 from arabic_engine.signified.ontology import batch_map
 from arabic_engine.signifier.root_pattern import batch_closure
 from arabic_engine.signifier.unicode_norm import normalize, tokenize
@@ -202,6 +204,17 @@ def run(
 
     # L2 — Lexical Closure
     closures = batch_closure(tokens)
+
+    # L2c — Noun Constitution (classify all nouns)
+    concepts_for_noun = batch_map(closures)
+    for idx, closure in enumerate(closures):
+        if closure.pos == POS.ISM:
+            closure.noun_node = _classify_noun(
+                closure,
+                concept=concepts_for_noun[idx],
+                all_tokens=closures,
+                token_index=idx,
+            )
 
     # L2b — Optional strict 7-layer element analysis
     layer_traces: List[LayerTraceRecord] = []

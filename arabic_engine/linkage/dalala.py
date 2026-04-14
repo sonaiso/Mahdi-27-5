@@ -37,6 +37,9 @@ def validate_link(
     3. **Iltizām** (التزام) — necessary concomitant (fallback).
        Confidence = 0.5.
 
+    When a :class:`~arabic_engine.core.types.NounNode` is attached,
+    the confidence is boosted by the noun's own confidence score.
+
     Args:
         closure: Lexical closure representing the signifier.
         concept: Concept node representing the signified.
@@ -45,6 +48,10 @@ def validate_link(
         A :class:`~arabic_engine.core.types.DalalaLink` with
         ``accepted=True`` and the appropriate type and confidence.
     """
+    noun_boost = 1.0
+    if closure.noun_node is not None:
+        noun_boost = closure.noun_node.confidence
+
     # Primary denotation — mutābaqa
     if closure.lemma == concept.label:
         return DalalaLink(
@@ -52,7 +59,7 @@ def validate_link(
             target_concept_id=concept.concept_id,
             dalala_type=DalalaType.MUTABAQA,
             accepted=True,
-            confidence=1.0,
+            confidence=min(1.0, 1.0 * noun_boost),
         )
 
     # If root overlaps (shared semantic field) → taḍammun
@@ -64,7 +71,7 @@ def validate_link(
             target_concept_id=concept.concept_id,
             dalala_type=DalalaType.TADAMMUN,
             accepted=True,
-            confidence=0.75,
+            confidence=min(1.0, 0.75 * noun_boost),
         )
 
     # Fallback — weak iltizām
@@ -73,7 +80,7 @@ def validate_link(
         target_concept_id=concept.concept_id,
         dalala_type=DalalaType.ILTIZAM,
         accepted=True,
-        confidence=0.5,
+        confidence=min(1.0, 0.5 * noun_boost),
     )
 
 

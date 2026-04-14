@@ -67,6 +67,10 @@ def map_concept(closure: LexicalClosure) -> Concept:
     When no match is found, auto-generates a new concept with an
     incrementing ID and a semantic type inferred from the POS tag.
 
+    When a :class:`~arabic_engine.core.types.NounNode` is attached to
+    the closure (``closure.noun_node``), the generated concept is
+    enriched with noun-specific properties (noun_kind, universality).
+
     Args:
         closure: The lexical closure whose lemma is used as the lookup key.
 
@@ -80,10 +84,25 @@ def map_concept(closure: LexicalClosure) -> Concept:
 
     global _next_concept_id
     _next_concept_id += 1
+
+    props: dict = {}
+    if closure.noun_node is not None:
+        nn = closure.noun_node
+        props["noun_kind"] = nn.noun_kind.name
+        props["universality"] = nn.universality.name
+        props["gender"] = nn.gender.name
+        props["number"] = nn.number.name
+        props["definiteness"] = nn.definiteness.name
+        if nn.proper_type is not None:
+            props["proper_noun"] = True
+            props["proper_type"] = nn.proper_type.name
+        props["is_borrowed"] = nn.is_borrowed
+
     return Concept(
         concept_id=_next_concept_id,
         label=closure.lemma,
         semantic_type=_POS_TO_STYPE.get(closure.pos, SemanticType.ENTITY),
+        properties=props,
     )
 
 
