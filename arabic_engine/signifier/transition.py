@@ -439,7 +439,10 @@ def stability_check(element: DMin, context: TransitionContext) -> bool:
     if _PF.ITLAL in element.features:
         if context.economy_pressure >= 0.5:
             return False
-        if context.position == _SP.CODA and context.economy_pressure > _ECONOMY_CODA_ITLAL_THRESHOLD:
+        if (
+            context.position == _SP.CODA
+            and context.economy_pressure > _ECONOMY_CODA_ITLAL_THRESHOLD
+        ):
             return False
 
     # Condition 2: identical neighbour triggers gemination
@@ -499,7 +502,10 @@ def find_applicable_rules(
         if not rule.required_features.issubset(element.features):
             continue
         # Economy gate for deletion / pause laws
-        if rule.law in (_TL.HADHF, _TL.WAQF) and context.economy_pressure < _ECONOMY_REDUCTION_THRESHOLD:
+        if (
+            rule.law in (_TL.HADHF, _TL.WAQF)
+            and context.economy_pressure < _ECONOMY_REDUCTION_THRESHOLD
+        ):
             continue
         # Idgham gate: require identical or phonetically similar (same group) neighbour
         if rule.law is _TL.IDGHAM:
