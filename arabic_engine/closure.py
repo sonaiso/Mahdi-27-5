@@ -270,6 +270,15 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "description": "Explanation — why/evidence payload construction",
         "description_ar": "بناء حزمة التفسير والتعليل",
     },
+    {
+        "symbol": "ℳ⁺_min/reception",
+        "name": "epistemic_reception",
+        "name_ar": "الاستقبال المعرفي",
+        "module": "arabic_engine.cognition.epistemic_reception",
+        "function": "validate_reception",
+        "description": "Epistemic reception — validation of received knowledge",
+        "description_ar": "دستور الاستقبال المعرفي",
+    },
 ]
 
 
