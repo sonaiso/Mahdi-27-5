@@ -12,11 +12,9 @@ from arabic_engine.core.enums import (
     FunctionRole,
     PhonCategory,
     PhonFeature,
-    PhonGroup,
     SyllablePosition,
     TransitionCondition,
     TransitionLaw,
-    TransitionType,
 )
 from arabic_engine.core.types import TransitionContext, TransitionRule
 from arabic_engine.signifier.dmin import lookup
@@ -30,7 +28,6 @@ from arabic_engine.signifier.transition import (
     find_applicable_rules,
     stability_check,
 )
-
 
 # ── Shared helper ────────────────────────────────────────────────────
 
@@ -167,8 +164,8 @@ class TestFindApplicableRulesNullGuards:
 
     def test_returns_empty_list_for_element_with_none_category(self):
         """If somehow element.category is None, return empty list gracefully."""
+        from arabic_engine.core.enums import PhonGroup
         from arabic_engine.core.types import DMin
-        from arabic_engine.core.enums import PhonGroup, PhonTransform
 
         # Build a minimal DMin with None category
         element = DMin(
@@ -184,8 +181,8 @@ class TestFindApplicableRulesNullGuards:
 
     def test_returns_empty_list_for_element_with_none_features(self):
         """If somehow element.features is None, return empty list gracefully."""
+        from arabic_engine.core.enums import PhonGroup
         from arabic_engine.core.types import DMin
-        from arabic_engine.core.enums import PhonGroup, PhonTransform
 
         element = DMin(
             unicode=0x0628,
