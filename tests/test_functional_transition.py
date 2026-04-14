@@ -24,8 +24,8 @@ from arabic_engine.signifier.functional_transition import (
 # ── New enum completeness ────────────────────────────────────────────
 
 class TestNewEnums:
-    def test_cell_type_has_25_members(self):
-        assert len(CellType) == 25
+    def test_cell_type_has_28_members(self):
+        assert len(CellType) == 28
 
     def test_func_transition_class_has_seven_members(self):
         assert len(FuncTransitionClass) == 7

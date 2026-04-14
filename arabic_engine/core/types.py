@@ -34,6 +34,7 @@ from .enums import (
     DalaalaKind,
     DalalaType,
     DecisionCode,
+    DerivationTarget,
     DiachronicStatus,
     DiscourseGapType,
     DiscourseValidationOutcome,
@@ -62,8 +63,11 @@ from .enums import (
     IrabRole,
     JudgementType,
     JudgmentCategory,
+    KawnType,
     LinkKind,
     MafhumType,
+    MasdarBab,
+    MasdarType,
     MentalIntentionalType,
     MetaConceptualLevel,
     MethodFamily,
@@ -2585,3 +2589,76 @@ class LayerTraceRecord:
     layer_6: Optional[RepresentationRecord] = None
     gates: Tuple[TransitionGate, ...] = ()
     final_gate_status: TransitionGateStatus = TransitionGateStatus.INSUFFICIENT_DATA
+
+
+# ── Masdar (verbal noun) types ──────────────────────────────────────
+
+
+@dataclass
+class MasdarRecord:
+    """سجل المصدر — full record for a verbal noun (masdar).
+
+    The masdar is the central bridge node between existential being
+    (الكينونة الوجودية) and transformational being (الكينونة التحولية).
+    It abstracts the event from temporal/personal assignment and fixes
+    it as a conceptual unit ready for classification and derivation.
+    """
+
+    masdar_id: str                                  # معرف فريد
+    surface: str                                    # الصورة اللفظية (كتابة، خروج)
+    root: Tuple[str, ...]                           # الجذر الثلاثي
+    pattern: str                                    # الوزن المصدري (فِعالة، فَعْل)
+    masdar_type: MasdarType                         # نوع المصدر
+    masdar_bab: MasdarBab                           # باب المصدر
+    verb_form: str                                  # صورة الفعل المولّد
+    kawn_type: KawnType = KawnType.MASDAR_BRIDGE    # نوع الكينونة
+    event_core: str = ""                            # جوهر الحدث المجرد
+    derivation_capacity: List[DerivationTarget] = field(default_factory=list)
+    confidence: float = 1.0
+
+
+@dataclass
+class MasdarDerivation:
+    """اشتقاق مصدري — a single derivation from a masdar to a target form.
+
+    Records the derivational relationship from a masdar (source) to a
+    derived form (target) such as active participle, passive participle,
+    noun of time/place, noun of manner, or noun of instrument.
+    """
+
+    source_masdar_id: str           # معرف المصدر المصدر
+    target_type: DerivationTarget   # نوع الهدف الاشتقاقي
+    target_surface: str             # الصورة اللفظية للمشتق
+    target_pattern: str             # الوزن الاشتقاقي
+    derivation_rule_id: str = ""    # معرف قاعدة الاشتقاق
+    confidence: float = 1.0
+
+
+@dataclass
+class FractalMasdarNode:
+    """عقدة المصدر الفراكتالية — fractal node for the masdar constitution.
+
+    The masdar fractal node is the central linking node in the
+    constitutional architecture:
+      Existential being → Masdar bridge → Transformational being
+                                        → Weight fractal → Derivations
+
+    completeness_score evaluates the 8 conditions of the minimal
+    complete threshold (الحد الأدنى المكتمل):
+      1. Thubūt  (الثبوت)    — has a lexical or interpretive form
+      2. Ḥadd    (الحد)      — distinguished from verb, noun, adjective
+      3. Imtidād (الامتداد)  — event, derivational, conceptual extension
+      4. Muqawwim(المقوِّم)   — event core + nominal abstraction + derivability
+      5. ʿAlāqa  (العلاقة)   — links root, pattern, verb, derivatives
+      6. Intiẓām (الانتظام)  — ordered in morpho-semantic network
+      7. Waḥda   (الوحدة)    — forms one event essence
+      8. Taʿyīn  (التعيين)   — assignable as explicit/interpreted masdar
+    """
+
+    node_id: str
+    masdar: MasdarRecord
+    existential_link: str = ""                      # ربط بالكينونة الوجودية (الجامد)
+    transformational_links: List[MasdarDerivation] = field(default_factory=list)
+    fractal_children: List[str] = field(default_factory=list)
+    fractal_depth: int = 0                          # عمق التكرار الذاتي
+    completeness_score: float = 0.0                 # درجة اكتمال الحد الأدنى
