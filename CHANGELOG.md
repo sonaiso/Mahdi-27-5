@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Epistemic Reception Constitution v1 (`cognition/reception_constitution.py`):
+  two-axis framework separating Subject Genres (existence, attribute, event,
+  relation) from Reception Ranks (sense, feeling, thought, intention, choice,
+  will) with a 4×6 governing matrix classifying each pair as original,
+  subsidiary, or impossible.
+- New enums: `SubjectGenre`, `ReceptionRank`, `ReceptionLayer`, `CarryingStatus`.
+- New types: `SubjectGenreDefinition`, `ReceptionRankDefinition`, `CarryingCell`,
+  `ReceptionConstitutionRecord`, `ReceptionConstitutionMatrix`.
+- Documentation: `docs/epistemic_reception_constitution.md`.
+
 ## [0.2.0] — 2026-04-07
 
 ### Added

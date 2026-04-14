@@ -17,6 +17,7 @@ from .enums import (
     AuthorityLevel,
     CarrierClass,
     CarrierType,
+    CarryingStatus,
     CategorizationMode,
     CausalRole,
     CellType,
@@ -91,7 +92,9 @@ from .enums import (
     ReceiverExpectedAction,
     ReceiverRoleType,
     ReceiverState,
+    ReceptionLayer,
     ReceptionMode,
+    ReceptionRank,
     ReceptionStateType,
     ReversibleValue,
     RevisionType,
@@ -108,6 +111,7 @@ from .enums import (
     SpaceRef,
     StrictLayerID,
     StyleKind,
+    SubjectGenre,
     SyllablePosition,
     TimeRef,
     TraceMode,
@@ -2662,3 +2666,81 @@ class FractalMasdarNode:
     fractal_children: List[str] = field(default_factory=list)
     fractal_depth: int = 0                          # عمق التكرار الذاتي
     completeness_score: float = 0.0                 # درجة اكتمال الحد الأدنى
+
+
+# ── Epistemic Reception Constitution v1 types ──────────────────────
+
+
+@dataclass(frozen=True)
+class SubjectGenreDefinition:
+    """تعريف جنس الموضوع الأعلى — constitutional definition of a subject genre.
+
+    Holds the formal definition of one of the four supreme subject genres
+    (existence, attribute, event, relation) as specified in the Epistemic
+    Reception Constitution.
+    """
+
+    genre: SubjectGenre
+    name_ar: str          # الاسم العربي
+    definition_ar: str    # التعريف الدستوري بالعربية
+    definition_en: str    # English constitutional definition
+
+
+@dataclass(frozen=True)
+class ReceptionRankDefinition:
+    """تعريف رتبة التلقي — constitutional definition of a reception rank.
+
+    Holds the formal definition of one of the six reception ranks
+    (sense, feeling, thought, intention, choice, will) together with
+    the constitutional layer it belongs to.
+    """
+
+    rank: ReceptionRank
+    layer: ReceptionLayer
+    name_ar: str          # الاسم العربي
+    definition_ar: str    # التعريف الدستوري بالعربية
+    definition_en: str    # English constitutional definition
+
+
+@dataclass(frozen=True)
+class CarryingCell:
+    """خلية حمل — a single cell in the constitutional governing matrix.
+
+    Records how a given subject genre is carried in a given reception
+    rank: originally (أصيل), subsidiarily (تبعي), or impossibly (ممتنع).
+    """
+
+    genre: SubjectGenre
+    rank: ReceptionRank
+    status: CarryingStatus
+    qualification: str    # e.g. "أصيل في المحسوس، تبعي في غيره"
+    justification: str    # constitutional rationale
+
+
+@dataclass
+class ReceptionConstitutionRecord:
+    """سجل دستور التلقي — full constitutional assessment for one subject genre.
+
+    Provides the carrying cells for a single subject genre across all
+    six reception ranks, along with the primary entry rank and the
+    epistemic closure rank.
+    """
+
+    record_id: str
+    subject_genre: SubjectGenre
+    carrying_cells: List[CarryingCell] = field(default_factory=list)
+    epistemic_closure_rank: ReceptionRank = ReceptionRank.FIKR
+    primary_entry_rank: ReceptionRank = ReceptionRank.HISS
+
+
+@dataclass
+class ReceptionConstitutionMatrix:
+    """المصفوفة الدستورية الحاكمة — the full 4×6 governing matrix.
+
+    Contains all 24 carrying cells (4 genres × 6 ranks) that constitute
+    the Epistemic Reception Constitution v1.
+    """
+
+    matrix_id: str
+    cells: List[CarryingCell] = field(default_factory=list)
+    version: str = "v1"

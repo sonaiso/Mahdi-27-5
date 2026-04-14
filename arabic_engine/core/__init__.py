@@ -39,6 +39,9 @@ from .enums import (
     CarrierType as CarrierType,
 )
 from .enums import (
+    CarryingStatus as CarryingStatus,
+)
+from .enums import (
     CategorizationMode as CategorizationMode,
 )
 from .enums import (
@@ -270,6 +273,12 @@ from .enums import (
     ReceptionMode as ReceptionMode,
 )
 from .enums import (
+    ReceptionLayer as ReceptionLayer,
+)
+from .enums import (
+    ReceptionRank as ReceptionRank,
+)
+from .enums import (
     ReceptionStateType as ReceptionStateType,
 )
 from .enums import (
@@ -322,6 +331,9 @@ from .enums import (
 )
 from .enums import (
     StyleKind as StyleKind,
+)
+from .enums import (
+    SubjectGenre as SubjectGenre,
 )
 from .enums import (
     SyllablePosition as SyllablePosition,
@@ -470,6 +482,9 @@ from .types import (
 )
 from .types import (
     AxiomRecord as AxiomRecord,
+)
+from .types import (
+    CarryingCell as CarryingCell,
 )
 from .types import (
     Concept as Concept,
@@ -652,6 +667,15 @@ from .types import (
     ReceptionRecord as ReceptionRecord,
 )
 from .types import (
+    ReceptionConstitutionMatrix as ReceptionConstitutionMatrix,
+)
+from .types import (
+    ReceptionConstitutionRecord as ReceptionConstitutionRecord,
+)
+from .types import (
+    ReceptionRankDefinition as ReceptionRankDefinition,
+)
+from .types import (
     ReceptionStateRecord as ReceptionStateRecord,
 )
 from .types import (
@@ -692,6 +716,9 @@ from .types import (
 )
 from .types import (
     SyntaxNode as SyntaxNode,
+)
+from .types import (
+    SubjectGenreDefinition as SubjectGenreDefinition,
 )
 from .types import (
     TheoremRecord as TheoremRecord,
@@ -737,6 +764,7 @@ __all__ = [
     "AuthorityLevel",
     "CarrierClass",
     "CarrierType",
+    "CarryingStatus",
     "CategorizationMode",
     "CausalRole",
     "CellType",
@@ -806,6 +834,8 @@ __all__ = [
     "ReceiverRoleType",
     "ReceiverState",
     "ReceptionMode",
+    "ReceptionLayer",
+    "ReceptionRank",
     "ReceptionStateType",
     "ReversibleValue",
     "SalienceLevel",
@@ -819,6 +849,7 @@ __all__ = [
     "SlotState",
     "SpaceRef",
     "StyleKind",
+    "SubjectGenre",
     "SyllablePosition",
     "TimeRef",
     "TraceMode",
@@ -866,6 +897,7 @@ __all__ = [
     # ── types ───────────────────────────────────────────────────────
     "AEU",
     "AxiomRecord",
+    "CarryingCell",
     "Concept",
     "ConceptRelation",
     "ConflictRuleNode",
@@ -918,6 +950,9 @@ __all__ = [
     "RealityAnchorRecord",
     "ReceiverRoleRecord",
     "ReceptionRecord",
+    "ReceptionConstitutionMatrix",
+    "ReceptionConstitutionRecord",
+    "ReceptionRankDefinition",
     "ReceptionStateRecord",
     "RootPattern",
     "SelfNode",
@@ -927,6 +962,7 @@ __all__ = [
     "SignifiedNode",
     "SignifierNode",
     "Syllable",
+    "SubjectGenreDefinition",
     "SyntaxNode",
     "TheoremRecord",
     "TimeSpaceTag",

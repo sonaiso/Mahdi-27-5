@@ -24,6 +24,8 @@ Public sub-modules
   validator functions for inter-agent deliberative discourse exchange.
 * :mod:`arabic_engine.cognition.explanation` — explicit why/evidence
   explanation payload construction for v3 pipeline output.
+* :mod:`arabic_engine.cognition.reception_constitution` —
+  Epistemic Reception Constitution v1 (دستور التلقي المعرفي).
 """
 
 __all__ = [
@@ -37,4 +39,5 @@ __all__ = [
     "episode_validator",
     "discourse_exchange",
     "explanation",
+    "reception_constitution",
 ]

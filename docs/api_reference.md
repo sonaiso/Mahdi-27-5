@@ -311,6 +311,48 @@ from arabic_engine.core.kernel import (
 
 ---
 
+## Epistemic Reception Constitution — `arabic_engine.cognition.reception_constitution`
+
+```python
+from arabic_engine.cognition.reception_constitution import (
+    build_constitutional_matrix,
+    classify_carrying,
+    get_layer,
+    get_primary_entry,
+    get_closure_rank,
+    validate_carrying_claim,
+    assess_subject,
+    get_reception_ranks_for_layer,
+    map_semantic_type_to_genre,
+)
+```
+
+| Function | Signature | Description |
+|----------|-----------|-------------|
+| `build_constitutional_matrix` | `() → ReceptionConstitutionMatrix` | Build the full canonical 4×6 governing matrix |
+| `classify_carrying` | `(genre, rank) → CarryingCell` | Look up the carrying status for a genre in a rank |
+| `get_layer` | `(rank) → ReceptionLayer` | Return the constitutional layer for a reception rank |
+| `get_primary_entry` | `(genre) → ReceptionRank` | Return the first rank where the genre is أصيل |
+| `get_closure_rank` | `(genre) → ReceptionRank` | Return the epistemic closure rank (always FIKR) |
+| `validate_carrying_claim` | `(genre, rank, claimed_status) → tuple[bool, str]` | Validate a carrying status claim against the matrix |
+| `assess_subject` | `(genre) → ReceptionConstitutionRecord` | Build a full assessment for a genre across all ranks |
+| `get_reception_ranks_for_layer` | `(layer) → tuple[ReceptionRank, ...]` | Return reception ranks in a layer |
+| `map_semantic_type_to_genre` | `(st) → SubjectGenre \| None` | Map SemanticType to SubjectGenre |
+
+### Key Types
+
+| Type | Description |
+|------|-------------|
+| `SubjectGenre` | Enum: WUJUD, SIFA, HADATH, NISBA |
+| `ReceptionRank` | Enum: HISS, SHUUR, FIKR, NIYYA, KHIYAR, IRADA |
+| `ReceptionLayer` | Enum: ISTIQBAL, MUALAJA_MARIFIYYA, TAWJIH |
+| `CarryingStatus` | Enum: ASIL, TABA3I, MUMTANI3 |
+| `CarryingCell` | A single cell in the governing matrix |
+| `ReceptionConstitutionRecord` | Full assessment for one genre |
+| `ReceptionConstitutionMatrix` | The complete 4×6 matrix |
+
+---
+
 ## Repository Integrity — `arabic_engine.core.integrity`
 
 ```python

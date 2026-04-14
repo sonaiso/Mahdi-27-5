@@ -1967,3 +1967,58 @@ class KawnType(Enum):
     WUJUDI = auto()
     TAHAWWULI = auto()
     MASDAR_BRIDGE = auto()
+
+
+# ── Epistemic Reception Constitution v1 enums ───────────────────────
+
+
+class SubjectGenre(Enum):
+    """أجناس الموضوع العليا — supreme genres of the subject axis.
+
+    These are the four irreducible kinds of subject-matter that can
+    arrive at the rational self (الذات العاقلة) for determination.
+    """
+
+    WUJUD = auto()   # الوجود  — existence: what establishes a thing, entity, or referent
+    SIFA = auto()    # الصفة   — attribute: what establishes how a thing is or its state
+    HADATH = auto()  # الحدث   — event: what establishes occurrence, change, or becoming
+    NISBA = auto()   # النسبة  — relation: what establishes connection or direction between two+
+
+
+class ReceptionRank(Enum):
+    """رتب التلقي — ranks of reception in the rational self.
+
+    Six ordered ranks through which the rational self receives,
+    processes, and directs what arrives as a subject.
+    """
+
+    HISS = auto()    # الحس    — sense: first entry via direct/quasi-direct effect
+    SHUUR = auto()   # الشعور  — feeling: inner living effect on the rational self
+    FIKR = auto()    # الفكر   — thought: linking perceived to prior info → determination
+    NIYYA = auto()   # النية   — intention: determining aimed direction after understanding
+    KHIYAR = auto()  # الخيار  — choice: opening possible alternatives
+    IRADA = auto()   # الإرادة — will: ratifying the chosen alternative
+
+
+class ReceptionLayer(Enum):
+    """طبقات التلقي — constitutional layers grouping reception ranks.
+
+    The six reception ranks fall into three distinct layers:
+    reception, cognitive processing, and pre-action direction.
+    """
+
+    ISTIQBAL = auto()           # طبقة الاستقبال          — reception (HISS + SHUUR)
+    MUALAJA_MARIFIYYA = auto()  # طبقة المعالجة المعرفية  — cognitive processing (FIKR)
+    TAWJIH = auto()             # طبقة التوجيه قبل الفعل  — pre-action direction
+
+
+class CarryingStatus(Enum):
+    """حالة الحمل — carrying status of a genre in a reception rank.
+
+    Classifies whether a reception rank carries a given subject genre
+    originally, subsidiarily, or impossibly.
+    """
+
+    ASIL = auto()      # أصيل  — original: carried directly and essentially
+    TABA3I = auto()    # تبعي  — subsidiary: carried indirectly or partially
+    MUMTANI3 = auto()  # ممتنع — impossible: cannot be carried except by false claim
