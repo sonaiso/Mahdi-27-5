@@ -432,7 +432,7 @@ class TestSha256Uniqueness:
         assert rep_a.sha256 != rep_b.sha256
 
     def test_different_traces_different_sha256(self):
-        trace_short = LayerTrace.from_sequence(["SIGNAL", "MORPHOLOGY"])
+        trace_short = LayerTrace.from_sequence(["SIGNAL", "MORPHOLOGY"], gate_passed=True)
         rep_full = build_fractal_representation("U+0643", _VALID_ORIGIN, _FULL_TRACE)
         rep_short = build_fractal_representation("U+0643", _VALID_ORIGIN, trace_short)
         assert rep_full.sha256 != rep_short.sha256
