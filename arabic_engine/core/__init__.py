@@ -404,6 +404,23 @@ from .enums import (
     WeightFractalPhase as WeightFractalPhase,
 )
 
+# ── Lexeme Fractal Constitution v2 enum re-exports ─────────────────
+from .enums import (
+    ConceptualType as ConceptualType,
+)
+from .enums import (
+    LexemeAcceptanceCode as LexemeAcceptanceCode,
+)
+from .enums import (
+    LexemeFractalPhase as LexemeFractalPhase,
+)
+from .enums import (
+    LexemePillar as LexemePillar,
+)
+from .enums import (
+    SignificationMode as SignificationMode,
+)
+
 # ── Kernel re-exports ───────────────────────────────────────────────
 from .kernel import (
     KERNEL_RELATION_PAIRS as KERNEL_RELATION_PAIRS,
@@ -782,6 +799,23 @@ from .types import (
     ZeroSlotRecord as ZeroSlotRecord,
 )
 
+# ── Lexeme Fractal Constitution v2 type re-exports ─────────────────
+from .types import (
+    CompositionReadiness as CompositionReadiness,
+)
+from .types import (
+    Lexeme as Lexeme,
+)
+from .types import (
+    LexemeFractalNode as LexemeFractalNode,
+)
+from .types import (
+    LexemeFractalResult as LexemeFractalResult,
+)
+from .types import (
+    SignificationTriad as SignificationTriad,
+)
+
 __all__ = [
     # ── enums ───────────────────────────────────────────────────────
     "POS",
@@ -896,6 +930,12 @@ __all__ = [
     "WeightCarryingMode",
     "WeightClass",
     "WeightFractalPhase",
+    # ── Lexeme Fractal Constitution v2 enums ───────────────────────
+    "ConceptualType",
+    "LexemeAcceptanceCode",
+    "LexemeFractalPhase",
+    "LexemePillar",
+    "SignificationMode",
     # ── Fractal Kernel enums ───────────────────────────────────────
     "ActivationStage",
     "ConflictState",
@@ -1043,4 +1083,10 @@ __all__ = [
     "WeightFractalNode",
     "WeightFractalResult",
     "WeightProfile",
+    # ── Lexeme Fractal Constitution v2 types ───────────────────────
+    "CompositionReadiness",
+    "Lexeme",
+    "LexemeFractalNode",
+    "LexemeFractalResult",
+    "SignificationTriad",
 ]

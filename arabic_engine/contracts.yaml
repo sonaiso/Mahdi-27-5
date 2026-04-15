@@ -191,6 +191,18 @@ layers:
       - "completeness_score in [0, 1]"
       - "is_closed iff completeness_score >= 0.75"
 
+  # ── Lexeme Fractal (Constitution v2) ─────────────────────────────
+  - name: lexeme_fractal
+    module: arabic_engine.signifier.lexeme_fractal
+    function: run_lexeme_fractal
+    input_type: "Tuple[LexicalClosure, Optional[DirectionAssignment], Optional[WeightFractalResult], Optional[Concept]]"
+    output_type: LexemeFractalResult
+    invariants:
+      - "fractal_tree contains exactly 6 phases"
+      - "completeness_score in [0, 1]"
+      - "is_valid iff no rejection codes"
+      - "lexeme tuple has all 6 pillars assigned"
+
   # ── Mufrad Closure (إقفال اللفظ المفرد) ──────────────────────────
   - name: mufrad_closure
     module: arabic_engine.mufrad_closure

@@ -139,6 +139,11 @@ from .enums import (
     WeightCarryingMode,
     WeightClass,
     WeightFractalPhase,
+    ConceptualType,
+    LexemeAcceptanceCode,
+    LexemeFractalPhase,
+    LexemePillar,
+    SignificationMode,
 )
 
 # ── Signifier layer ─────────────────────────────────────────────────
@@ -2885,5 +2890,89 @@ class MufradClosureResult:
     concept: Optional[Concept] = None                            # المفهوم
     dalala_link: Optional[DalalaLink] = None                     # رابط الدلالة
     epistemic_reception: Optional[EpistemicReceptionResult] = None  # الاستقبال المعرفي
+    lexeme_fractal: Optional[LexemeFractalResult] = None         # الفراكتال المفردي
     is_closed: bool = False                                      # هل أُقفل كليًا؟
     closure_confidence: float = 0.0                              # درجة ثقة الإقفال
+
+
+# ── Lexeme Fractal Constitution v2 ──────────────────────────────────
+
+
+@dataclass(frozen=True)
+class CompositionReadiness:
+    """الجاهزية للتركيب — composition readiness assessment (Art. 53–56, 59).
+
+    Ready(L) = (Mat + Struct + Dir + Type + POS + Recover) / 6
+    """
+
+    material_score: float = 0.0     # ثبوت المادة
+    structural_score: float = 0.0   # ثبوت البنية
+    direction_score: float = 0.0    # ثبوت الجهة
+    type_score: float = 0.0         # ثبوت النوع
+    pos_score: float = 0.0          # ثبوت القسم
+    recovery_score: float = 0.0     # إمكانية الرد
+    overall: float = 0.0            # المجموع
+    is_ready: bool = False           # جاهز؟
+
+
+@dataclass(frozen=True)
+class SignificationTriad:
+    """المطابقة/التضمن/الالتزام — signification triad for a lexeme (Art. 42–45).
+
+    Describes the three signification modes that vary by POS.
+    """
+
+    mutabaqa: str = ""    # مطابقة — what the lexeme denotes
+    tadammun: str = ""    # تضمن — what enters its definition
+    iltizam: str = ""     # التزام — what follows necessarily
+    pos_category: POS = POS.UNKNOWN  # القسم النهائي
+
+
+@dataclass(frozen=True)
+class Lexeme:
+    """المفرد المكتمل — complete lexeme tuple (Art. 57).
+
+    L = (M, W/T, S, T, P, R) where:
+    * M   = material (root/surface)
+    * W/T = weight or template
+    * S   = semantic direction genus
+    * T   = conceptual type
+    * P   = final POS category
+    * R   = composition readiness score
+    """
+
+    material: Tuple[str, ...] = ()                                  # المادة
+    weight_pattern: str = ""                                        # الوزن / القالب
+    semantic_direction: SemanticDirectionGenus = SemanticDirectionGenus.WUJUD  # الجهة
+    conceptual_type: ConceptualType = ConceptualType.KULLI          # النوع المفهومي
+    final_pos: POS = POS.UNKNOWN                                    # القسم النهائي
+    readiness: float = 0.0                                          # الجاهزية
+
+
+@dataclass(frozen=True)
+class LexemeFractalNode:
+    """عقدة فراكتالية للمفرد — a node in the lexeme fractal tree (Art. 46–52)."""
+
+    node_id: str                                                   # معرف العقدة
+    phase: LexemeFractalPhase = LexemeFractalPhase.TA3YIN          # الطور
+    label: str = ""                                                # وصف الطور
+    detail: Tuple[Tuple[str, str], ...] = ()                       # تفاصيل
+    parent_phase: Optional[LexemeFractalPhase] = None              # الطور الأم
+
+
+@dataclass(frozen=True)
+class LexemeFractalResult:
+    """نتيجة القانون الفراكتالي للمفرد — lexeme fractal constitution result (Art. 46–61).
+
+    Encodes the six-phase fractal cycle applied to the lexeme and
+    the acceptance/rejection verdict.
+    """
+
+    lexeme: Lexeme                                                 # المفرد
+    fractal_tree: Tuple[LexemeFractalNode, ...] = ()               # الشجرة الفراكتالية
+    readiness: Optional[CompositionReadiness] = None               # الجاهزية
+    signification: Optional[SignificationTriad] = None             # طريقة الدلالة
+    completeness_score: float = 0.0                                # درجة الاكتمال
+    is_valid: bool = False                                         # مقبول؟
+    acceptance_codes: Tuple[LexemeAcceptanceCode, ...] = ()         # رموز القبول
+    rejection_codes: Tuple[LexemeAcceptanceCode, ...] = ()         # رموز الرفض

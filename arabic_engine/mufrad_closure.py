@@ -53,6 +53,7 @@ from arabic_engine.signified.semantic_direction import (
     assign_direction,
     build_direction_space,
 )
+from arabic_engine.signifier.lexeme_fractal import run_lexeme_fractal
 from arabic_engine.signifier.root_pattern import lexical_closure as _lexical_closure
 from arabic_engine.signifier.unicode_norm import normalize
 from arabic_engine.signifier.weight_fractal import run_weight_fractal
@@ -195,6 +196,15 @@ def close_mufrad(word: str) -> MufradClosureResult:
     except Exception:
         pass
 
+    # LF — lexeme fractal constitution
+    lexeme_fractal_result = None
+    try:
+        lexeme_fractal_result = run_lexeme_fractal(
+            closure, direction_assignment, weight_fractal, concept
+        )
+    except Exception:
+        pass
+
     # R — record assembly
     required_closed = (
         closure is not None
@@ -223,6 +233,7 @@ def close_mufrad(word: str) -> MufradClosureResult:
         concept=concept,
         dalala_link=dalala_link,
         epistemic_reception=epistemic_reception,
+        lexeme_fractal=lexeme_fractal_result,
         is_closed=bool(required_closed),
         closure_confidence=closure_confidence,
     )

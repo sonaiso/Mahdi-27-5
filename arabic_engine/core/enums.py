@@ -2198,3 +2198,119 @@ class WeightClass(Enum):
     RUBA3I_MUJARRAD = auto()    # رباعي مجرد — base quadri-literal
     RUBA3I_MAZEED = auto()      # رباعي مزيد — augmented quadri-literal
     KHUMASI = auto()            # خماسي — quinqui-literal
+
+
+# ── Lexeme Fractal Constitution v2 ─────────────────────────────────
+
+
+class ConceptualType(Enum):
+    """النوع المفهومي — conceptual type of a lexeme (Art. 24).
+
+    KULLI        — كلي       : universal
+    JUZ2I        — جزئي      : particular
+    SIFA         — صفة       : attributive
+    FA3ILIYYA    — فاعلية    : agentive
+    MAF3ULIYYA   — مفعولية   : patientive
+    MASDARIYYA   — مصدرية    : infinitival
+    ZAMANIYYA    — زمانية    : temporal
+    MAKANIYYA    — مكانية    : locative
+    3ALA2IQIYYA  — علائقية   : relational
+    """
+
+    KULLI = auto()         # كلي — universal
+    JUZ2I = auto()         # جزئي — particular
+    SIFA = auto()          # صفة — attributive
+    FA3ILIYYA = auto()     # فاعلية — agentive
+    MAF3ULIYYA = auto()    # مفعولية — patientive
+    MASDARIYYA = auto()    # مصدرية — infinitival
+    ZAMANIYYA = auto()     # زمانية — temporal
+    MAKANIYYA = auto()     # مكانية — locative
+    ALA2IQIYYA = auto()    # علائقية — relational
+
+
+class LexemePillar(Enum):
+    """الأركان الستة للمفرد — the six pillars of a lexeme (Art. 20).
+
+    MADDA       — المادة            : material
+    QALIB_WAZN  — القالب/الوزن       : template / weight
+    JIHA        — الجهة الدلالية     : semantic direction
+    NAW3        — النوع المفهومي     : conceptual type
+    QISM        — القسم النهائي      : final POS category
+    JAHIZIYYA   — الجاهزية للتركيب   : composition readiness
+    """
+
+    MADDA = auto()       # المادة — material
+    QALIB_WAZN = auto()  # القالب/الوزن — template / weight
+    JIHA = auto()        # الجهة الدلالية — semantic direction
+    NAW3 = auto()        # النوع المفهومي — conceptual type
+    QISM = auto()        # القسم النهائي — final POS category
+    JAHIZIYYA = auto()   # الجاهزية للتركيب — composition readiness
+
+
+class LexemeFractalPhase(Enum):
+    """أطوار القانون الفراكتالي للمفرد — fractal law phases for lexeme (Art. 46).
+
+    TA3YIN   — تعيين  : assignment of material, direction, type, category
+    HIFZ     — حفظ    : preservation of root, weight, direction, identity
+    RABT     — ربط    : linking material→structure→direction→POS→composition
+    HUKM     — حكم    : judgment on validity, POS, direction, readiness
+    INTIQAL  — انتقال  : transition to compositional roles
+    RADD     — ردّ    : return to root, weight, direction, derivation path
+    """
+
+    TA3YIN = auto()   # تعيين — assignment
+    HIFZ = auto()     # حفظ — preservation
+    RABT = auto()     # ربط — linking
+    HUKM = auto()     # حكم — judgment
+    INTIQAL = auto()  # انتقال — transition
+    RADD = auto()     # ردّ — return
+
+
+class LexemeAcceptanceCode(Enum):
+    """رموز القبول والرفض للمفرد — acceptance/rejection codes (Art. 60–61).
+
+    Acceptance codes (Art. 60):
+    MADDA_THABITA    — المادة ثابتة
+    WAZN_THABIT      — الوزن ثابت
+    JIHA_THABITA     — الجهة ثابتة
+    NAW3_THABIT      — النوع ثابت
+    QISM_THABIT      — القسم ثابت
+    RADD_MUMKIN      — الرد ممكن
+    JAHIZ_LIL_TARKIB — جاهز للتركيب
+
+    Rejection codes (Art. 61):
+    MADDA_MAFTUHA      — مادة مفتوحة (unclosed material)
+    JIHA_MUTA3ADHIRA   — جهة متعذرة (direction undetermined)
+    QISM_GHAYR_THABIT  — قسم غير ثابت (POS not established)
+    RADD_MUTA3ADHIR    — رد متعذر (return impossible)
+    GHAYR_JAHIZ        — غير جاهز (not ready for composition)
+    """
+
+    # Acceptance
+    MADDA_THABITA = auto()     # المادة ثابتة
+    WAZN_THABIT = auto()       # الوزن ثابت
+    JIHA_THABITA = auto()      # الجهة ثابتة
+    NAW3_THABIT = auto()       # النوع ثابت
+    QISM_THABIT = auto()       # القسم ثابت
+    RADD_MUMKIN = auto()       # الرد ممكن
+    JAHIZ_LIL_TARKIB = auto()  # جاهز للتركيب
+
+    # Rejection
+    MADDA_MAFTUHA = auto()     # مادة مفتوحة
+    JIHA_MUTA3ADHIRA = auto()  # جهة متعذرة
+    QISM_GHAYR_THABIT = auto() # قسم غير ثابت
+    RADD_MUTA3ADHIR = auto()   # رد متعذر
+    GHAYR_JAHIZ = auto()       # غير جاهز
+
+
+class SignificationMode(Enum):
+    """طريقة الدلالة — signification mode of a lexeme (Art. 42–44).
+
+    MUTABAQA  — مطابقة : denotation — what the lexeme is set for
+    TADAMMUN  — تضمن   : containment — what enters its definition
+    ILTIZAM   — التزام  : entailment — what follows necessarily
+    """
+
+    MUTABAQA = auto()  # مطابقة — denotation
+    TADAMMUN = auto()  # تضمن — containment
+    ILTIZAM = auto()   # التزام — entailment

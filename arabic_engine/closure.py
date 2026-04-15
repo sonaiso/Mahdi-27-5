@@ -298,6 +298,15 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "description_ar": "دستور الوزن الفراكتالي — تحليل الوزن",
     },
     {
+        "symbol": "Ω_lf",
+        "name": "lexeme_fractal",
+        "name_ar": "المفرد الفراكتالي",
+        "module": "arabic_engine.signifier.lexeme_fractal",
+        "function": "run_lexeme_fractal",
+        "description": "Lexeme Fractal Constitution v2 — lexeme validation",
+        "description_ar": "دستور المفرد الفراكتالي — تحقق من اكتمال المفرد",
+    },
+    {
         "symbol": "Ω",
         "name": "mufrad_closure",
         "name_ar": "إقفال اللفظ المفرد",
