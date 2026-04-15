@@ -128,8 +128,9 @@ def segment(word: str) -> SyllableAnalysis:
         text = word[text_start:i] if i > text_start else ""
         if onset or nucleus:
             raw_syllables.append((onset, nucleus, coda, text))
+        # Prevent infinite loop: track skipped character as violation
         elif i == text_start:
-            # Prevent infinite loop: advance by one
+            violations.append(f"Skipped unrecognized character at index {i}")
             i += 1
 
     # Build SyllableUnit list

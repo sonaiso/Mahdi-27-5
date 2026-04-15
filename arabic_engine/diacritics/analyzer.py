@@ -53,14 +53,14 @@ def _is_arabic_diacritic(cp: int) -> bool:
 
 
 def _classify_role(marks: Tuple[DiacriticMark, ...], position: int,
-                   token_len: int) -> DiacriticRole:
+                   total_consonants: int) -> DiacriticRole:
     """Classify the functional role of a mark group on a consonant."""
     for m in marks:
         if m.mark_type in {DiacriticType.TANWIN_F, DiacriticType.TANWIN_D,
                            DiacriticType.TANWIN_K}:
             return DiacriticRole.INFLECTIONAL
-    # Last character marks are typically inflectional (i'rāb)
-    if position == token_len - 1:
+    # Last consonant marks are typically inflectional (i'rāb)
+    if position == total_consonants - 1:
         return DiacriticRole.INFLECTIONAL
     return DiacriticRole.LEXICAL
 
