@@ -2453,6 +2453,12 @@ class DecisionTrace:
     justification: str = ""
     confidence: float = 1.0
     parent_trace_refs: Tuple[str, ...] = ()
+    # ── B1: Trace integrity fields ──────────────────────────────────
+    input_hash: str = ""
+    output_hash: str = ""
+    timestamp: str = ""
+    reason: str = ""
+    evidence: Tuple[str, ...] = ()
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -3243,6 +3249,44 @@ class UnifiedTraceEntry:
     timestamp: str = ""
     reason: str = ""
     evidence: Tuple[str, ...] = ()
+
+
+# ── Unified State Mapping (A4) ──────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class StatusMapping:
+    """تحويل بين نماذج الحالة — maps one status domain to another.
+
+    See ``docs/unified_state_model.md`` for the full mapping tables.
+    """
+
+    from_domain: str
+    from_value: str
+    to_domain: str
+    to_value: str
+    notes: str = ""
+
+
+#: Canonical mapping between gate/status domains.
+STATUS_MAPPINGS: Tuple["StatusMapping", ...] = (
+    # LayerGateDecision → PipelineStatus
+    StatusMapping("LayerGateDecision", "PASS", "PipelineStatus", "SUCCESS"),
+    StatusMapping("LayerGateDecision", "COMPLETE", "PipelineStatus", "SUCCESS"),
+    StatusMapping("LayerGateDecision", "SUSPEND", "PipelineStatus", "SUSPEND"),
+    StatusMapping("LayerGateDecision", "REJECT", "PipelineStatus", "FAILURE"),
+    # TransitionGateStatus → LayerGateDecision
+    StatusMapping("TransitionGateStatus", "PASSED", "LayerGateDecision", "PASS"),
+    StatusMapping("TransitionGateStatus", "BLOCKED", "LayerGateDecision", "REJECT"),
+    StatusMapping(
+        "TransitionGateStatus", "INSUFFICIENT_DATA",
+        "LayerGateDecision", "SUSPEND",
+    ),
+    # ValidationState → PipelineStatus
+    StatusMapping("ValidationState", "VALID", "PipelineStatus", "SUCCESS"),
+    StatusMapping("ValidationState", "PENDING", "PipelineStatus", "SUSPEND"),
+    StatusMapping("ValidationState", "INVALID", "PipelineStatus", "FAILURE"),
+)
 
 
 # ── Diacritic Logic (E2) ────────────────────────────────────────────
