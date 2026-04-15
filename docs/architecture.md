@@ -45,19 +45,19 @@ See [`docs/kernel_schema.md`](kernel_schema.md) for the formal schema.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  L0   Unicode Normalisation         arabic_engine.signifier.unicode_norm  │
-│  L1   Tokenisation                  arabic_engine.signifier.unicode_norm  │
-│  L2   Lexical Closure (root/pattern)arabic_engine.signifier.root_pattern  │
-│  L3   Syntax / I'rāb               arabic_engine.syntax.syntax            │
-│  L4   Ontological Mapping          arabic_engine.signified.ontology        │
-│  L5   Dalāla Validation            arabic_engine.linkage.dalala            │
-│  L6   Judgment / Proposition       arabic_engine.cognition.evaluation      │
-│  L7   Time / Space Anchoring       arabic_engine.cognition.time_space      │
-│  L7b  Semantic Roles               arabic_engine.linkage.semantic_roles    │
-│  L7c  Masdar Analysis              arabic_engine.signifier.masdar          │
-│  L8   Truth-Guidance Evaluation    arabic_engine.cognition.evaluation      │
-│  L9   Inference                    arabic_engine.cognition.inference_rules │
-│  L10  World-Model Adjustment       arabic_engine.cognition.world_model     │
+│  L0   Unicode Normalisation         arabic_engine.signal.unicode_norm       │
+│  L1   Tokenisation                  arabic_engine.signal.unicode_norm       │
+│  L2   Lexical Closure (root/pattern)arabic_engine.morphology.root_pattern   │
+│  L3   Syntax / I'rāb               arabic_engine.syntax.syntax             │
+│  L4   Ontological Mapping           arabic_engine.semantics.ontology        │
+│  L5   Dalāla Validation             arabic_engine.semantics.dalala          │
+│  L6   Judgment / Proposition        arabic_engine.cognition.evaluation      │
+│  L7   Time / Space Anchoring        arabic_engine.cognition.time_space      │
+│  L7b  Semantic Roles                arabic_engine.semantics.semantic_roles  │
+│  L7c  Masdar Analysis               arabic_engine.morphology.masdar         │
+│  L8   Truth-Guidance Evaluation     arabic_engine.cognition.evaluation      │
+│  L9   Inference                     arabic_engine.cognition.inference_rules │
+│  L10  World-Model Adjustment        arabic_engine.cognition.world_model     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -69,25 +69,44 @@ See [`docs/kernel_schema.md`](kernel_schema.md) for the formal schema.
 arabic_engine/
 ├── __init__.py                  Package root (version, public API)
 │
-├── core/
+├── core/                        Core types and kernel
 │   ├── enums.py                 All enumeration types (POS, DalalaType, …)
 │   ├── types.py                 All dataclass types (LexicalClosure, DMin, …)
-│   └── contracts.py             Layer-adjacency contract verification
+│   ├── kernel.py                Kernel-14 label enum and helpers
+│   └── trace.py                 Runtime state and tracing dataclasses
 │
-├── signifier/                   الدال — Signifier layer
+├── formal/                      Axiomatic foundations (split from core/)
+│   ├── calculus.py              Five primitive calculus operations
+│   ├── laws.py                  Foundational formal laws
+│   ├── fractal_constitution.py  Fractal Core Constitution v1
+│   └── masdar_fractal.py        Masdar fractal derivation law
+│
+├── validation/                  Contract & integrity checks (split from core/)
+│   ├── contracts.py             Layer-adjacency contract verification
+│   └── integrity.py             Repository-level integrity scanner
+│
+├── signal/                      Unicode atom → normalisation → segmentation
+│   ├── unicode_atoms.py         Unicode atom decomposition
 │   ├── unicode_norm.py          Unicode normalisation & tokenisation (L0–L1)
-│   ├── phonology.py             Phonological analysis / syllabification
+│   ├── normalization.py         Atom-level normalisation with trace
+│   └── segmentation.py          Clitic-split segmentation hypotheses
+│
+├── morphology/                  الصرف — Root/pattern, phonology, D_min
 │   ├── root_pattern.py          Root & morphological pattern extraction (L2)
+│   ├── phonology.py             Phonological analysis / syllabification
+│   ├── dmin.py                  D_min — minimal complete phonological model
 │   ├── masdar.py                Masdar extraction & derivation engine (L7c)
-│   └── dmin.py                  D_min — minimal complete phonological model
+│   ├── aeu.py                   Atomic Epistemic Unit builder
+│   ├── transition.py            Cell-transition engine
+│   └── functional_transition.py Functional transition loader & DSL
 │
-├── signified/                   المدلول — Signified layer
-│   └── ontology.py              Ontological mapping (L4)
-│
-├── linkage/                     الرابطة — Linkage layer
+├── semantics/                   المدلول والرابطة — Ontology, dalāla, roles
+│   ├── ontology.py              Ontological mapping (L4)
+│   ├── ontology_v1.py           v1 ontology with 20 semantic axes
+│   ├── signified_v2.py          v2 signified layer
 │   ├── dalala.py                Dalāla validation (L5)
 │   ├── semantic_roles.py        Semantic role assignment (L7b)
-│   └── masdar_bridge.py         Masdar bridge — existential ↔ transformational (L7c)
+│   └── masdar_bridge.py         Masdar bridge — existential ↔ transformational
 │
 ├── syntax/                      النحو — Syntax layer
 │   └── syntax.py                I'rāb assignment & dependency linking (L3)
@@ -97,12 +116,37 @@ arabic_engine/
 │   ├── time_space.py            Temporal/spatial anchoring (L7)
 │   ├── world_model.py           In-memory world knowledge base (L10)
 │   ├── inference_rules.py       Forward-chaining rule engine (L9)
+│   ├── knowledge_graph.py       In-memory epistemic knowledge graph
+│   ├── episode_validator.py     Epistemic episode validator
+│   ├── epistemic_reception.py   Epistemic reception constitution
+│   ├── discourse_exchange.py    Deliberative discourse exchange
+│   ├── explanation.py           Pipeline explanation payloads
 │   └── mafhum.py                Mafhūm (implied meaning) analysis (Ch. 21)
 │
-├── pipeline.py                  Top-level pipeline orchestrator
+├── pipeline/                    Unified pipeline machinery
+│   ├── __init__.py              Re-exports main pipeline run/verify
+│   ├── orchestrator.py          Fractal Kernel orchestrator
+│   ├── adapters.py              Legacy RuntimeState adapters
+│   ├── hypothesis/              Staged hypothesis generation
+│   ├── constraints/             Scoring, pruning, propagation, revision
+│   └── element_layers/          7-layer phonological element analysis
+│
+├── metrics/                     Quality metrics and dashboards
+├── representation/              Fractal representation spec
+├── data/                        Static data files (JSON patterns, etc.)
+│
+├── main_pipeline.py             Top-level v3 pipeline (delegates to pipeline/)
 ├── closure.py                   General Closure verification (Ch. 19)
+├── runtime_pipeline.py          Legacy 8-stage pipeline (deprecated)
 └── contracts.yaml               Declarative layer-adjacency contracts
 ```
+
+### Backward Compatibility
+
+Old import paths (``signifier/``, ``signified/``, ``linkage/``, ``layers/``,
+``hypothesis/``, ``constraints/``, ``runtime/``, ``element_layers/``) are
+preserved as thin shim modules that redirect to the canonical locations.
+These shims will be removed in a future release.
 
 ---
 

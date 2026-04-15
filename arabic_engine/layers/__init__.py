@@ -4,7 +4,7 @@
     Use ``arabic_engine.element_layers`` instead.
 """
 
-import warnings as _warnings
+import warnings as _warnings  # noqa: E402
 
 _warnings.warn(
     "arabic_engine.layers has been renamed to arabic_engine.element_layers. "
@@ -13,4 +13,4 @@ _warnings.warn(
     stacklevel=2,
 )
 
-from arabic_engine.element_layers import *  # noqa: F401, F403
+from arabic_engine.element_layers import *  # noqa: E402, F401, F403

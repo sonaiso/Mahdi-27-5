@@ -32,7 +32,7 @@ DEFAULT_REQUIRED_MODULES: tuple[str, ...] = (
     "arabic_engine.representation.fractal_rep_spec",
 )
 
-DEFAULT_SCAN_DIRS: tuple[str, ...] = ("arabic_engine", "tests", "docs", "db")
+DEFAULT_SCAN_DIRS: tuple[str, ...] = ("arabic_engine", "tests", "docs")
 
 # Directories containing backward-compatibility shim modules that redirect
 # imports to their new canonical locations.  These are intentionally

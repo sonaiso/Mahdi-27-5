@@ -11,7 +11,7 @@
 layers:
   # ── Layer 0: Normalisation ────────────────────────────────────────
   - name: normalize
-    module: arabic_engine.signifier.unicode_norm
+    module: arabic_engine.signal.unicode_norm
     function: normalize
     input_type: str
     output_type: str
@@ -22,7 +22,7 @@ layers:
 
   # ── Layer 1: Tokenisation ─────────────────────────────────────────
   - name: tokenize
-    module: arabic_engine.signifier.unicode_norm
+    module: arabic_engine.signal.unicode_norm
     function: tokenize
     input_type: str
     output_type: "List[str]"
@@ -32,7 +32,7 @@ layers:
 
   # ── Layer 2: Lexical Closure ──────────────────────────────────────
   - name: lexical_closure
-    module: arabic_engine.signifier.root_pattern
+    module: arabic_engine.morphology.root_pattern
     function: batch_closure
     input_type: "List[str]"
     output_type: "List[LexicalClosure]"
@@ -54,7 +54,7 @@ layers:
 
   # ── Layer 4: Ontological Mapping ──────────────────────────────────
   - name: ontology
-    module: arabic_engine.signified.ontology
+    module: arabic_engine.semantics.ontology
     function: batch_map
     input_type: "List[LexicalClosure]"
     output_type: "List[Concept]"
@@ -65,7 +65,7 @@ layers:
 
   # ── Layer 5: Dalāla Validation ────────────────────────────────────
   - name: dalala
-    module: arabic_engine.linkage.dalala
+    module: arabic_engine.semantics.dalala
     function: full_validation
     input_type: "Tuple[List[LexicalClosure], List[Concept]]"
     output_type: "List[DalalaLink]"
@@ -97,7 +97,7 @@ layers:
 
   # ── Layer 7b: Semantic Roles (v3) ──────────────────────────────────
   - name: semantic_roles
-    module: arabic_engine.linkage.semantic_roles
+    module: arabic_engine.semantics.semantic_roles
     function: derive_semantic_roles
     input_type: "Tuple[List[LexicalClosure], List[SyntaxNode]]"
     output_type: "Dict[str, str]"
@@ -107,7 +107,7 @@ layers:
 
   # ── Layer 7c: Masdar Analysis (v3) ──────────────────────────────────
   - name: masdar_analysis
-    module: arabic_engine.signifier.masdar
+    module: arabic_engine.morphology.masdar
     function: extract_masdar_from_surface
     input_type: str
     output_type: "Optional[MasdarRecord]"
