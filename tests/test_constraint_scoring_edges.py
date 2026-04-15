@@ -175,7 +175,7 @@ class TestRoleCaseCompatibility:
             payload=(("case_state", "رفع"),),
         )
         edges = build_constraint_edges([case_h])
-        assert isinstance(edges, list)
+        assert edges == []
 
     def test_missing_case_state_no_edge(self):
         """Case hypothesis with no case_state payload should not crash."""
@@ -188,8 +188,8 @@ class TestRoleCaseCompatibility:
         edges = build_constraint_edges([case_h])
         # role = "فاعل", case_state defaults to "" which is not in {"رفع"}
         # but source_ref R1 is not in by_id since there's no hypothesis with id R1
-        # so no edge
-        assert isinstance(edges, list)
+        # so no edge is emitted
+        assert edges == []
 
     def test_all_known_roles_covered(self):
         """Every role in _ROLE_CASE_COMPAT has at least one valid case."""
@@ -370,7 +370,7 @@ class TestBuildConstraintEdgesEdgeCases:
         )
         edges = build_constraint_edges([case_h])
         # The edge would only be emitted if source_ref is in by_id
-        assert isinstance(edges, list)
+        assert edges == []
 
     def test_multiple_case_hypotheses(self):
         """Multiple case hypotheses produce independent edges."""
