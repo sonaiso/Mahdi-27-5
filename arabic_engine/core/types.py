@@ -21,6 +21,7 @@ from .enums import (
     CategorizationMode,
     CausalRole,
     CellType,
+    CognitiveLayerID,
     CombinationType,
     ConceptFormationMode,
     ConceptRelationType,
@@ -68,6 +69,7 @@ from .enums import (
     JudgementType,
     JudgmentCategory,
     KawnType,
+    LayerGateDecision,
     LinkKind,
     MafhumType,
     MasdarBab,
@@ -3004,3 +3006,194 @@ class MufradClosureResult:
     epistemic_reception: Optional[EpistemicReceptionResult] = None  # الاستقبال المعرفي
     is_closed: bool = False                                      # هل أُقفل كليًا؟
     closure_confidence: float = 0.0                              # درجة ثقة الإقفال
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Unicode as Cognitive Input — Types (Proof v1, Art. 41–46)
+# ═══════════════════════════════════════════════════════════════════════
+
+
+@dataclass(frozen=True)
+class CognitiveGateRecord:
+    """سجل بوابة عبور عقلية — record of a gate decision at a layer boundary.
+
+    Every transition Tᵢ: Uᵢ → Uᵢ₊₁ produces a gate record documenting
+    whether the element passed, was rejected, suspended, or completed.
+    (Art. 44)
+    """
+
+    gate_id: str
+    from_layer: CognitiveLayerID
+    to_layer: CognitiveLayerID
+    decision: LayerGateDecision
+    completeness_score: float        # Mᵢ(x) — الحد الأدنى المكتمل
+    threshold: float                 # θᵢ — عتبة العبور
+    has_blocker: bool                # Fᵢ(x) — المانع القاطع
+    reason: str = ""
+    evidence: Tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class AtomizedInput:
+    """مُعطى مُعيَّن ذريًا — U₁: Unicode input decomposed into atoms.
+
+    The result of Layer 0→1 transition: capturing each code-point,
+    assigning it as an atom, classifying it, assigning initial function,
+    and judging its validity.  (Art. 12–14)
+    """
+
+    atoms: Tuple[UnicodeAtom, ...]
+    source_text: str
+    atom_count: int
+    valid_count: int
+    suspended_count: int
+    rejected_count: int
+
+
+@dataclass(frozen=True)
+class DifferentiatedUnit:
+    """ذرّة متميزة متشاكلة أوليًا — U₂: differentiated + operationally coherent.
+
+    Each atom is distinguished from its neighbours, typed, assigned
+    initial coherence, and checked for combinability.  (Art. 15–17)
+    """
+
+    unit_id: str
+    atom: UnicodeAtom
+    neighbour_distinct: bool
+    assigned_type: str
+    initial_coherence: str
+    combinable: bool
+
+
+@dataclass(frozen=True)
+class NormalizedUnit:
+    """مُعطى مُطبَّع — U₃: clustered and normalized atoms.
+
+    Atoms are grouped into meaningful clusters, original form is
+    preserved, a canonical working form is produced, and the
+    normalization policy is recorded.  (Art. 18–20)
+    """
+
+    unit_id: str
+    surface_text: str
+    normalized_text: str
+    raw_preserved: str
+    cluster_count: int
+    normalization_policy: str
+
+
+@dataclass(frozen=True)
+class DesignatedUnit:
+    """مُعطى حاضر مفروق مُعيَّن — U₄: present, differentiated, designated.
+
+    The normalized material becomes present to the cognitive system,
+    distinguished from what-it-is-not, and given an initial direction
+    (what it is, its boundary, its position).  (Art. 21–25)
+    """
+
+    unit_id: str
+    normalized_text: str
+    is_present: bool
+    is_distinct: bool
+    initial_designation: str
+    structural_position: str
+    conception_ready: bool
+
+
+@dataclass(frozen=True)
+class InitialConceptionRecord:
+    """تصور أولي — U₅: first organized mental closure.
+
+    The first conceptual enclosure that makes the datum recallable
+    in a determinate manner.  (Art. 26, 28)
+    """
+
+    conception_id: str
+    source_designation: str
+    initial_unity: str
+    initial_boundary: str
+    initial_direction: str
+    recallable: bool
+
+
+@dataclass(frozen=True)
+class DisciplinedConceptionRecord:
+    """تصور منضبط — U₆: disciplined conception meeting boundary & unity.
+
+    The conception after boundary fixing, unity fixing, ambiguity
+    removal, and validation for conceptual encoding.  (Art. 27, 29)
+    """
+
+    conception_id: str
+    source_initial: str
+    boundary_fixed: bool
+    unity_fixed: bool
+    ambiguity_removed: bool
+    encoding_ready: bool
+
+
+@dataclass(frozen=True)
+class SemanticSubject:
+    """موضوع دلالي محرر — U₇: semantically disciplined subject matter.
+
+    The conception after conceptual encoding and semantic liberation —
+    the subject matter is now determinate enough for dalāla and
+    judgement.  (Art. 31–33)
+    """
+
+    subject_id: str
+    source_conception: str
+    conceptual_encoding: str
+    semantic_determination: str
+    dalala_ready: bool
+
+
+@dataclass(frozen=True)
+class JudgementReadyInput:
+    """مُعطى صالح للحكم — U₈: input ready for judgement.
+
+    The final stage of cognitive re-rationalisation: the subject
+    has been liberated and a judgement direction assigned.
+    (Art. 41, terminal)
+    """
+
+    input_id: str
+    source_subject: str
+    subject_liberated: bool
+    judgement_direction: str
+    ready: bool
+
+
+@dataclass(frozen=True)
+class CognitiveLayerResult:
+    """نتيجة طبقة عقلية — result of processing one cognitive layer.
+
+    Wraps the output of any Uᵢ → Uᵢ₊₁ transition with the gate
+    record and trace information.  (Art. 44–45)
+    """
+
+    layer: CognitiveLayerID
+    gate: CognitiveGateRecord
+    membership: bool         # Cᵢ(x) ∈ {0,1} — Art. 42
+    completeness: float      # Mᵢ(x) ∈ ℝ    — Art. 43
+    blocker: bool            # Fᵢ(x)         — Art. 45
+    evidence: Tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class CognitiveChainResult:
+    """نتيجة سلسلة العقلنة الكاملة — result of the full U₀→U₈ chain.
+
+    Aggregates all layer results and provides the final verdict on
+    whether the Unicode input has been fully re-rationalised into
+    judgement-ready material.  (Art. 46, 52)
+    """
+
+    source_text: str
+    layer_results: Tuple[CognitiveLayerResult, ...]
+    gates: Tuple[CognitiveGateRecord, ...]
+    final_layer: CognitiveLayerID
+    is_complete: bool
+    jump_violations: Tuple[str, ...] = ()
+    reason: str = ""
