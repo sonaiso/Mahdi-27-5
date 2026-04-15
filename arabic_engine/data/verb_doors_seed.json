@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "dataset_name": "verb_doors_seed_v1",
+  "description": "أبواب الثلاثي المجرد — trilateral base verb doors (Art. 43–46)",
+  "doors": [
+    {
+      "bab": "FA3ALA_YAF3ULU",
+      "past_pattern": "فَعَلَ",
+      "present_pattern": "يَفْعُلُ",
+      "examples": [
+        {"root": ["ك", "ت", "ب"], "past": "كَتَبَ", "present": "يَكْتُبُ"},
+        {"root": ["ن", "ص", "ر"], "past": "نَصَرَ", "present": "يَنْصُرُ"},
+        {"root": ["د", "خ", "ل"], "past": "دَخَلَ", "present": "يَدْخُلُ"}
+      ]
+    },
+    {
+      "bab": "FA3ALA_YAF3ILU",
+      "past_pattern": "فَعَلَ",
+      "present_pattern": "يَفْعِلُ",
+      "examples": [
+        {"root": ["ض", "ر", "ب"], "past": "ضَرَبَ", "present": "يَضْرِبُ"},
+        {"root": ["ج", "ل", "س"], "past": "جَلَسَ", "present": "يَجْلِسُ"},
+        {"root": ["ن", "ز", "ل"], "past": "نَزَلَ", "present": "يَنْزِلُ"}
+      ]
+    },
+    {
+      "bab": "FA3ALA_YAF3ALU",
+      "past_pattern": "فَعَلَ",
+      "present_pattern": "يَفْعَلُ",
+      "examples": [
+        {"root": ["ف", "ت", "ح"], "past": "فَتَحَ", "present": "يَفْتَحُ"},
+        {"root": ["م", "ن", "ع"], "past": "مَنَعَ", "present": "يَمْنَعُ"},
+        {"root": ["ق", "ر", "أ"], "past": "قَرَأَ", "present": "يَقْرَأُ"}
+      ]
+    },
+    {
+      "bab": "FA3ILA_YAF3ALU",
+      "past_pattern": "فَعِلَ",
+      "present_pattern": "يَفْعَلُ",
+      "examples": [
+        {"root": ["ع", "ل", "م"], "past": "عَلِمَ", "present": "يَعْلَمُ"},
+        {"root": ["ف", "ه", "م"], "past": "فَهِمَ", "present": "يَفْهَمُ"},
+        {"root": ["ش", "ر", "ب"], "past": "شَرِبَ", "present": "يَشْرَبُ"}
+      ]
+    },
+    {
+      "bab": "FA3ULA_YAF3ULU",
+      "past_pattern": "فَعُلَ",
+      "present_pattern": "يَفْعُلُ",
+      "examples": [
+        {"root": ["ك", "ب", "ر"], "past": "كَبُرَ", "present": "يَكْبُرُ"},
+        {"root": ["ح", "س", "ن"], "past": "حَسُنَ", "present": "يَحْسُنُ"},
+        {"root": ["ش", "ر", "ف"], "past": "شَرُفَ", "present": "يَشْرُفُ"}
+      ]
+    }
+  ]
+}

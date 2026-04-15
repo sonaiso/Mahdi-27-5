@@ -158,6 +158,53 @@ layers:
       - "contains why_judgement"
       - "contains why_rank"
 
+  # ── Epistemic Reception (Constitution v1) ─────────────────────────
+  - name: epistemic_reception
+    module: arabic_engine.cognition.epistemic_reception
+    function: validate_reception
+    input_type: EpistemicReceptionInput
+    output_type: EpistemicReceptionResult
+    invariants:
+      - "outcome is a valid ReceptionValidationOutcome enum"
+      - "codes is a tuple of ReceptionDecisionCode values"
+      - "corrected_assignments are matrix-compliant CarryingAssignment values"
+
+  # ── Semantic Direction Space (Constitution v1) ───────────────────
+  - name: semantic_direction
+    module: arabic_engine.signified.semantic_direction
+    function: assign_direction
+    input_type: LexicalClosure
+    output_type: DirectionAssignment
+    invariants:
+      - "genus is a valid SemanticDirectionGenus enum"
+      - "assigned_direction is a SemanticDirection with valid genus"
+      - "confidence in [0, 1]"
+
+  # ── Weight Fractal (Constitution v1) ─────────────────────────────
+  - name: weight_fractal
+    module: arabic_engine.signifier.weight_fractal
+    function: run_weight_fractal
+    input_type: LexicalClosure
+    output_type: WeightFractalResult
+    invariants:
+      - "fractal_tree contains exactly 6 phases"
+      - "completeness_score in [0, 1]"
+      - "is_closed iff completeness_score >= 0.75"
+      - "mwc_score.aggregate >= 0 when present"
+      - "fractal_score.aggregate >= 0 when present"
+      - "validation.status in {ACCEPTED, REJECTED, DEFICIENT} when present"
+
+  # ── Mufrad Closure (إقفال اللفظ المفرد) ──────────────────────────
+  - name: mufrad_closure
+    module: arabic_engine.mufrad_closure
+    function: close_mufrad
+    input_type: str
+    output_type: MufradClosureResult
+    invariants:
+      - "is_closed iff all required dimensions are valid"
+      - "closure_confidence in [0, 1]"
+      - "surface is preserved from input"
+
 # ── Closure proof ───────────────────────────────────────────────────
 # The composition F = L10 ∘ L9 ∘ … ∘ L0 is well-typed if for every
 # adjacent pair (Lᵢ, Lᵢ₊₁), output_type(Lᵢ) ⊆ input_type(Lᵢ₊₁).

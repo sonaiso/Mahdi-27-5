@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0",
+  "dataset_name": "augmented_weights_seed_v1",
+  "description": "أوزان المزيد والطبقات الدلالية — augmented weight patterns and semantic layers (Art. 47–50)",
+  "augmented_patterns": [
+    {
+      "pattern": "أَفْعَلَ",
+      "weight_class": "THULATHI_MAZEED",
+      "semantic_layers": ["SABABIYYA"],
+      "description": "causation / transitivity (التعدية والسببية)",
+      "example": {"root": ["خ", "ر", "ج"], "word": "أَخْرَجَ", "meaning": "أخرج — he took out"}
+    },
+    {
+      "pattern": "فَعَّلَ",
+      "weight_class": "THULATHI_MAZEED",
+      "semantic_layers": ["SABABIYYA", "TADARRUJ"],
+      "description": "intensive causation / intensification (التكثير والسببية)",
+      "example": {"root": ["ع", "ل", "م"], "word": "عَلَّمَ", "meaning": "علّم — he taught"}
+    },
+    {
+      "pattern": "فَاعَلَ",
+      "weight_class": "THULATHI_MAZEED",
+      "semantic_layers": ["MUSHARAKA"],
+      "description": "reciprocity / participation (المشاركة والمفاعلة)",
+      "example": {"root": ["ك", "ت", "ب"], "word": "كَاتَبَ", "meaning": "كاتب — he corresponded"}
+    },
+    {
+      "pattern": "تَفَاعَلَ",
+      "weight_class": "THULATHI_MAZEED",
+      "semantic_layers": ["MUSHARAKA", "TAKALLUF"],
+      "description": "mutual action / pretence (التفاعل المتبادل أو التكلف)",
+      "example": {"root": ["ع", "و", "ن"], "word": "تَعَاوَنَ", "meaning": "تعاون — they cooperated"}
+    },
+    {
+      "pattern": "تَفَعَّلَ",
+      "weight_class": "THULATHI_MAZEED",
+      "semantic_layers": ["TAKALLUF", "TADARRUJ"],
+      "description": "gradual acquisition / affectation (التكلف أو التدرج)",
+      "example": {"root": ["ع", "ل", "م"], "word": "تَعَلَّمَ", "meaning": "تعلّم — he learned"}
+    },
+    {
+      "pattern": "انْفَعَلَ",
+      "weight_class": "THULATHI_MAZEED",
+      "semantic_layers": ["MUTAWA3A"],
+      "description": "compliance / reflexive (المطاوعة)",
+      "example": {"root": ["ك", "س", "ر"], "word": "انْكَسَرَ", "meaning": "انكسر — it broke (intrans.)"}
+    },
+    {
+      "pattern": "افْتَعَلَ",
+      "weight_class": "THULATHI_MAZEED",
+      "semantic_layers": ["MUTAWA3A", "TALAB"],
+      "description": "reflexive / effort (الافتعال والمطاوعة)",
+      "example": {"root": ["ج", "م", "ع"], "word": "اجْتَمَعَ", "meaning": "اجتمع — they gathered"}
+    },
+    {
+      "pattern": "اسْتَفْعَلَ",
+      "weight_class": "THULATHI_MAZEED",
+      "semantic_layers": ["TALAB"],
+      "description": "seeking / requesting (الطلب والاستفعال)",
+      "example": {"root": ["غ", "ف", "ر"], "word": "اسْتَغْفَرَ", "meaning": "استغفر — he sought forgiveness"}
+    },
+    {
+      "pattern": "افْعَلَّ",
+      "weight_class": "THULATHI_MAZEED",
+      "semantic_layers": ["TAHAWWUL"],
+      "description": "colour/defect transformation (اللون أو العيب)",
+      "example": {"root": ["ح", "م", "ر"], "word": "احْمَرَّ", "meaning": "احمرّ — it reddened"}
+    }
+  ]
+}

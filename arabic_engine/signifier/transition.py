@@ -42,7 +42,7 @@ Public API
 
 from __future__ import annotations
 
-from typing import List
+from typing import FrozenSet, List
 
 from arabic_engine.core.enums import (
     FunctionRole,
@@ -71,12 +71,22 @@ _PT = PhonTransform
 _SP = SyllablePosition
 _FR = FunctionRole
 
+# ── Unicode Constants ────────────────────────────────────────────────
+_UNICODE_SUKUN: int = 0x0652   # sukūn mark  ْ
+_UNICODE_SHADDA: int = 0x0651  # shadda mark ّ
 
-def _ff(*feats: PhonFeature) -> frozenset:
+# ── Economy pressure thresholds ──────────────────────────────────────
+_ECONOMY_REDUCTION_THRESHOLD: float = 0.5   # minimum pressure for HADHF/WAQF
+_ECONOMY_CODA_ITLAL_THRESHOLD: float = 0.2  # ITLAL instability in coda
+
+
+def _ff(*feats: PhonFeature) -> FrozenSet[PhonFeature]:
+    """Return an immutable set of :class:`~arabic_engine.core.enums.PhonFeature` values."""
     return frozenset(feats)
 
 
-def _cc(*conds: TransitionCondition) -> frozenset:
+def _cc(*conds: TransitionCondition) -> FrozenSet[TransitionCondition]:
+    """Return an immutable set of :class:`~arabic_engine.core.enums.TransitionCondition` values."""
     return frozenset(conds)
 
 
@@ -429,7 +439,10 @@ def stability_check(element: DMin, context: TransitionContext) -> bool:
     if _PF.ITLAL in element.features:
         if context.economy_pressure >= 0.5:
             return False
-        if context.position in (_SP.CODA,) and context.economy_pressure > 0.2:
+        if (
+            context.position == _SP.CODA
+            and context.economy_pressure > _ECONOMY_CODA_ITLAL_THRESHOLD
+        ):
             return False
 
     # Condition 2: identical neighbour triggers gemination
@@ -478,6 +491,9 @@ def find_applicable_rules(
         Applicable rules, sorted by priority.
     """
     applicable: List[TransitionRule] = []
+    # Guard: nothing to match if element has no category or features
+    if element.category is None or element.features is None:
+        return applicable
     for rule in TRANSITION_MATRIX:
         # Category filter
         if rule.from_category is not None and rule.from_category is not element.category:
@@ -486,12 +502,23 @@ def find_applicable_rules(
         if not rule.required_features.issubset(element.features):
             continue
         # Economy gate for deletion / pause laws
-        if rule.law in (_TL.HADHF, _TL.WAQF) and context.economy_pressure < 0.5:
+        if (
+            rule.law in (_TL.HADHF, _TL.WAQF)
+            and context.economy_pressure < _ECONOMY_REDUCTION_THRESHOLD
+        ):
             continue
-        # Idgham gate: require identical/similar neighbour
+        # Idgham gate: require identical or phonetically similar (same group) neighbour
         if rule.law is _TL.IDGHAM:
             left = context.left_neighbor
-            if left is None or left.unicode != element.unicode:
+            if left is None:
+                continue
+            # Accept identical codepoint (full gemination) or same articulatory
+            # group (partial assimilation, e.g. solar-letter assimilation)
+            phonetically_similar = (
+                left.unicode == element.unicode
+                or left.group == element.group
+            )
+            if not phonetically_similar:
                 continue
         # Ziyada gate: only applies in augmented architecture or AUGMENT role
         if rule.law is _TL.ZIYADA:
@@ -511,7 +538,25 @@ def find_applicable_rules(
 # ── Cost computation ─────────────────────────────────────────────────
 
 def _transition_cost(rule: TransitionRule, context: TransitionContext) -> tuple:
-    """Return ``(loss_root, loss_pattern, phonetic_burden)`` for *rule*."""
+    """Return ``(loss_root, loss_pattern, phonetic_burden)`` for *rule*.
+
+    Parameters
+    ----------
+    rule:
+        The :class:`~arabic_engine.core.types.TransitionRule` being evaluated.
+    context:
+        The :class:`~arabic_engine.core.types.TransitionContext` supplying
+        economy pressure and transition type information.
+
+    Raises
+    ------
+    ValueError
+        If ``context.economy_pressure`` is outside the valid range ``[0, 1]``.
+    """
+    if not (0.0 <= context.economy_pressure <= 1.0):
+        raise ValueError(
+            f"economy_pressure must be in [0, 1]; got {context.economy_pressure!r}"
+        )
     lr = _COST_ROOT_LOSS_BY_LAW.get(rule.law, 0.3)
     lp = _COST_PATTERN_LOSS_BY_LAW.get(rule.law, 0.2)
     # Economy pressure reduces phonetic burden cost
@@ -590,9 +635,9 @@ def apply_best_transition(
 
     # Surface form heuristic
     if best_rule.to_category is _PC.SUKUN:
-        surface = element.char + "\u0652"          # append sukūn mark
+        surface = element.char + chr(_UNICODE_SUKUN)   # append sukūn mark
     elif best_rule.to_category is _PC.SHADDA:
-        surface = element.char + "\u0651"          # append shadda mark
+        surface = element.char + chr(_UNICODE_SHADDA)  # append shadda mark
     elif best_rule.to_category is _PC.SPECIAL_MARK:
         surface = ""                               # deleted from surface
     else:

@@ -1,0 +1,426 @@
+{
+  "version": "1.0.0",
+  "dataset_name": "weight_direction_matrix_v1",
+  "description": "مصفوفة الوزن × الجهة — weight-to-direction carrying matrix",
+  "weight_classes": [
+    {
+      "class": "THULATHI_MUJARRAD",
+      "label_ar": "ثلاثي مجرد",
+      "radical_count": 3,
+      "augmentation_letters": []
+    },
+    {
+      "class": "THULATHI_MAZEED",
+      "label_ar": "ثلاثي مزيد",
+      "radical_count": 3,
+      "augmentation_letters": [
+        "أ",
+        "ت",
+        "ن",
+        "س",
+        "ا"
+      ]
+    },
+    {
+      "class": "RUBA3I_MUJARRAD",
+      "label_ar": "رباعي مجرد",
+      "radical_count": 4,
+      "augmentation_letters": []
+    },
+    {
+      "class": "RUBA3I_MAZEED",
+      "label_ar": "رباعي مزيد",
+      "radical_count": 4,
+      "augmentation_letters": [
+        "ت"
+      ]
+    },
+    {
+      "class": "KHUMASI",
+      "label_ar": "خماسي",
+      "radical_count": 5,
+      "augmentation_letters": []
+    }
+  ],
+  "matrix": [
+    {
+      "pattern": "فَعْل",
+      "weight_class": "THULATHI_MUJARRAD",
+      "permitted_directions": [
+        "MASDAR",
+        "ISM_JAMID"
+      ],
+      "prohibited_directions": [
+        "ISM_FA3IL",
+        "ISM_MAF3UL"
+      ],
+      "carrying": [
+        {
+          "direction": "MASDAR",
+          "mode": "ASLI"
+        },
+        {
+          "direction": "ISM_JAMID",
+          "mode": "ASLI"
+        },
+        {
+          "direction": "ISM_FA3IL",
+          "mode": "MUMTANI3"
+        },
+        {
+          "direction": "ISM_MAF3UL",
+          "mode": "MUMTANI3"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 1.0,
+        "W4": 0.9
+      }
+    },
+    {
+      "pattern": "فِعالة",
+      "weight_class": "THULATHI_MUJARRAD",
+      "permitted_directions": [
+        "MASDAR"
+      ],
+      "prohibited_directions": [
+        "ISM_FA3IL",
+        "ISM_MAF3UL",
+        "FI3L_MADI"
+      ],
+      "carrying": [
+        {
+          "direction": "MASDAR",
+          "mode": "ASLI"
+        },
+        {
+          "direction": "ISM_FA3IL",
+          "mode": "MUMTANI3"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 1.0,
+        "W4": 0.85
+      }
+    },
+    {
+      "pattern": "فُعول",
+      "weight_class": "THULATHI_MUJARRAD",
+      "permitted_directions": [
+        "MASDAR"
+      ],
+      "prohibited_directions": [
+        "ISM_FA3IL",
+        "ISM_MAF3UL"
+      ],
+      "carrying": [
+        {
+          "direction": "MASDAR",
+          "mode": "ASLI"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 0.9,
+        "W4": 0.85
+      }
+    },
+    {
+      "pattern": "فاعِل",
+      "weight_class": "THULATHI_MUJARRAD",
+      "permitted_directions": [
+        "ISM_FA3IL"
+      ],
+      "prohibited_directions": [
+        "ISM_MAF3UL",
+        "MASDAR"
+      ],
+      "carrying": [
+        {
+          "direction": "ISM_FA3IL",
+          "mode": "ASLI"
+        },
+        {
+          "direction": "SIFA_MUSHABBAHA",
+          "mode": "TABI3I"
+        },
+        {
+          "direction": "MASDAR",
+          "mode": "MUMTANI3"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 1.0,
+        "W4": 1.0
+      }
+    },
+    {
+      "pattern": "مَفعول",
+      "weight_class": "THULATHI_MUJARRAD",
+      "permitted_directions": [
+        "ISM_MAF3UL"
+      ],
+      "prohibited_directions": [
+        "ISM_FA3IL",
+        "MASDAR"
+      ],
+      "carrying": [
+        {
+          "direction": "ISM_MAF3UL",
+          "mode": "ASLI"
+        },
+        {
+          "direction": "ISM_FA3IL",
+          "mode": "MUMTANI3"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 1.0,
+        "W4": 1.0
+      }
+    },
+    {
+      "pattern": "مَفعَل",
+      "weight_class": "THULATHI_MUJARRAD",
+      "permitted_directions": [
+        "ISM_ZAMAN",
+        "ISM_MAKAN"
+      ],
+      "prohibited_directions": [
+        "MASDAR",
+        "ISM_FA3IL"
+      ],
+      "carrying": [
+        {
+          "direction": "ISM_ZAMAN",
+          "mode": "ASLI"
+        },
+        {
+          "direction": "ISM_MAKAN",
+          "mode": "ASLI"
+        },
+        {
+          "direction": "MASDAR",
+          "mode": "TABI3I"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 1.0,
+        "W4": 0.9
+      }
+    },
+    {
+      "pattern": "مِفعَل",
+      "weight_class": "THULATHI_MUJARRAD",
+      "permitted_directions": [
+        "ISM_ALA"
+      ],
+      "prohibited_directions": [
+        "MASDAR",
+        "ISM_FA3IL",
+        "ISM_MAF3UL"
+      ],
+      "carrying": [
+        {
+          "direction": "ISM_ALA",
+          "mode": "ASLI"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 0.9,
+        "W3": 1.0,
+        "W4": 0.85
+      }
+    },
+    {
+      "pattern": "فَعيل",
+      "weight_class": "THULATHI_MUJARRAD",
+      "permitted_directions": [
+        "SIFA_MUSHABBAHA",
+        "ISM_MAF3UL"
+      ],
+      "prohibited_directions": [
+        "MASDAR"
+      ],
+      "carrying": [
+        {
+          "direction": "SIFA_MUSHABBAHA",
+          "mode": "ASLI"
+        },
+        {
+          "direction": "ISM_MAF3UL",
+          "mode": "TABI3I"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 1.0,
+        "W4": 0.9
+      }
+    },
+    {
+      "pattern": "أَفعَل",
+      "weight_class": "THULATHI_MUJARRAD",
+      "permitted_directions": [
+        "ISM_TAFDIL",
+        "SIFA_MUSHABBAHA"
+      ],
+      "prohibited_directions": [
+        "MASDAR",
+        "ISM_FA3IL"
+      ],
+      "carrying": [
+        {
+          "direction": "ISM_TAFDIL",
+          "mode": "ASLI"
+        },
+        {
+          "direction": "SIFA_MUSHABBAHA",
+          "mode": "TABI3I"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 0.9,
+        "W3": 1.0,
+        "W4": 0.9
+      }
+    },
+    {
+      "pattern": "فِعلة",
+      "weight_class": "THULATHI_MUJARRAD",
+      "permitted_directions": [
+        "ISM_HAY2A"
+      ],
+      "prohibited_directions": [
+        "ISM_FA3IL",
+        "ISM_MAF3UL"
+      ],
+      "carrying": [
+        {
+          "direction": "ISM_HAY2A",
+          "mode": "ASLI"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 0.9,
+        "W3": 0.9,
+        "W4": 0.85
+      }
+    },
+    {
+      "pattern": "إفعال",
+      "weight_class": "THULATHI_MAZEED",
+      "permitted_directions": [
+        "MASDAR"
+      ],
+      "prohibited_directions": [],
+      "carrying": [
+        {
+          "direction": "MASDAR",
+          "mode": "ASLI"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 1.0,
+        "W4": 0.9
+      }
+    },
+    {
+      "pattern": "تَفعيل",
+      "weight_class": "THULATHI_MAZEED",
+      "permitted_directions": [
+        "MASDAR"
+      ],
+      "prohibited_directions": [],
+      "carrying": [
+        {
+          "direction": "MASDAR",
+          "mode": "ASLI"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 1.0,
+        "W4": 0.9
+      }
+    },
+    {
+      "pattern": "مُفاعَلة",
+      "weight_class": "THULATHI_MAZEED",
+      "permitted_directions": [
+        "MASDAR"
+      ],
+      "prohibited_directions": [],
+      "carrying": [
+        {
+          "direction": "MASDAR",
+          "mode": "ASLI"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 1.0,
+        "W4": 0.9
+      }
+    },
+    {
+      "pattern": "انفعال",
+      "weight_class": "THULATHI_MAZEED",
+      "permitted_directions": [
+        "MASDAR"
+      ],
+      "prohibited_directions": [],
+      "carrying": [
+        {
+          "direction": "MASDAR",
+          "mode": "ASLI"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 1.0,
+        "W4": 0.85
+      }
+    },
+    {
+      "pattern": "استفعال",
+      "weight_class": "THULATHI_MAZEED",
+      "permitted_directions": [
+        "MASDAR"
+      ],
+      "prohibited_directions": [],
+      "carrying": [
+        {
+          "direction": "MASDAR",
+          "mode": "ASLI"
+        }
+      ],
+      "suitability": {
+        "W1": 1.0,
+        "W2": 1.0,
+        "W3": 1.0,
+        "W4": 0.9
+      }
+    }
+  ]
+}

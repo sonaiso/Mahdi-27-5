@@ -1,0 +1,57 @@
+name: Verify Commits
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  verify-commits:
+    name: Check commit signatures
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify all commits in this PR are signed
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Checking commits between $BASE_SHA and $HEAD_SHA"
+
+          UNSIGNED=""
+          while IFS= read -r sha; do
+            # Ask GitHub API whether this commit is verified
+            STATUS=$(gh api \
+              "repos/${{ github.repository }}/commits/$sha" \
+              --jq '.commit.verification.verified' 2>/dev/null || echo "false")
+
+            if [ "$STATUS" != "true" ]; then
+              UNSIGNED="$UNSIGNED\n  - $sha (unverified)"
+            fi
+          done < <(git log --format="%H" "$BASE_SHA..$HEAD_SHA")
+
+          if [ -n "$UNSIGNED" ]; then
+            echo ""
+            echo "❌ The following commits are NOT verified (unsigned or"
+            echo "   signed with an unknown/unverified GPG key):"
+            printf "%b\n" "$UNSIGNED"
+            echo ""
+            echo "How to fix this:"
+            echo "  1. Configure Git with your verified GitHub email:"
+            echo "       git config --global user.email 'you@example.com'"
+            echo "  2. Set up GPG signing — see docs/COMMIT_SIGNING.md"
+            echo "  3. Amend / rebase your commits so they are signed:"
+            echo "       git rebase --exec 'git commit --amend --no-edit -S' origin/main"
+            echo "  4. Force-push the branch and re-open the PR."
+            exit 1
+          else
+            echo "✅ All commits in this PR are verified."
+          fi
