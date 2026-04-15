@@ -10,10 +10,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import FrozenSet, List, Optional, Tuple
 
+# ── E2–E8 scaffold enums ───────────────────────────────────────────
 from .enums import (
     POS,
     ActivationStage,
     AffectiveDimension,
+    AffixType,
     AuthorityLevel,
     CarrierClass,
     CarrierType,
@@ -32,13 +34,18 @@ from .enums import (
     ConstraintType,
     ContaminationLevel,
     CouplingRelationType,
+    CriterionType,
     CulturalScope,
     DalaalaKind,
     DalalaType,
     DecisionCode,
+    DependencyRelation,
     DerivationalDirection,
     DerivationTarget,
     DiachronicStatus,
+    DiacriticConsistency,
+    DiacriticRole,
+    DiacriticType,
     DirectionBoundary,
     DirectionRelation,
     DiscourseGapType,
@@ -66,6 +73,7 @@ from .enums import (
     InterpretiveStability,
     IrabCase,
     IrabRole,
+    JudgementRank,
     JudgementType,
     JudgmentCategory,
     KawnType,
@@ -78,6 +86,7 @@ from .enums import (
     MetaConceptualLevel,
     MethodFamily,
     ModalCategory,
+    MorphemeType,
     NormativeCategory,
     OntologicalConstraintType,
     OntologicalLayer,
@@ -94,6 +103,7 @@ from .enums import (
     RankType,
     RationalSelfKind,
     RealityKind,
+    ReasoningMode,
     ReceiverExpectedAction,
     ReceiverRoleType,
     ReceiverState,
@@ -104,11 +114,14 @@ from .enums import (
     ReceptionStateType,
     ReceptionValidationOutcome,
     ReversibleValue,
+    ReviewStatus,
     RevisionType,
     SalienceLevel,
     ScriptPhase,
     SelfModelAspect,
     SemanticDirectionGenus,
+    SemanticFrameType,
+    SemanticRelationType,
     SemanticType,
     SenderRoleType,
     SenseModality,
@@ -121,6 +134,8 @@ from .enums import (
     StyleKind,
     SubjectGenre,
     SyllablePosition,
+    SyllableType,
+    SyllableWeight,
     ThulathiBab,
     TimeRef,
     TraceMode,
@@ -3197,3 +3212,353 @@ class CognitiveChainResult:
     is_complete: bool
     jump_violations: Tuple[str, ...] = ()
     reason: str = ""
+
+
+# ── Diacritic Logic (E2) ────────────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class DiacriticMark:
+    """علامة تشكيل — a single diacritical mark bound to a base character.
+
+    Records the Unicode code point, type, and position of one Arabic
+    diacritical mark relative to its base consonant.
+    """
+
+    code_point: int
+    mark_type: "DiacriticType"
+    base_char: str
+    position: int  # character index in the original token
+
+
+@dataclass(frozen=True)
+class DiacriticBinding:
+    """ربط التشكيل — binding of a diacritical mark to its base consonant.
+
+    Captures the relationship between a consonant and its diacritics
+    with consistency and role classification.
+    """
+
+    base_char: str
+    base_index: int
+    marks: Tuple["DiacriticMark", ...]
+    consistency: "DiacriticConsistency"
+    role: "DiacriticRole"
+
+
+@dataclass(frozen=True)
+class DiacriticAnalysis:
+    """تحليل التشكيل — full diacritical analysis of a token.
+
+    Aggregates all bindings for a token, tracks overall consistency,
+    and records whether the token is fully, partially, or un-voweled.
+    """
+
+    token: str
+    bindings: Tuple["DiacriticBinding", ...]
+    mark_count: int
+    consistency: "DiacriticConsistency"
+    is_fully_voweled: bool
+    is_partially_voweled: bool
+
+
+# ── Syllabic Formation (E3) ─────────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class SyllableUnit:
+    """وحدة مقطعية — a single syllable with onset, nucleus, and coda.
+
+    Represents one phonological syllable extracted from a word,
+    classified by type and weight.
+    """
+
+    onset: str
+    nucleus: str
+    coda: str
+    syllable_type: "SyllableType"
+    weight: "SyllableWeight"
+    text: str  # original surface form of the syllable
+
+
+@dataclass(frozen=True)
+class SyllablePattern:
+    """نمط مقطعي — syllable pattern for an entire word.
+
+    Records the sequence of syllable types and the stress pattern.
+    """
+
+    syllables: Tuple["SyllableUnit", ...]
+    pattern: str  # e.g. "CV.CVC.CV"
+    stress_position: int  # index of stressed syllable (-1 if unknown)
+
+
+@dataclass(frozen=True)
+class SyllableAnalysis:
+    """تحليل مقطعي — full syllabic analysis result for a word.
+
+    Wraps the syllable pattern with the original word, validity status,
+    and mora count (for metrical analysis).
+    """
+
+    word: str
+    pattern: "SyllablePattern"
+    is_valid: bool
+    mora_count: int
+    violations: Tuple[str, ...] = ()
+
+
+# ── Morphological Intelligence (E4) ─────────────────────────────────
+
+
+@dataclass(frozen=True)
+class MorphemeRecord:
+    """سجل صرفي — a single morpheme extracted from a word.
+
+    Records the morpheme text, type, and features.
+    """
+
+    text: str
+    morpheme_type: "MorphemeType"
+    features: Tuple[str, ...]
+    position: int  # start index in the surface form
+
+
+@dataclass(frozen=True)
+class RootEntry:
+    """مدخل جذر — a lexicon entry for a consonantal root.
+
+    Maps a root to its known patterns, base meanings, and frequency.
+    """
+
+    root: Tuple[str, ...]  # e.g. ("ك", "ت", "ب")
+    patterns: Tuple[str, ...]
+    base_meaning: str
+    frequency: int
+
+
+@dataclass(frozen=True)
+class PatternTemplate:
+    """قالب وزن — a morphological pattern template.
+
+    Defines a pattern (wazn) with its skeletal structure and the
+    grammatical features it carries.
+    """
+
+    pattern: str  # e.g. "فَعَلَ"
+    skeletal: str  # e.g. "CaCaCa"
+    pos: "POS"
+    features: Tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class AffixSet:
+    """مجموعة ملاحق — set of affixes for a morphological analysis.
+
+    Groups all prefixes, suffixes, and infixes found on a single word.
+    """
+
+    prefixes: Tuple[str, ...]
+    suffixes: Tuple[str, ...]
+    infixes: Tuple[str, ...]
+    affix_type: "AffixType"
+
+
+# ── Syntax Graph (E5) ───────────────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class DependencyArc:
+    """قوس تبعية — a directed dependency arc in the syntax tree.
+
+    Connects a head token to a dependent token with a typed relation.
+    """
+
+    head_index: int
+    dependent_index: int
+    relation: "DependencyRelation"
+    label: str
+
+
+@dataclass(frozen=True)
+class SyntaxTree:
+    """شجرة نحوية — the full dependency tree for a sentence.
+
+    Contains the list of arcs and the root index.
+    """
+
+    tokens: Tuple[str, ...]
+    arcs: Tuple["DependencyArc", ...]
+    root_index: int
+
+
+@dataclass(frozen=True)
+class GovernanceRelation:
+    """علاقة حكم نحوي — governance (عامل) relation between tokens.
+
+    Records which token governs another and the resulting i'rāb effect.
+    """
+
+    governor_index: int
+    governed_index: int
+    effect: str  # resulting i'rāb effect (e.g. "رفع", "نصب")
+    governor_type: str  # e.g. "فعل", "حرف ناسخ"
+
+
+# ── Semantic Structuring (E6) ───────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class SemanticFrame:
+    """إطار دلالي — a semantic frame capturing event/state structure.
+
+    Records the frame type, participants, and their roles.
+    """
+
+    frame_type: "SemanticFrameType"
+    predicate: str
+    participants: Tuple[Tuple[str, str], ...]  # (role, filler) pairs
+    properties: Tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class SemanticConceptRelation:
+    """علاقة مفهومية — a typed semantic relation between two concepts.
+
+    Links two concept IDs with a classified relation type (E6 scaffold).
+    """
+
+    source_id: str
+    target_id: str
+    relation_type: "SemanticRelationType"
+    confidence: float
+
+
+@dataclass(frozen=True)
+class DenotationMap:
+    """خريطة دلالية — mapping from signifier to signified meanings.
+
+    Records all possible denotations for a given signifier with
+    their confidence scores.
+    """
+
+    signifier: str
+    denotations: Tuple[Tuple[str, float], ...]  # (meaning, confidence)
+    primary_meaning: str
+
+
+# ── Cognitive Mediation (E7) ────────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class CognitiveState:
+    """حالة إدراكية — the cognitive state during mediation.
+
+    Tracks the reasoning mode, active criteria, and intermediate
+    conclusions during cognitive mediation.
+    """
+
+    reasoning_mode: "ReasoningMode"
+    active_criteria: Tuple["CriterionType", ...]
+    intermediate_conclusions: Tuple[str, ...]
+    confidence: float
+
+
+@dataclass(frozen=True)
+class ReasoningChain:
+    """سلسلة استدلال — a chain of reasoning steps.
+
+    Records the sequence of steps from premises to conclusion
+    with confidence and mode at each step.
+    """
+
+    steps: Tuple[Tuple[str, float], ...]  # (step_description, confidence)
+    mode: "ReasoningMode"
+    premises: Tuple[str, ...]
+    conclusion: str
+    overall_confidence: float
+
+
+@dataclass(frozen=True)
+class CriterionSelection:
+    """اختيار المعيار — selection of criterion for evaluation.
+
+    Records which criterion was selected for evaluating a subject,
+    why it was selected, and its weight.
+    """
+
+    criterion: "CriterionType"
+    reason: str
+    weight: float
+    applicable: bool
+
+
+# ── Judgement Constitution (E8) ─────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class JudgementVerdict:
+    """حكم مكتمل — a complete judgement verdict with rank and review status.
+
+    Contains the content of the judgement, its rank, the trace of
+    how it was reached, and the reason behind it.  (E8 scaffold)
+    """
+
+    judgement_id: str
+    content: str
+    rank: "JudgementRank"
+    reason: str
+    review_status: "ReviewStatus"
+    confidence: float
+    timestamp: str  # ISO 8601
+
+
+@dataclass(frozen=True)
+class JudgementTrace:
+    """أثر الحكم — the trace of how a judgement was reached.
+
+    Records the chain of evidence, reasoning, and criteria that
+    led to the judgement.
+    """
+
+    judgement_id: str
+    evidence: Tuple[str, ...]
+    reasoning_chain: "ReasoningChain"
+    criteria_used: Tuple["CriterionSelection", ...]
+    layers_consulted: Tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class ReviewableVerdict:
+    """حكم قابل للمراجعة — a verdict that can be reviewed and contested.
+
+    Wraps a judgement verdict with its trace and review metadata.
+    """
+
+    judgement: "JudgementVerdict"
+    trace: "JudgementTrace"
+    is_reviewable: bool
+    review_history: Tuple[str, ...] = ()
+
+
+# ── Unified Layer Trace ─────────────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class LayerTrace:
+    """أثر طبقة موحد — unified trace record for any pipeline layer.
+
+    Captures input/output, rules applied, confidence, timing, and
+    metadata for reproducibility and audit.
+    """
+
+    layer_id: str  # E1/E2/.../E8
+    layer_name: str
+    input_hash: str
+    input_summary: str
+    output_summary: str
+    rules_applied: Tuple[str, ...]
+    confidence: float
+    duration_ms: float
+    timestamp: str  # ISO 8601
+    metadata: Tuple[Tuple[str, str], ...] = ()

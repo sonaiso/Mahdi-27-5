@@ -334,6 +334,43 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "description": "Gate evaluation for cognitive layer transitions",
         "description_ar": "تقييم بوابة العبور بين الطبقات العقلية",
     },
+    # ── E2–E4 Scaffold layers ────────────────────────────────────────
+    {
+        "symbol": "E2",
+        "name": "diacritic_analysis",
+        "name_ar": "تحليل التشكيل",
+        "module": "arabic_engine.diacritics.analyzer",
+        "function": "analyze",
+        "description": "Diacritic analysis — mark binding and classification",
+        "description_ar": "تحليل التشكيل: الربط والتصنيف",
+    },
+    {
+        "symbol": "E3",
+        "name": "syllable_segmentation",
+        "name_ar": "تقطيع المقاطع",
+        "module": "arabic_engine.syllables.segmenter",
+        "function": "segment",
+        "description": "Syllable segmentation — phonological syllabification",
+        "description_ar": "تقطيع المقاطع الصوتية",
+    },
+    {
+        "symbol": "E4/lex",
+        "name": "morphology_lexicon",
+        "name_ar": "المعجم الصرفي",
+        "module": "arabic_engine.morphology.lexicon",
+        "function": "lookup_root",
+        "description": "Morphological lexicon — root lookup",
+        "description_ar": "البحث في المعجم الجذري",
+    },
+    {
+        "symbol": "E4/afx",
+        "name": "morphology_affixes",
+        "name_ar": "تجريد اللواحق",
+        "module": "arabic_engine.morphology.affixes",
+        "function": "strip_affixes",
+        "description": "Affix stripping — prefix/suffix identification",
+        "description_ar": "تجريد السوابق واللواحق",
+    },
 ]
 
 
