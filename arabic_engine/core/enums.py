@@ -1860,3 +1860,160 @@ class TransitionGateStatus(Enum):
     PASSED = auto()
     BLOCKED = auto()
     INSUFFICIENT_DATA = auto()
+
+
+# ── Verb Fractal Constitution — دستور الفعل الفراكتالي ───────────────
+
+
+class VerbBaseType(Enum):
+    """نوع الفعل الأساسي — trilateral vs. quadrilateral base."""
+
+    THULATHI = auto()   # ثلاثي
+    RUBAI = auto()      # رباعي
+
+
+class VerbAugmentation(Enum):
+    """حالة الزيادة — bare (مجرد) vs. augmented (مزيد)."""
+
+    MUJARRAD = auto()   # مجرد
+    MAZID = auto()      # مزيد
+
+
+class ThulathiBab(Enum):
+    """أبواب الثلاثي المجرد — the six trilateral conjugation gates.
+
+    Each gate is identified by the past-tense vowel on the ع (ʿayn)
+    and the present-tense vowel on the ع:
+
+        فَعَلَ يَفْعُلُ  — nasara / yankuru
+        فَعَلَ يَفْعِلُ  — daraba / yadribu
+        فَعَلَ يَفْعَلُ  — fataha / yaftahu
+        فَعِلَ يَفْعَلُ  — ʿalima / yaʿlamu
+        فَعُلَ يَفْعُلُ  — karuma / yakrumu
+        فَعِلَ يَفْعِلُ  — hasiba / yahsibu
+    """
+
+    FA3ALA_YAF3ULU = auto()   # فَعَلَ يَفْعُلُ  (باب نَصَرَ)
+    FA3ALA_YAF3ILU = auto()   # فَعَلَ يَفْعِلُ  (باب ضَرَبَ)
+    FA3ALA_YAF3ALU = auto()   # فَعَلَ يَفْعَلُ  (باب فَتَحَ)
+    FA3ILA_YAF3ALU = auto()   # فَعِلَ يَفْعَلُ  (باب عَلِمَ)
+    FA3ULA_YAF3ULU = auto()   # فَعُلَ يَفْعُلُ  (باب كَرُمَ)
+    FA3ILA_YAF3ILU = auto()   # فَعِلَ يَفْعِلُ  (باب حَسِبَ)
+
+
+class MazidPattern(Enum):
+    """أوزان المزيد — augmented verb patterns (trilateral + quadrilateral).
+
+    Each member carries its semantic tendency (الميل الدلالي) as a
+    well-known Arabic grammatical label.
+    """
+
+    # ── Trilateral augmented by one letter (مزيد بحرف) ──
+    AF3ALA = auto()       # أَفْعَلَ   — تعدية / سببية
+    FA33ALA = auto()      # فَعَّلَ    — تكثير / تعدية
+    FA3ALA_III = auto()   # فَاعَلَ   — مشاركة
+
+    # ── Trilateral augmented by two letters (مزيد بحرفين) ──
+    TAFA33ALA = auto()    # تَفَعَّلَ  — تكلُّف / مطاوعة فَعَّلَ
+    TAFA3ALA = auto()     # تَفَاعَلَ — تشارك / تظاهر
+    INFA3ALA = auto()     # اِنْفَعَلَ — مطاوعة فَعَلَ
+    IFTA3ALA = auto()     # اِفْتَعَلَ — مطاوعة / اتخاذ
+    IF3ALLA = auto()      # اِفْعَلَّ  — لون أو عيب
+
+    # ── Trilateral augmented by three letters (مزيد بثلاثة) ──
+    ISTAF3ALA = auto()    # اِسْتَفْعَلَ — طلب / صيرورة
+
+    # ── Quadrilateral augmented ──
+    TAFA3LALA = auto()    # تَفَعْلَلَ — مطاوعة فَعْلَلَ
+
+
+class VerbTense(Enum):
+    """الزمن الصرفي — morphological tense of the verb."""
+
+    MADI = auto()      # ماض
+    MUDARI = auto()    # مضارع
+    AMR = auto()       # أمر
+
+
+class VerbTransitivity(Enum):
+    """اللزوم والتعدي — transitivity classification."""
+
+    LAZIM = auto()                 # لازم
+    MUTA3ADDI = auto()             # متعدٍّ (لمفعول واحد)
+    MUTA3ADDI_LI_ITHNAYN = auto()  # متعدٍّ لمفعولين
+    MUTA3ADDI_LI_THALATHA = auto()  # متعدٍّ لثلاثة مفاعيل
+
+
+class VerbCompleteness(Enum):
+    """تمام الفعل — complete (تام) vs. defective/copular (ناقص)."""
+
+    KAMIL = auto()    # كامل / تام
+    NAQIS = auto()    # ناقص / ناسخ
+
+
+class NasikhCategory(Enum):
+    """فئة الفعل الناسخ — category of copular/modal verb."""
+
+    KANA_WA_AKHAWAT = auto()    # كان وأخواتها — temporal/predicative binding
+    KADA_WA_AKHAWAT = auto()    # كاد وأخواتها — approximation/inception
+    ZANNA_WA_AKHAWAT = auto()   # ظن وأخواتها — belief/epistemic judgment
+
+
+class VerbPerson(Enum):
+    """شخص الفعل — person of the verb."""
+
+    MUTAKALLIM = auto()   # متكلم  (first person)
+    MUKHATAB = auto()     # مخاطب (second person)
+    GHAIB = auto()        # غائب  (third person)
+
+
+class VerbNumber(Enum):
+    """عدد الفعل — grammatical number of the verb."""
+
+    MUFRAD = auto()     # مفرد
+    MUTHANNA = auto()   # مثنى
+    JAM3 = auto()       # جمع
+
+
+class VerbGender(Enum):
+    """جنس الفعل — grammatical gender of the verb."""
+
+    MUDHAKKAR = auto()  # مذكر
+    MUANNATH = auto()   # مؤنث
+
+
+class VerbVoice(Enum):
+    """بناء الفعل — voice (active / passive)."""
+
+    MA3LUM = auto()    # مبني للمعلوم
+    MAJHUL = auto()    # مبني للمجهول
+
+
+class DerivativeType(Enum):
+    """نوع المشتق — type of verbal derivative."""
+
+    MASDAR = auto()            # مصدر
+    ISM_FA3IL = auto()         # اسم فاعل
+    ISM_MAF3UL = auto()        # اسم مفعول
+    ISM_ZAMAN = auto()         # اسم زمان
+    ISM_MAKAN = auto()         # اسم مكان
+    ISM_HAYA = auto()          # اسم هيئة
+    ISM_ALA = auto()           # اسم آلة
+    SIFA_MUSHABBAHA = auto()   # صفة مشبهة
+    SIGHATU_MUBALGHA = auto()  # صيغة مبالغة
+    ISM_TAFDIL = auto()        # اسم تفضيل
+
+
+class VerbFractalStage(Enum):
+    """مرحلة الفراكتال الفعلي — stage in the verb's fractal cycle.
+
+    The verb passes through the same six-stage cycle that governs
+    the whole project:  تعيين → حفظ → ربط → حكم → انتقال → رد
+    """
+
+    TA3YIN = auto()    # تعيين  — designation / identification
+    HIFDH = auto()     # حفظ   — preservation / retention
+    RABT = auto()      # ربط   — linkage / binding
+    HUKM = auto()      # حكم   — judgment / classification
+    INTIQAL = auto()   # انتقال — transition / derivation
+    RADD = auto()      # ردّ   — return / traceability

@@ -381,6 +381,50 @@ from .enums import (
     ValidationState as ValidationState,
 )
 
+# ── Verb Fractal Constitution enum re-exports ──────────────────────
+from .enums import (
+    DerivativeType as DerivativeType,
+)
+from .enums import (
+    MazidPattern as MazidPattern,
+)
+from .enums import (
+    NasikhCategory as NasikhCategory,
+)
+from .enums import (
+    ThulathiBab as ThulathiBab,
+)
+from .enums import (
+    VerbAugmentation as VerbAugmentation,
+)
+from .enums import (
+    VerbBaseType as VerbBaseType,
+)
+from .enums import (
+    VerbCompleteness as VerbCompleteness,
+)
+from .enums import (
+    VerbFractalStage as VerbFractalStage,
+)
+from .enums import (
+    VerbGender as VerbGender,
+)
+from .enums import (
+    VerbNumber as VerbNumber,
+)
+from .enums import (
+    VerbPerson as VerbPerson,
+)
+from .enums import (
+    VerbTense as VerbTense,
+)
+from .enums import (
+    VerbTransitivity as VerbTransitivity,
+)
+from .enums import (
+    VerbVoice as VerbVoice,
+)
+
 # ── Kernel re-exports ───────────────────────────────────────────────
 from .kernel import (
     KERNEL_RELATION_PAIRS as KERNEL_RELATION_PAIRS,
@@ -730,6 +774,26 @@ from .types import (
     ZeroSlotRecord as ZeroSlotRecord,
 )
 
+# ── Verb Fractal Constitution type re-exports ──────────────────────
+from .types import (
+    NasikhProfile as NasikhProfile,
+)
+from .types import (
+    VerbBab as VerbBab,
+)
+from .types import (
+    VerbDerivativeChain as VerbDerivativeChain,
+)
+from .types import (
+    VerbFractalNode as VerbFractalNode,
+)
+from .types import (
+    VerbMinimalThreshold as VerbMinimalThreshold,
+)
+from .types import (
+    VerbProfile as VerbProfile,
+)
+
 __all__ = [
     # ── enums ───────────────────────────────────────────────────────
     "POS",
@@ -973,4 +1037,26 @@ __all__ = [
     "StructuralProfileRecord",
     "TransformationProfileRecord",
     "TransitionGate",
+    # ── Verb Fractal Constitution enums ────────────────────────────
+    "DerivativeType",
+    "MazidPattern",
+    "NasikhCategory",
+    "ThulathiBab",
+    "VerbAugmentation",
+    "VerbBaseType",
+    "VerbCompleteness",
+    "VerbFractalStage",
+    "VerbGender",
+    "VerbNumber",
+    "VerbPerson",
+    "VerbTense",
+    "VerbTransitivity",
+    "VerbVoice",
+    # ── Verb Fractal Constitution types ────────────────────────────
+    "NasikhProfile",
+    "VerbBab",
+    "VerbDerivativeChain",
+    "VerbFractalNode",
+    "VerbMinimalThreshold",
+    "VerbProfile",
 ]

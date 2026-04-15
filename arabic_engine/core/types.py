@@ -122,6 +122,18 @@ from .enums import (
     UtteredFormClass,
     ValidationOutcome,
     ValidationState,
+    # ── verb fractal constitution enums ─────────────────────────
+    NasikhCategory,
+    VerbAugmentation,
+    VerbBaseType,
+    VerbCompleteness,
+    VerbFractalStage,
+    VerbGender,
+    VerbNumber,
+    VerbPerson,
+    VerbTense,
+    VerbTransitivity,
+    VerbVoice,
 )
 
 # ── Signifier layer ─────────────────────────────────────────────────
@@ -2585,3 +2597,139 @@ class LayerTraceRecord:
     layer_6: Optional[RepresentationRecord] = None
     gates: Tuple[TransitionGate, ...] = ()
     final_gate_status: TransitionGateStatus = TransitionGateStatus.INSUFFICIENT_DATA
+
+
+# ── Verb Fractal Constitution — دستور الفعل الفراكتالي ───────────────
+
+
+@dataclass(frozen=True)
+class VerbBab:
+    """باب التصريف — a conjugation gate linking root to system.
+
+    A *bāb* is the minimum structural bridge that connects a bare
+    root to the morphological, temporal, and semantic systems.
+    """
+
+    bab_id: int
+    base_type: VerbBaseType
+    augmentation: VerbAugmentation
+    past_pattern: str               # e.g. "فَعَلَ"
+    present_pattern: str            # e.g. "يَفْعُلُ"
+    masdar_pattern: str             # e.g. "فَعْل"
+    bab_label: str                  # human-readable label, e.g. "باب نَصَرَ"
+    semantic_tendency: str = ""     # e.g. "تعدية", "مطاوعة", "سببية"
+
+
+@dataclass(frozen=True)
+class VerbProfile:
+    """الهوية الكاملة للفعل — complete verb identity.
+
+    Combines root, conjugation gate, tense, transitivity,
+    completeness, person, number, gender, voice, and optional
+    nāsikh classification into a single epistemic record.
+    """
+
+    root: Tuple[str, ...]
+    bab: VerbBab
+    tense: VerbTense
+    transitivity: VerbTransitivity
+    completeness: VerbCompleteness
+    voice: VerbVoice
+    person: VerbPerson
+    number: VerbNumber
+    gender: VerbGender
+    nasikh_category: Optional[NasikhCategory] = None
+    surface: str = ""
+
+
+@dataclass(frozen=True)
+class VerbMinimalThreshold:
+    """الحد الأدنى المكتمل — the eight conditions for verb-hood.
+
+    A candidate word qualifies as a verb only when all eight
+    conditions hold.  Each field maps to one pillar of the proof:
+
+    1. ثبوت   — realised phonological form
+    2. حد     — distinct from noun / particle / maṣdar
+    3. امتداد  — phonological, pattern, temporal, predicative extension
+    4. مقوِّم  — root + pattern + temporal direction + event capacity
+    5. علاقة بنائية — root→pattern→event→time→predication chain intact
+    6. انتظام  — follows known bāb / morphological system
+    7. وحدة   — functions as a single verbal unit
+    8. قابلية تعيين — classifiable (base/augmented, transitive, tense …)
+    """
+
+    has_thubut: bool             # 1. ثبوت
+    has_hadd: bool               # 2. حد
+    has_imtidad: bool            # 3. امتداد
+    has_muqawwim: bool           # 4. مقوِّم
+    has_3alaqa_binaya: bool      # 5. علاقة بنائية
+    has_intizam: bool            # 6. انتظام
+    has_wahda: bool              # 7. وحدة
+    has_qabiliyyat_ta3yin: bool  # 8. قابلية تعيين
+
+    @property
+    def is_complete(self) -> bool:
+        """True when all eight pillars hold."""
+        return all((
+            self.has_thubut,
+            self.has_hadd,
+            self.has_imtidad,
+            self.has_muqawwim,
+            self.has_3alaqa_binaya,
+            self.has_intizam,
+            self.has_wahda,
+            self.has_qabiliyyat_ta3yin,
+        ))
+
+
+@dataclass(frozen=True)
+class VerbDerivativeChain:
+    """سلسلة المشتقات — the derivational network rooted at a verb.
+
+    Every slot is a *condition of epistemic possibility* for a
+    particular facet of event-knowledge (agent, patient, time,
+    place, manner, instrument).
+    """
+
+    root: Tuple[str, ...]
+    bab_id: int
+    masdar: str            # المصدر
+    ism_fa3il: str         # اسم الفاعل
+    ism_maf3ul: str        # اسم المفعول
+    ism_zaman: str         # اسم الزمان
+    ism_makan: str         # اسم المكان
+    ism_haya: str = ""     # اسم الهيئة (trilateral only)
+    ism_ala: str = ""      # اسم الآلة (trilateral only)
+
+
+@dataclass(frozen=True)
+class NasikhProfile:
+    """هوية الفعل الناسخ — profile for copular / modal verbs.
+
+    Nawāsikh are not anomalies but *epistemic-possibility gates*
+    for predication binding, approximation, inception, and belief.
+    """
+
+    verb_label: str                 # e.g. "كان", "كاد", "ظنّ"
+    category: NasikhCategory
+    epistemic_function: str         # e.g. "ربط زمني حكمي"
+    argument_structure: str         # e.g. "اسم + خبر"
+
+
+@dataclass(frozen=True)
+class VerbFractalNode:
+    """العقدة الفراكتالية الفعلية — the verb as a complete fractal node.
+
+    Mirrors the project-wide six-stage cycle
+    (تعيين → حفظ → ربط → حكم → انتقال → رد) applied to the verb.
+    ``coherence_links`` maps each :class:`VerbFractalStage` name
+    to a short evidence string proving that stage is satisfied.
+    """
+
+    profile: VerbProfile
+    threshold: VerbMinimalThreshold
+    derivatives: VerbDerivativeChain
+    fractal_stage: VerbFractalStage
+    coherence_links: Tuple[Tuple[str, str], ...] = ()
+
