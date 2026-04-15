@@ -864,6 +864,123 @@ from .types import (
     SemanticSubject as SemanticSubject,
 )
 
+# ── E2–E8 scaffold enum re-exports ────────────────────────────────
+from .enums import (
+    AffixType as AffixType,
+)
+from .enums import (
+    ConceptRelationType as ConceptRelationType,
+)
+from .enums import (
+    CriterionType as CriterionType,
+)
+from .enums import (
+    DependencyRelation as DependencyRelation,
+)
+from .enums import (
+    DiacriticConsistency as DiacriticConsistency,
+)
+from .enums import (
+    DiacriticRole as DiacriticRole,
+)
+from .enums import (
+    DiacriticType as DiacriticType,
+)
+from .enums import (
+    EpicLayerID as EpicLayerID,
+)
+from .enums import (
+    JudgementRank as JudgementRank,
+)
+from .enums import (
+    MorphemeType as MorphemeType,
+)
+from .enums import (
+    ReasoningMode as ReasoningMode,
+)
+from .enums import (
+    ReviewStatus as ReviewStatus,
+)
+from .enums import (
+    SemanticFrameType as SemanticFrameType,
+)
+from .enums import (
+    SyllableType as SyllableType,
+)
+from .enums import (
+    SyllableWeight as SyllableWeight,
+)
+
+# ── E2–E8 scaffold type re-exports ────────────────────────────────
+from .types import (
+    AffixSet as AffixSet,
+)
+from .types import (
+    CognitiveState as CognitiveState,
+)
+from .types import (
+    ConceptRelation as ConceptRelation,
+)
+from .types import (
+    CriterionSelection as CriterionSelection,
+)
+from .types import (
+    DenotationMap as DenotationMap,
+)
+from .types import (
+    DependencyArc as DependencyArc,
+)
+from .types import (
+    DiacriticAnalysis as DiacriticAnalysis,
+)
+from .types import (
+    DiacriticBinding as DiacriticBinding,
+)
+from .types import (
+    DiacriticMark as DiacriticMark,
+)
+from .types import (
+    GovernanceRelation as GovernanceRelation,
+)
+from .types import (
+    JudgementRecord as JudgementRecord,
+)
+from .types import (
+    JudgementTrace as JudgementTrace,
+)
+from .types import (
+    LayerTrace as LayerTrace,
+)
+from .types import (
+    MorphemeRecord as MorphemeRecord,
+)
+from .types import (
+    PatternTemplate as PatternTemplate,
+)
+from .types import (
+    ReasoningChain as ReasoningChain,
+)
+from .types import (
+    ReviewableVerdict as ReviewableVerdict,
+)
+from .types import (
+    RootEntry as RootEntry,
+)
+from .types import (
+    SemanticFrame as SemanticFrame,
+)
+from .types import (
+    SyllableAnalysis as SyllableAnalysis,
+)
+from .types import (
+    SyllablePattern as SyllablePattern,
+)
+from .types import (
+    SyllableUnit as SyllableUnit,
+)
+from .types import (
+    SyntaxTree as SyntaxTree,
+)
 __all__ = [
     # ── enums ───────────────────────────────────────────────────────
     "POS",
@@ -1152,4 +1269,44 @@ __all__ = [
     "JudgementReadyInput",
     "NormalizedUnit",
     "SemanticSubject",
+    # ── E2–E8 scaffold enums ─────────────────────────────────────
+    "AffixType",
+    "ConceptRelationType",
+    "CriterionType",
+    "DependencyRelation",
+    "DiacriticConsistency",
+    "DiacriticRole",
+    "DiacriticType",
+    "EpicLayerID",
+    "JudgementRank",
+    "MorphemeType",
+    "ReasoningMode",
+    "ReviewStatus",
+    "SemanticFrameType",
+    "SyllableType",
+    "SyllableWeight",
+    # ── E2–E8 scaffold types ─────────────────────────────────────
+    "AffixSet",
+    "CognitiveState",
+    "ConceptRelation",
+    "CriterionSelection",
+    "DenotationMap",
+    "DependencyArc",
+    "DiacriticAnalysis",
+    "DiacriticBinding",
+    "DiacriticMark",
+    "GovernanceRelation",
+    "JudgementRecord",
+    "JudgementTrace",
+    "LayerTrace",
+    "MorphemeRecord",
+    "PatternTemplate",
+    "ReasoningChain",
+    "ReviewableVerdict",
+    "RootEntry",
+    "SemanticFrame",
+    "SyllableAnalysis",
+    "SyllablePattern",
+    "SyllableUnit",
+    "SyntaxTree",
 ]
