@@ -28,10 +28,9 @@ def _apply_pattern(root: Tuple[str, ...], pattern: str) -> str:
     not ف/ع/ل are kept as-is (prefix مُ, suffix ة, etc.).
     """
     result: list[str] = []
-    r_idx = 0
     root_slots = "فعل"
     for ch in pattern:
-        if ch in root_slots and r_idx < len(root):
+        if ch in root_slots:
             slot_pos = root_slots.index(ch)
             if slot_pos < len(root):
                 result.append(root[slot_pos])
