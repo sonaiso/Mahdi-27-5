@@ -156,7 +156,7 @@ def _validate_weight(pattern: str) -> GuardResult:
     # Also classify to ensure it's a valid weight
     try:
         classify_weight(pattern)
-    except Exception:
+    except (ValueError, KeyError, TypeError):
         return GuardResult(
             guard=DerivationGuard.GUARD_WEIGHT_VALID,
             passed=False,
