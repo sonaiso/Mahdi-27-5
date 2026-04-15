@@ -426,6 +426,7 @@
 3. `docs/test_legitimacy_constitution_v1.md` — دستور مشروعية الاختبار
 4. `docs/fractal_integration_constitution_v1.md` — دستور التكامل الفراكتالي
 5. `docs/accomplished_judgement_constitution_v1.md` — دستور الحكم المنجز
+6. `docs/system_integrity_verification_plan_v1.md` — خطة التحقق من سلامة النظام
 
 ---
 
