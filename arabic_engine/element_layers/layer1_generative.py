@@ -18,7 +18,7 @@ from arabic_engine.core.types import (
     GenerativeProfileRecord,
     TransitionGate,
 )
-from arabic_engine.signifier.dmin import DMIN_REGISTRY
+from arabic_engine.morphology.dmin import DMIN_REGISTRY
 
 # ── Feature-group mappings ──────────────────────────────────────────
 

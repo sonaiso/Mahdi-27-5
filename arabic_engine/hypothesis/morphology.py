@@ -11,8 +11,8 @@ from typing import List
 
 from arabic_engine.core.enums import POS, ActivationStage, HypothesisStatus
 from arabic_engine.core.types import HypothesisNode
-from arabic_engine.signifier.masdar import extract_masdar_from_surface
-from arabic_engine.signifier.root_pattern import extract_root_pattern, lexical_closure
+from arabic_engine.morphology.masdar import extract_masdar_from_surface
+from arabic_engine.morphology.root_pattern import extract_root_pattern, lexical_closure
 
 
 def generate(segments: List[HypothesisNode]) -> List[HypothesisNode]:

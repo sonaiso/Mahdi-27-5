@@ -21,7 +21,7 @@ from arabic_engine.core.types import (
     TransformationProfileRecord,
     TransitionGate,
 )
-from arabic_engine.signifier.dmin import DMIN_REGISTRY
+from arabic_engine.morphology.dmin import DMIN_REGISTRY
 
 # ── Weak letters (أحرف العلة) ─────────────────────────────────────────
 _WEAK_CODEPOINTS = {0x0627, 0x0648, 0x064A}  # ا و ي

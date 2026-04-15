@@ -1,5 +1,11 @@
 """runtime_pipeline — الجسر التشغيلي بين المنطوق والمفهوم.
 
+.. deprecated::
+    This module is **deprecated**.  Use the Fractal Kernel orchestrator
+    (:func:`arabic_engine.runtime.orchestrator.run`) or the main pipeline
+    (:func:`arabic_engine.pipeline.run`) instead.  ``runtime_pipeline``
+    will be removed in a future release.
+
 Implements the explicit eight-stage operational bridge:
 
     Utterance → Concept → Axis → Relation → Role → Factor → Case → Judgement

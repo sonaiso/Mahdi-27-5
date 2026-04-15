@@ -130,7 +130,7 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "symbol": "U₀",
         "name": "normalize",
         "name_ar": "الذرة اليونيكودية",
-        "module": "arabic_engine.signifier.unicode_norm",
+        "module": "arabic_engine.signal.unicode_norm",
         "function": "normalize",
         "description": "Unicode atom — raw text normalisation",
         "description_ar": "الرمز اليونيكودي المثبت في النص",
@@ -139,7 +139,7 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "symbol": "G",
         "name": "tokenize",
         "name_ar": "الحرف العربي الوظيفي",
-        "module": "arabic_engine.signifier.unicode_norm",
+        "module": "arabic_engine.signal.unicode_norm",
         "function": "tokenize",
         "description": "Functional grapheme — whitespace tokenisation",
         "description_ar": "تحويل النص إلى وحدات وظيفية",
@@ -148,7 +148,7 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "symbol": "Σ / R / W",
         "name": "lexical_closure",
         "name_ar": "المقطع والجذر والوزن",
-        "module": "arabic_engine.signifier.root_pattern",
+        "module": "arabic_engine.morphology.root_pattern",
         "function": "batch_closure",
         "description": "Syllable, Root, Pattern — morphological closure",
         "description_ar": "المقطع والجذر والوزن — الإقفال الصرفي",
@@ -157,7 +157,7 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "symbol": "C_min",
         "name": "pos_classification",
         "name_ar": "التصنيف الأدنى للمفرد",
-        "module": "arabic_engine.signifier.root_pattern",
+        "module": "arabic_engine.morphology.root_pattern",
         "function": "batch_closure",
         "description": "Minimal POS classification (اسم، فعل، حرف)",
         "description_ar": "التصنيف الثلاثي الأدنى: اسم، فعل، حرف",
@@ -229,7 +229,7 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "symbol": "𝒫⁺_min/masdar",
         "name": "masdar_analysis",
         "name_ar": "تحليل المصدر",
-        "module": "arabic_engine.signifier.masdar",
+        "module": "arabic_engine.morphology.masdar",
         "function": "extract_masdar_from_surface",
         "description": "Masdar extraction — verbal noun analysis",
         "description_ar": "استخراج المصدر — تحليل الاسم المصدري",
@@ -516,7 +516,7 @@ def _check_phonological_closure() -> ClosureVerdict:
     ``Syllable`` objects with the expected weight spectrum.
     """
     try:
-        mod = importlib.import_module("arabic_engine.signifier.phonology")
+        mod = importlib.import_module("arabic_engine.morphology.phonology")
         syllabify = getattr(mod, "syllabify", None)
         if syllabify is None:
             return ClosureVerdict(
@@ -625,7 +625,7 @@ def _check_masdar_closure() -> ClosureVerdict:
     and that the ``MasdarRecord`` type has required fields.
     """
     try:
-        mod = importlib.import_module("arabic_engine.signifier.masdar")
+        mod = importlib.import_module("arabic_engine.morphology.masdar")
         fn = getattr(mod, "extract_masdar_from_surface", None)
         if fn is None:
             return ClosureVerdict(

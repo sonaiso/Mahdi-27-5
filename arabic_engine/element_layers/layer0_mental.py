@@ -17,7 +17,7 @@ from arabic_engine.core.types import (
     MentalFoundationRecord,
     TransitionGate,
 )
-from arabic_engine.signifier.dmin import DMIN_REGISTRY
+from arabic_engine.morphology.dmin import DMIN_REGISTRY
 
 # ── Thresholds ───────────────────────────────────────────────────────
 _IDENTITY_THRESHOLD = 0.3

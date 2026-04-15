@@ -18,7 +18,7 @@ from arabic_engine.core.types import (
     MasdarDerivation,
     MasdarRecord,
 )
-from arabic_engine.signifier.masdar import (
+from arabic_engine.morphology.masdar import (
     build_fractal_node,
     derive_from_masdar,
     validate_completeness,

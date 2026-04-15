@@ -14,7 +14,7 @@ from typing import List, Tuple
 
 from arabic_engine.core.enums import ActivationStage, SignalType
 from arabic_engine.core.types import DecisionTrace, SignalUnit, UnicodeAtom
-from arabic_engine.signifier.unicode_norm import normalize
+from arabic_engine.signal.unicode_norm import normalize
 
 # ── Tatweel code-point ──────────────────────────────────────────────
 _TATWEEL_CP = 0x0640

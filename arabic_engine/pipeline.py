@@ -56,8 +56,8 @@ from arabic_engine.core.types import (
 from arabic_engine.linkage.dalala import full_validation
 from arabic_engine.linkage.semantic_roles import derive_semantic_roles
 from arabic_engine.signified.ontology import batch_map
-from arabic_engine.signifier.root_pattern import batch_closure
-from arabic_engine.signifier.unicode_norm import normalize, tokenize
+from arabic_engine.morphology.root_pattern import batch_closure
+from arabic_engine.signal.unicode_norm import normalize, tokenize
 from arabic_engine.syntax.syntax import analyse as syntax_analyse
 
 # ── Pipeline result ─────────────────────────────────────────────────
@@ -207,7 +207,7 @@ def run(
     layer_traces: List[LayerTraceRecord] = []
     if analyze_layers:
         from arabic_engine.element_layers.layer_pipeline import analyze_word as _analyze_word
-        from arabic_engine.signifier.root_pattern import extract_root_pattern
+        from arabic_engine.morphology.root_pattern import extract_root_pattern
 
         for closure in closures:
             rp = extract_root_pattern(closure.surface)

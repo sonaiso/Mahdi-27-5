@@ -30,7 +30,7 @@ from arabic_engine.element_layers.transition_rules import (
     gate_4_to_5,
     gate_5_to_6,
 )
-from arabic_engine.signifier.dmin import DMIN_REGISTRY
+from arabic_engine.morphology.dmin import DMIN_REGISTRY
 
 
 def analyze_element(
