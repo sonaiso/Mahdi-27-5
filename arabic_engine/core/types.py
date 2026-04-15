@@ -36,6 +36,9 @@ from .enums import (
     DalalaType,
     DecisionCode,
     DerivationalDirection,
+    DerivationFailureReason,
+    DerivationGuard,
+    DerivationPhase,
     DerivationTarget,
     DiachronicStatus,
     DirectionBoundary,
@@ -2885,5 +2888,83 @@ class MufradClosureResult:
     concept: Optional[Concept] = None                            # المفهوم
     dalala_link: Optional[DalalaLink] = None                     # رابط الدلالة
     epistemic_reception: Optional[EpistemicReceptionResult] = None  # الاستقبال المعرفي
+    derivation_trace: Optional[DerivationTrace] = None               # أثر التوليد الاشتقاقي
     is_closed: bool = False                                      # هل أُقفل كليًا؟
     closure_confidence: float = 0.0                              # درجة ثقة الإقفال
+
+
+# ── Fractal Derivation Function Spec v1 ─────────────────────────────
+
+
+@dataclass(frozen=True)
+class DerivationInput:
+    """مدخل التوليد الاشتقاقي — input to the fractal derivation function (Art. 11).
+
+    Captures the root, weight pattern, semantic direction, and all
+    constraint categories needed for a single derivation attempt.
+    """
+
+    root: Tuple[str, ...]                            # الجذر (ك، ت، ب)
+    weight_pattern: str                              # الوزن (فاعل، مفعول، فِعالة)
+    direction: DerivationalDirection                 # الجهة الاشتقاقية
+    constraints_phonological: Tuple[str, ...] = ()   # قيود صوتية
+    constraints_syllabic: Tuple[str, ...] = ()       # قيود مقطعية
+    constraints_morphological: Tuple[str, ...] = ()  # قيود صرفية
+    constraints_semantic: Tuple[str, ...] = ()       # قيود دلالية
+    constraints_productive: Tuple[str, ...] = ()     # قيود إنتاجية
+    constraints_lexical: Tuple[str, ...] = ()        # قيود معجمية
+
+
+@dataclass(frozen=True)
+class GuardResult:
+    """نتيجة الحارس — result of a single derivation guard checkpoint (Art. 32–35)."""
+
+    guard: DerivationGuard                           # الحارس
+    passed: bool                                     # هل نجح؟
+    message: str = ""                                # التعليل
+
+
+@dataclass(frozen=True)
+class DerivationCandidate:
+    """مرشح التوليد — candidate derived form before final acceptance (Art. 18)."""
+
+    surface: str                                     # الصورة السطحية (كاتب، مكتوب)
+    root: Tuple[str, ...]                            # الجذر المصدر
+    pattern: str                                     # الوزن المطبق
+    direction: DerivationalDirection                 # الجهة المستهدفة
+    syllables: Tuple[str, ...] = ()                  # البنية المقطعية
+
+
+@dataclass(frozen=True)
+class DerivationTrace:
+    """أثر التوليد — full audit trace for a derivation attempt (Art. 42–44).
+
+    Records every guard result, the candidate (if built), the weight
+    profile and direction assignment used, and the phase reached before
+    the decision was made.
+    """
+
+    input: DerivationInput                                       # المدخل
+    guard_results: Tuple[GuardResult, ...]                        # نتائج الحراس
+    candidate: Optional[DerivationCandidate] = None               # المرشح
+    weight_profile: Optional[WeightProfile] = None                # ملف الوزن
+    direction_assignment: Optional[DirectionAssignment] = None    # إسناد الجهة
+    phase_reached: DerivationPhase = DerivationPhase.ROOT_CHECK   # الطور المبلوغ
+
+
+@dataclass(frozen=True)
+class FractalDerivationResult:
+    """نتيجة التوليد الاشتقاقي الفراكتالي — main output (Art. 36–37).
+
+    ``success`` is ``True`` only when ALL guards pass and the candidate
+    is structurally, semantically valid and recoverable.  On failure,
+    ``failure_reasons`` lists every reason.
+    """
+
+    success: bool                                                # هل نجح التوليد؟
+    surface: Optional[str] = None                                # اللفظ الناتج
+    candidate: Optional[DerivationCandidate] = None              # المرشح
+    failure_reasons: Tuple[DerivationFailureReason, ...] = ()    # أسباب الفشل
+    trace: Optional[DerivationTrace] = None                      # الأثر
+    confidence: float = 0.0                                      # درجة الثقة
+    is_recoverable: bool = False                                 # قابل للرد؟

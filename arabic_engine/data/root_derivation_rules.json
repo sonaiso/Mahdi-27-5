@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "dataset_name": "root_derivation_rules_v1",
+  "description": "قواعد الاشتقاق الجذري — pattern-to-slot mapping for fractal derivation",
+  "patterns": {
+    "فاعل": {
+      "slots": ["C1", "ا", "C2", "ِ", "C3"],
+      "radical_count": 3,
+      "direction_affinity": ["ISM_FA3IL"],
+      "example_root": ["ك", "ت", "ب"],
+      "example_output": "كاتب"
+    },
+    "مفعول": {
+      "slots": ["م", "َ", "C1", "ْ", "C2", "ُ", "و", "C3"],
+      "radical_count": 3,
+      "direction_affinity": ["ISM_MAF3UL"],
+      "example_root": ["ك", "ت", "ب"],
+      "example_output": "مكتوب"
+    },
+    "فِعالة": {
+      "slots": ["C1", "ِ", "C2", "ا", "C3", "ة"],
+      "radical_count": 3,
+      "direction_affinity": ["MASDAR"],
+      "example_root": ["ك", "ت", "ب"],
+      "example_output": "كتابة"
+    },
+    "فَعْل": {
+      "slots": ["C1", "َ", "C2", "ْ", "C3"],
+      "radical_count": 3,
+      "direction_affinity": ["MASDAR", "ISM_JAMID"],
+      "example_root": ["ض", "ر", "ب"],
+      "example_output": "ضرب"
+    },
+    "فُعول": {
+      "slots": ["C1", "ُ", "C2", "ُ", "و", "C3"],
+      "radical_count": 3,
+      "direction_affinity": ["MASDAR"],
+      "example_root": ["خ", "ر", "ج"],
+      "example_output": "خروج"
+    },
+    "مَفْعَل": {
+      "slots": ["م", "َ", "C1", "ْ", "C2", "َ", "C3"],
+      "radical_count": 3,
+      "direction_affinity": ["ISM_MAKAN", "ISM_ZAMAN"],
+      "example_root": ["ك", "ت", "ب"],
+      "example_output": "مكتب"
+    },
+    "مِفْعال": {
+      "slots": ["م", "ِ", "C1", "ْ", "C2", "ا", "C3"],
+      "radical_count": 3,
+      "direction_affinity": ["ISM_ALA"],
+      "example_root": ["ف", "ت", "ح"],
+      "example_output": "مفتاح"
+    },
+    "فَعيل": {
+      "slots": ["C1", "َ", "C2", "ِ", "ي", "C3"],
+      "radical_count": 3,
+      "direction_affinity": ["SIFA_MUSHABBAHA", "MASDAR"],
+      "example_root": ["ك", "ب", "ر"],
+      "example_output": "كبير"
+    },
+    "أَفْعَل": {
+      "slots": ["أ", "َ", "C1", "ْ", "C2", "َ", "C3"],
+      "radical_count": 3,
+      "direction_affinity": ["ISM_TAFDIL"],
+      "example_root": ["ك", "ب", "ر"],
+      "example_output": "أكبر"
+    },
+    "فِعْلة": {
+      "slots": ["C1", "ِ", "C2", "ْ", "C3", "ة"],
+      "radical_count": 3,
+      "direction_affinity": ["ISM_HAY2A"],
+      "example_root": ["ج", "ل", "س"],
+      "example_output": "جلسة"
+    },
+    "مِفْعَل": {
+      "slots": ["م", "ِ", "C1", "ْ", "C2", "َ", "C3"],
+      "radical_count": 3,
+      "direction_affinity": ["ISM_ALA"],
+      "example_root": ["ب", "ر", "د"],
+      "example_output": "مبرد"
+    },
+    "فَعَلَ": {
+      "slots": ["C1", "َ", "C2", "َ", "C3", "َ"],
+      "radical_count": 3,
+      "direction_affinity": ["FI3L_MADI"],
+      "example_root": ["ك", "ت", "ب"],
+      "example_output": "كتب"
+    },
+    "يَفْعُلُ": {
+      "slots": ["ي", "َ", "C1", "ْ", "C2", "ُ", "C3", "ُ"],
+      "radical_count": 3,
+      "direction_affinity": ["FI3L_MUDARI3"],
+      "example_root": ["ك", "ت", "ب"],
+      "example_output": "يكتب"
+    }
+  }
+}

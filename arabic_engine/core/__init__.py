@@ -95,6 +95,15 @@ from .enums import (
     DerivationalDirection as DerivationalDirection,
 )
 from .enums import (
+    DerivationFailureReason as DerivationFailureReason,
+)
+from .enums import (
+    DerivationGuard as DerivationGuard,
+)
+from .enums import (
+    DerivationPhase as DerivationPhase,
+)
+from .enums import (
     DiachronicStatus as DiachronicStatus,
 )
 from .enums import (
@@ -518,6 +527,15 @@ from .types import (
 from .types import (
     DecisionTrace as DecisionTrace,
 )
+from .types import (
+    DerivationCandidate as DerivationCandidate,
+)
+from .types import (
+    DerivationInput as DerivationInput,
+)
+from .types import (
+    DerivationTrace as DerivationTrace,
+)
 
 # ── Semantic Direction Space & Weight Fractal type re-exports ──────
 from .types import (
@@ -575,10 +593,16 @@ from .types import (
     GapRecord as GapRecord,
 )
 from .types import (
+    FractalDerivationResult as FractalDerivationResult,
+)
+from .types import (
     GenerativeProfileRecord as GenerativeProfileRecord,
 )
 from .types import (
     Grapheme as Grapheme,
+)
+from .types import (
+    GuardResult as GuardResult,
 )
 from .types import (
     HypothesisNode as HypothesisNode,
@@ -890,6 +914,9 @@ __all__ = [
     "ValidationState",
     # ── Semantic Direction Space & Weight Fractal enums ────────────
     "DerivationalDirection",
+    "DerivationFailureReason",
+    "DerivationGuard",
+    "DerivationPhase",
     "DirectionBoundary",
     "DirectionRelation",
     "SemanticDirectionGenus",
@@ -1034,8 +1061,13 @@ __all__ = [
     "TransformationProfileRecord",
     "TransitionGate",
     # ── Semantic Direction Space & Weight Fractal types ────────────
+    "DerivationCandidate",
+    "DerivationInput",
+    "DerivationTrace",
     "DirectionAssignment",
     "DirectionRelationRecord",
+    "FractalDerivationResult",
+    "GuardResult",
     "MufradClosureResult",
     "SemanticDirection",
     "SemanticDirectionSpace",

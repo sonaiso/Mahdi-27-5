@@ -191,6 +191,19 @@ layers:
       - "completeness_score in [0, 1]"
       - "is_closed iff completeness_score >= 0.75"
 
+  # ── Fractal Derivation (Spec v1) ──────────────────────────────────
+  - name: fractal_derivation
+    module: arabic_engine.signifier.fractal_derivation
+    function: derive
+    input_type: DerivationInput
+    output_type: FractalDerivationResult
+    invariants:
+      - "success is bool"
+      - "if success, surface is non-empty string"
+      - "if not success, failure_reasons is non-empty tuple"
+      - "trace is always present"
+      - "confidence in [0, 1]"
+
   # ── Mufrad Closure (إقفال اللفظ المفرد) ──────────────────────────
   - name: mufrad_closure
     module: arabic_engine.mufrad_closure

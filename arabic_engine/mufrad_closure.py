@@ -40,6 +40,8 @@ from arabic_engine.core.types import (
     CarryingAssignment,
     Concept,
     DalalaLink,
+    DerivationInput,
+    DerivationTrace,
     DMin,
     EpistemicReceptionInput,
     EpistemicReceptionResult,
@@ -70,6 +72,15 @@ try:
     from arabic_engine.signifier.masdar import extract_masdar_from_surface
 except ImportError:  # pragma: no cover
     extract_masdar_from_surface = None  # type: ignore[assignment]
+
+# ── Optional fractal derivation import ──────────────────────────────
+
+try:
+    from arabic_engine.signifier.fractal_derivation import (
+        derive as _derive_fractal,
+    )
+except ImportError:  # pragma: no cover
+    _derive_fractal = None  # type: ignore[assignment]
 
 # ── Genre mapping for epistemic reception ───────────────────────────
 
@@ -153,6 +164,21 @@ def close_mufrad(word: str) -> MufradClosureResult:
     # W — weight fractal
     weight_fractal = run_weight_fractal(closure)
 
+    # F — fractal derivation trace (optional)
+    derivation_trace: Optional[DerivationTrace] = None
+    if _derive_fractal is not None and closure.root and closure.pattern:
+        try:
+            deriv_dir = direction_assignment.assigned_direction.derivational_direction
+            deriv_input = DerivationInput(
+                root=closure.root,
+                weight_pattern=closure.pattern,
+                direction=deriv_dir,
+            )
+            deriv_result = _derive_fractal(deriv_input)
+            derivation_trace = deriv_result.trace
+        except Exception:
+            pass
+
     # O — ontological mapping
     concept: Optional[Concept] = None
     try:
@@ -223,6 +249,7 @@ def close_mufrad(word: str) -> MufradClosureResult:
         concept=concept,
         dalala_link=dalala_link,
         epistemic_reception=epistemic_reception,
+        derivation_trace=derivation_trace,
         is_closed=bool(required_closed),
         closure_confidence=closure_confidence,
     )

@@ -2198,3 +2198,76 @@ class WeightClass(Enum):
     RUBA3I_MUJARRAD = auto()    # رباعي مجرد — base quadri-literal
     RUBA3I_MAZEED = auto()      # رباعي مزيد — augmented quadri-literal
     KHUMASI = auto()            # خماسي — quinqui-literal
+
+
+# ── Fractal Derivation Function Spec v1 ─────────────────────────────
+
+
+class DerivationGuard(Enum):
+    """حراس التوليد الاشتقاقي — guard checkpoints for fractal derivation (Art. 33).
+
+    Each guard prevents progression to the next derivation phase
+    until its condition is satisfied.
+
+    GUARD_ROOT_VALID              — الجذر صالح
+    GUARD_WEIGHT_VALID            — الوزن صالح
+    GUARD_DIRECTION_VALID         — الجهة صالحة
+    GUARD_ROOT_CARRIES_DIRECTION  — الجذر يحمل الجهة
+    GUARD_WEIGHT_CARRIES_DIRECTION — الوزن يحمل الجهة
+    GUARD_STRUCTURAL_COMPATIBILITY — التوافق البنيوي
+    GUARD_SEMANTIC_COMPATIBILITY  — التوافق الدلالي
+    GUARD_OUTPUT_RECOVERABLE      — المخرج قابل للرد
+    """
+
+    GUARD_ROOT_VALID = auto()               # الجذر صالح
+    GUARD_WEIGHT_VALID = auto()             # الوزن صالح
+    GUARD_DIRECTION_VALID = auto()          # الجهة صالحة
+    GUARD_ROOT_CARRIES_DIRECTION = auto()   # الجذر يحمل الجهة
+    GUARD_WEIGHT_CARRIES_DIRECTION = auto() # الوزن يحمل الجهة
+    GUARD_STRUCTURAL_COMPATIBILITY = auto() # التوافق البنيوي
+    GUARD_SEMANTIC_COMPATIBILITY = auto()   # التوافق الدلالي
+    GUARD_OUTPUT_RECOVERABLE = auto()       # المخرج قابل للرد
+
+
+class DerivationFailureReason(Enum):
+    """أسباب فشل التوليد — failure reasons for derivation (Art. 26–31).
+
+    ROOT_FAILURE     — فشل جذري   : root doesn't carry direction
+    WEIGHT_FAILURE   — فشل وزني   : weight doesn't carry direction
+    SYLLABIC_FAILURE — فشل مقطعي  : invalid syllable structure
+    SEMANTIC_FAILURE — فشل دلالي  : semantic drift
+    RECOVERY_FAILURE — فشل ردّي   : can't trace back to root+weight+direction
+    TOTAL_FAILURE    — فشل كلي    : multiple reasons combined
+    """
+
+    ROOT_FAILURE = auto()      # فشل جذري
+    WEIGHT_FAILURE = auto()    # فشل وزني
+    SYLLABIC_FAILURE = auto()  # فشل مقطعي
+    SEMANTIC_FAILURE = auto()  # فشل دلالي
+    RECOVERY_FAILURE = auto()  # فشل ردّي
+    TOTAL_FAILURE = auto()     # فشل كلي
+
+
+class DerivationPhase(Enum):
+    """أطوار التوليد الاشتقاقي — pipeline phases of derivation (Art. 12).
+
+    ROOT_CHECK            — فحص الجذر
+    WEIGHT_CHECK          — فحص الوزن
+    DIRECTION_CHECK       — فحص الجهة
+    ROOT_WEIGHT_COMPAT    — التوافق الجذري-الوزني
+    WEIGHT_DIRECTION_COMPAT — التوافق الوزني-الدلالي
+    CANDIDATE_BUILD       — بناء الصورة المرشحة
+    STRUCTURAL_VERIFY     — التحقق البنيوي
+    SEMANTIC_VERIFY       — التحقق الدلالي
+    FINAL_DECISION        — القرار النهائي
+    """
+
+    ROOT_CHECK = auto()              # فحص الجذر
+    WEIGHT_CHECK = auto()            # فحص الوزن
+    DIRECTION_CHECK = auto()         # فحص الجهة
+    ROOT_WEIGHT_COMPAT = auto()      # التوافق الجذري-الوزني
+    WEIGHT_DIRECTION_COMPAT = auto() # التوافق الوزني-الدلالي
+    CANDIDATE_BUILD = auto()         # بناء الصورة المرشحة
+    STRUCTURAL_VERIFY = auto()       # التحقق البنيوي
+    SEMANTIC_VERIFY = auto()         # التحقق الدلالي
+    FINAL_DECISION = auto()          # القرار النهائي

@@ -298,6 +298,15 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "description_ar": "دستور الوزن الفراكتالي — تحليل الوزن",
     },
     {
+        "symbol": "𝒟",
+        "name": "fractal_derivation",
+        "name_ar": "التوليد الاشتقاقي الفراكتالي",
+        "module": "arabic_engine.signifier.fractal_derivation",
+        "function": "derive",
+        "description": "Fractal Derivation Function — constrained word derivation",
+        "description_ar": "دالة التوليد الاشتقاقي الفراكتالية — اشتقاق مقيد",
+    },
+    {
         "symbol": "Ω",
         "name": "mufrad_closure",
         "name_ar": "إقفال اللفظ المفرد",

@@ -18,6 +18,8 @@ Public sub-modules
   and filter helpers.
 * :mod:`arabic_engine.signifier.weight_fractal` — دستور الوزن الفراكتالي:
   Weight Fractal Constitution v1.
+* :mod:`arabic_engine.signifier.fractal_derivation` — دالة التوليد الاشتقاقي
+  الفراكتالية: Fractal Derivation Function Spec v1.
 """
 
 __all__ = [
@@ -28,4 +30,5 @@ __all__ = [
     "transition",
     "functional_transition",
     "weight_fractal",
+    "fractal_derivation",
 ]
