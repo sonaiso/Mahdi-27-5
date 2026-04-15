@@ -1,7 +1,7 @@
 """Concept hypotheses — فرضيات مفهومية.
 
 Generates conceptual hypothesis nodes from morphological hypotheses.
-Wraps the existing :mod:`arabic_engine.signified.ontology` to map
+Wraps the existing :mod:`arabic_engine.semantics.ontology` to map
 lemmas to concept candidates.
 """
 

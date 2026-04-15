@@ -1,7 +1,7 @@
 """Morphological hypotheses — فرضيات صرفية.
 
 Generates morphological hypothesis nodes from segmentation hypotheses.
-Wraps the existing :mod:`arabic_engine.signifier.root_pattern` module
+Wraps the existing :mod:`arabic_engine.morphology.root_pattern` module
 to produce multiple candidates per token (when available).
 """
 
