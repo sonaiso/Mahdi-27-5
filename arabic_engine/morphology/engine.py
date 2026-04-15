@@ -9,10 +9,8 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from arabic_engine.core.enums import AffixType, MorphemeType, POS
+from arabic_engine.core.enums import POS, MorphemeType
 from arabic_engine.core.types import (
-    AffixSet,
-    LexicalClosure,
     MorphemeRecord,
     PatternTemplate,
     RootEntry,
@@ -84,10 +82,8 @@ def analyze(token: str) -> dict[str, object]:
             position=len(token) - len(suffix),
         ))
 
-    # Step 5: Determine POS from pattern if available
+    # Step 5: Determine POS from closure if available
     pos = POS.UNKNOWN
-    if rp:
-        pos = rp.pos
 
     # Step 6: Build pattern template
     pattern_template: Optional[PatternTemplate] = None

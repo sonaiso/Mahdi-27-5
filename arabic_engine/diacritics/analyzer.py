@@ -7,7 +7,6 @@ and binds it to the correct base consonant.
 
 from __future__ import annotations
 
-import unicodedata
 from typing import List, Tuple
 
 from arabic_engine.core.enums import (

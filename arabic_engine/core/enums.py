@@ -2524,8 +2524,8 @@ class SemanticFrameType(Enum):
     EXISTENCE = auto()   # وجود — existential
 
 
-class ConceptRelationType(Enum):
-    """نوع العلاقة المفهومية — inter-concept relation types.
+class SemanticRelationType(Enum):
+    """نوع العلاقة الدلالية — semantic relation types for E6 scaffold.
 
     HYPERNYM   — أعم    : broader concept (is-a)
     HYPONYM    — أخص    : narrower concept (kind-of)

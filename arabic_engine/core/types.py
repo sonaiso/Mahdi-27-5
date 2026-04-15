@@ -10,10 +10,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import FrozenSet, List, Optional, Tuple
 
+# ── E2–E8 scaffold enums ───────────────────────────────────────────
 from .enums import (
     POS,
     ActivationStage,
     AffectiveDimension,
+    AffixType,
     AuthorityLevel,
     CarrierClass,
     CarrierType,
@@ -32,13 +34,18 @@ from .enums import (
     ConstraintType,
     ContaminationLevel,
     CouplingRelationType,
+    CriterionType,
     CulturalScope,
     DalaalaKind,
     DalalaType,
     DecisionCode,
+    DependencyRelation,
     DerivationalDirection,
     DerivationTarget,
     DiachronicStatus,
+    DiacriticConsistency,
+    DiacriticRole,
+    DiacriticType,
     DirectionBoundary,
     DirectionRelation,
     DiscourseGapType,
@@ -66,6 +73,7 @@ from .enums import (
     InterpretiveStability,
     IrabCase,
     IrabRole,
+    JudgementRank,
     JudgementType,
     JudgmentCategory,
     KawnType,
@@ -78,6 +86,7 @@ from .enums import (
     MetaConceptualLevel,
     MethodFamily,
     ModalCategory,
+    MorphemeType,
     NormativeCategory,
     OntologicalConstraintType,
     OntologicalLayer,
@@ -94,6 +103,7 @@ from .enums import (
     RankType,
     RationalSelfKind,
     RealityKind,
+    ReasoningMode,
     ReceiverExpectedAction,
     ReceiverRoleType,
     ReceiverState,
@@ -104,11 +114,14 @@ from .enums import (
     ReceptionStateType,
     ReceptionValidationOutcome,
     ReversibleValue,
+    ReviewStatus,
     RevisionType,
     SalienceLevel,
     ScriptPhase,
     SelfModelAspect,
     SemanticDirectionGenus,
+    SemanticFrameType,
+    SemanticRelationType,
     SemanticType,
     SenderRoleType,
     SenseModality,
@@ -121,6 +134,8 @@ from .enums import (
     StyleKind,
     SubjectGenre,
     SyllablePosition,
+    SyllableType,
+    SyllableWeight,
     ThulathiBab,
     TimeRef,
     TraceMode,
@@ -144,25 +159,6 @@ from .enums import (
     WeightFractalPhase,
     WeightKind,
     WeightValidationStatus,
-)
-
-# ── E2–E8 scaffold enums ───────────────────────────────────────────
-from .enums import (  # noqa: E402
-    AffixType,
-    ConceptRelationType,
-    CriterionType,
-    DependencyRelation,
-    DiacriticConsistency,
-    DiacriticRole,
-    DiacriticType,
-    EpicLayerID,
-    JudgementRank,
-    MorphemeType,
-    ReasoningMode,
-    ReviewStatus,
-    SemanticFrameType,
-    SyllableType,
-    SyllableWeight,
 )
 
 # ── Signifier layer ─────────────────────────────────────────────────
@@ -3426,15 +3422,15 @@ class SemanticFrame:
 
 
 @dataclass(frozen=True)
-class ConceptRelation:
-    """علاقة مفهومية — a typed relation between two concepts.
+class SemanticConceptRelation:
+    """علاقة مفهومية — a typed semantic relation between two concepts.
 
-    Links two concept IDs with a classified relation type.
+    Links two concept IDs with a classified relation type (E6 scaffold).
     """
 
     source_id: str
     target_id: str
-    relation_type: "ConceptRelationType"
+    relation_type: "SemanticRelationType"
     confidence: float
 
 
@@ -3501,11 +3497,11 @@ class CriterionSelection:
 
 
 @dataclass(frozen=True)
-class JudgementRecord:
-    """سجل حكم — a complete judgement record.
+class JudgementVerdict:
+    """حكم مكتمل — a complete judgement verdict with rank and review status.
 
     Contains the content of the judgement, its rank, the trace of
-    how it was reached, and the reason behind it.
+    how it was reached, and the reason behind it.  (E8 scaffold)
     """
 
     judgement_id: str
@@ -3536,10 +3532,10 @@ class JudgementTrace:
 class ReviewableVerdict:
     """حكم قابل للمراجعة — a verdict that can be reviewed and contested.
 
-    Wraps a judgement record with its trace and review metadata.
+    Wraps a judgement verdict with its trace and review metadata.
     """
 
-    judgement: "JudgementRecord"
+    judgement: "JudgementVerdict"
     trace: "JudgementTrace"
     is_reviewable: bool
     review_history: Tuple[str, ...] = ()

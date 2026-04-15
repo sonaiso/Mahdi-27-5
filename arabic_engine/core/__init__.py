@@ -25,9 +25,17 @@ from .enums import (
     AffectiveDimension as AffectiveDimension,
 )
 
+# ── E2–E8 scaffold enum re-exports ────────────────────────────────
+from .enums import (
+    AffixType as AffixType,
+)
+
 # ── Strict 7-Layer System enum re-exports ─────────────────────────
 from .enums import (
     AuditoryNode as AuditoryNode,
+)
+from .enums import (
+    AugmentedSemanticLayer as AugmentedSemanticLayer,
 )
 from .enums import (
     AuthorityLevel as AuthorityLevel,
@@ -46,6 +54,11 @@ from .enums import (
 )
 from .enums import (
     CellType as CellType,
+)
+
+# ── Unicode Cognitive Input Proof enum re-exports ───────────────────
+from .enums import (
+    CognitiveLayerID as CognitiveLayerID,
 )
 from .enums import (
     CombinationType as CombinationType,
@@ -78,6 +91,9 @@ from .enums import (
     CouplingRelationType as CouplingRelationType,
 )
 from .enums import (
+    CriterionType as CriterionType,
+)
+from .enums import (
     CulturalScope as CulturalScope,
 )
 from .enums import (
@@ -89,6 +105,9 @@ from .enums import (
 from .enums import (
     DecisionCode as DecisionCode,
 )
+from .enums import (
+    DependencyRelation as DependencyRelation,
+)
 
 # ── Semantic Direction Space & Weight Fractal enum re-exports ──────
 from .enums import (
@@ -96,6 +115,15 @@ from .enums import (
 )
 from .enums import (
     DiachronicStatus as DiachronicStatus,
+)
+from .enums import (
+    DiacriticConsistency as DiacriticConsistency,
+)
+from .enums import (
+    DiacriticRole as DiacriticRole,
+)
+from .enums import (
+    DiacriticType as DiacriticType,
 )
 from .enums import (
     DirectionBoundary as DirectionBoundary,
@@ -120,6 +148,9 @@ from .enums import (
 )
 from .enums import (
     EmbodiedDomain as EmbodiedDomain,
+)
+from .enums import (
+    EpicLayerID as EpicLayerID,
 )
 from .enums import (
     EpistemicRank as EpistemicRank,
@@ -188,6 +219,9 @@ from .enums import (
     IrabRole as IrabRole,
 )
 from .enums import (
+    JudgementRank as JudgementRank,
+)
+from .enums import (
     JudgementType as JudgementType,
 )
 from .enums import (
@@ -195,6 +229,9 @@ from .enums import (
 )
 from .enums import (
     LayerEdgeType as LayerEdgeType,
+)
+from .enums import (
+    LayerGateDecision as LayerGateDecision,
 )
 from .enums import (
     LinkKind as LinkKind,
@@ -219,6 +256,12 @@ from .enums import (
 )
 from .enums import (
     ModalCategory as ModalCategory,
+)
+from .enums import (
+    MorphemeType as MorphemeType,
+)
+from .enums import (
+    NasikhCategory as NasikhCategory,
 )
 from .enums import (
     NormativeCategory as NormativeCategory,
@@ -269,6 +312,9 @@ from .enums import (
     RealityKind as RealityKind,
 )
 from .enums import (
+    ReasoningMode as ReasoningMode,
+)
+from .enums import (
     ReceiverExpectedAction as ReceiverExpectedAction,
 )
 from .enums import (
@@ -290,6 +336,9 @@ from .enums import (
     ReversibleValue as ReversibleValue,
 )
 from .enums import (
+    ReviewStatus as ReviewStatus,
+)
+from .enums import (
     RevisionType as RevisionType,
 )
 from .enums import (
@@ -303,6 +352,12 @@ from .enums import (
 )
 from .enums import (
     SemanticDirectionGenus as SemanticDirectionGenus,
+)
+from .enums import (
+    SemanticFrameType as SemanticFrameType,
+)
+from .enums import (
+    SemanticRelationType as SemanticRelationType,
 )
 from .enums import (
     SemanticType as SemanticType,
@@ -339,6 +394,15 @@ from .enums import (
 )
 from .enums import (
     SyllablePosition as SyllablePosition,
+)
+from .enums import (
+    SyllableType as SyllableType,
+)
+from .enums import (
+    SyllableWeight as SyllableWeight,
+)
+from .enums import (
+    ThulathiBab as ThulathiBab,
 )
 from .enums import (
     TimeRef as TimeRef,
@@ -411,23 +475,6 @@ from .enums import (
 )
 from .enums import (
     WeightValidationStatus as WeightValidationStatus,
-)
-from .enums import (
-    ThulathiBab as ThulathiBab,
-)
-from .enums import (
-    AugmentedSemanticLayer as AugmentedSemanticLayer,
-)
-from .enums import (
-    NasikhCategory as NasikhCategory,
-)
-
-# ── Unicode Cognitive Input Proof enum re-exports ───────────────────
-from .enums import (
-    CognitiveLayerID as CognitiveLayerID,
-)
-from .enums import (
-    LayerGateDecision as LayerGateDecision,
 )
 
 # ── Kernel re-exports ───────────────────────────────────────────────
@@ -513,12 +560,34 @@ from .types import (
     ActivationRecord as ActivationRecord,
 )
 
+# ── E2–E8 scaffold type re-exports ────────────────────────────────
+from .types import (
+    AffixSet as AffixSet,
+)
+
+# ── Unicode Cognitive Input Proof type re-exports ───────────────────
+from .types import (
+    AtomizedInput as AtomizedInput,
+)
+
 # ── Strict 7-Layer System type re-exports ─────────────────────────
 from .types import (
     AuditoryMinimumRecord as AuditoryMinimumRecord,
 )
 from .types import (
     AxiomRecord as AxiomRecord,
+)
+from .types import (
+    CognitiveChainResult as CognitiveChainResult,
+)
+from .types import (
+    CognitiveGateRecord as CognitiveGateRecord,
+)
+from .types import (
+    CognitiveLayerResult as CognitiveLayerResult,
+)
+from .types import (
+    CognitiveState as CognitiveState,
 )
 from .types import (
     Concept as Concept,
@@ -539,10 +608,34 @@ from .types import (
     CouplingRecord as CouplingRecord,
 )
 from .types import (
+    CriterionSelection as CriterionSelection,
+)
+from .types import (
     DalalaLink as DalalaLink,
 )
 from .types import (
     DecisionTrace as DecisionTrace,
+)
+from .types import (
+    DenotationMap as DenotationMap,
+)
+from .types import (
+    DependencyArc as DependencyArc,
+)
+from .types import (
+    DesignatedUnit as DesignatedUnit,
+)
+from .types import (
+    DiacriticAnalysis as DiacriticAnalysis,
+)
+from .types import (
+    DiacriticBinding as DiacriticBinding,
+)
+from .types import (
+    DiacriticMark as DiacriticMark,
+)
+from .types import (
+    DifferentiatedUnit as DifferentiatedUnit,
 )
 
 # ── Semantic Direction Space & Weight Fractal type re-exports ──────
@@ -551,6 +644,9 @@ from .types import (
 )
 from .types import (
     DirectionRelationRecord as DirectionRelationRecord,
+)
+from .types import (
+    DisciplinedConceptionRecord as DisciplinedConceptionRecord,
 )
 from .types import (
     DiscourseCarrierRecord as DiscourseCarrierRecord,
@@ -604,6 +700,9 @@ from .types import (
     GenerativeProfileRecord as GenerativeProfileRecord,
 )
 from .types import (
+    GovernanceRelation as GovernanceRelation,
+)
+from .types import (
     Grapheme as Grapheme,
 )
 from .types import (
@@ -613,13 +712,25 @@ from .types import (
     InferenceResult as InferenceResult,
 )
 from .types import (
+    InitialConceptionRecord as InitialConceptionRecord,
+)
+from .types import (
     InterpretiveOutcomeRecord as InterpretiveOutcomeRecord,
 )
 from .types import (
     JudgementNode as JudgementNode,
 )
 from .types import (
+    JudgementReadyInput as JudgementReadyInput,
+)
+from .types import (
     JudgementRecord as JudgementRecord,
+)
+from .types import (
+    JudgementTrace as JudgementTrace,
+)
+from .types import (
+    JudgementVerdict as JudgementVerdict,
 )
 from .types import (
     JudgmentRecordL5 as JudgmentRecordL5,
@@ -635,6 +746,9 @@ from .types import (
 )
 from .types import (
     LayerPromotionRule as LayerPromotionRule,
+)
+from .types import (
+    LayerTrace as LayerTrace,
 )
 from .types import (
     LayerTraceRecord as LayerTraceRecord,
@@ -664,7 +778,13 @@ from .types import (
     MethodRecord as MethodRecord,
 )
 from .types import (
+    MorphemeRecord as MorphemeRecord,
+)
+from .types import (
     MufradClosureResult as MufradClosureResult,
+)
+from .types import (
+    NormalizedUnit as NormalizedUnit,
 )
 from .types import (
     OntologicalConstraintRecord as OntologicalConstraintRecord,
@@ -677,6 +797,9 @@ from .types import (
 )
 from .types import (
     OpinionTraceRecord as OpinionTraceRecord,
+)
+from .types import (
+    PatternTemplate as PatternTemplate,
 )
 from .types import (
     PriorInfoNode as PriorInfoNode,
@@ -706,6 +829,9 @@ from .types import (
     RealityAnchorRecord as RealityAnchorRecord,
 )
 from .types import (
+    ReasoningChain as ReasoningChain,
+)
+from .types import (
     ReceiverRoleRecord as ReceiverRoleRecord,
 )
 from .types import (
@@ -718,16 +844,31 @@ from .types import (
     RepresentationRecord as RepresentationRecord,
 )
 from .types import (
+    ReviewableVerdict as ReviewableVerdict,
+)
+from .types import (
+    RootEntry as RootEntry,
+)
+from .types import (
     RootPattern as RootPattern,
 )
 from .types import (
     SelfNode as SelfNode,
 )
 from .types import (
+    SemanticConceptRelation as SemanticConceptRelation,
+)
+from .types import (
     SemanticDirection as SemanticDirection,
 )
 from .types import (
     SemanticDirectionSpace as SemanticDirectionSpace,
+)
+from .types import (
+    SemanticFrame as SemanticFrame,
+)
+from .types import (
+    SemanticSubject as SemanticSubject,
 )
 from .types import (
     SenderRoleRecord as SenderRoleRecord,
@@ -757,7 +898,19 @@ from .types import (
     Syllable as Syllable,
 )
 from .types import (
+    SyllableAnalysis as SyllableAnalysis,
+)
+from .types import (
+    SyllablePattern as SyllablePattern,
+)
+from .types import (
+    SyllableUnit as SyllableUnit,
+)
+from .types import (
     SyntaxNode as SyntaxNode,
+)
+from .types import (
+    SyntaxTree as SyntaxTree,
 )
 from .types import (
     TheoremRecord as TheoremRecord,
@@ -790,7 +943,16 @@ from .types import (
     ValidationResult as ValidationResult,
 )
 from .types import (
+    VerbDoor as VerbDoor,
+)
+from .types import (
     WeightDirectionMapping as WeightDirectionMapping,
+)
+from .types import (
+    WeightDirectionSuitability as WeightDirectionSuitability,
+)
+from .types import (
+    WeightFormalTuple as WeightFormalTuple,
 )
 from .types import (
     WeightFractalNode as WeightFractalNode,
@@ -799,25 +961,16 @@ from .types import (
     WeightFractalResult as WeightFractalResult,
 )
 from .types import (
-    WeightProfile as WeightProfile,
-)
-from .types import (
-    WeightFormalTuple as WeightFormalTuple,
-)
-from .types import (
-    VerbDoor as VerbDoor,
-)
-from .types import (
-    WeightPossibilityResult as WeightPossibilityResult,
+    WeightFractalScore as WeightFractalScore,
 )
 from .types import (
     WeightMWCScore as WeightMWCScore,
 )
 from .types import (
-    WeightFractalScore as WeightFractalScore,
+    WeightPossibilityResult as WeightPossibilityResult,
 )
 from .types import (
-    WeightDirectionSuitability as WeightDirectionSuitability,
+    WeightProfile as WeightProfile,
 )
 from .types import (
     WeightValidationResult as WeightValidationResult,
@@ -829,158 +982,6 @@ from .types import (
     ZeroSlotRecord as ZeroSlotRecord,
 )
 
-# ── Unicode Cognitive Input Proof type re-exports ───────────────────
-from .types import (
-    AtomizedInput as AtomizedInput,
-)
-from .types import (
-    CognitiveChainResult as CognitiveChainResult,
-)
-from .types import (
-    CognitiveGateRecord as CognitiveGateRecord,
-)
-from .types import (
-    CognitiveLayerResult as CognitiveLayerResult,
-)
-from .types import (
-    DesignatedUnit as DesignatedUnit,
-)
-from .types import (
-    DifferentiatedUnit as DifferentiatedUnit,
-)
-from .types import (
-    DisciplinedConceptionRecord as DisciplinedConceptionRecord,
-)
-from .types import (
-    InitialConceptionRecord as InitialConceptionRecord,
-)
-from .types import (
-    JudgementReadyInput as JudgementReadyInput,
-)
-from .types import (
-    NormalizedUnit as NormalizedUnit,
-)
-from .types import (
-    SemanticSubject as SemanticSubject,
-)
-
-# ── E2–E8 scaffold enum re-exports ────────────────────────────────
-from .enums import (
-    AffixType as AffixType,
-)
-from .enums import (
-    ConceptRelationType as ConceptRelationType,
-)
-from .enums import (
-    CriterionType as CriterionType,
-)
-from .enums import (
-    DependencyRelation as DependencyRelation,
-)
-from .enums import (
-    DiacriticConsistency as DiacriticConsistency,
-)
-from .enums import (
-    DiacriticRole as DiacriticRole,
-)
-from .enums import (
-    DiacriticType as DiacriticType,
-)
-from .enums import (
-    EpicLayerID as EpicLayerID,
-)
-from .enums import (
-    JudgementRank as JudgementRank,
-)
-from .enums import (
-    MorphemeType as MorphemeType,
-)
-from .enums import (
-    ReasoningMode as ReasoningMode,
-)
-from .enums import (
-    ReviewStatus as ReviewStatus,
-)
-from .enums import (
-    SemanticFrameType as SemanticFrameType,
-)
-from .enums import (
-    SyllableType as SyllableType,
-)
-from .enums import (
-    SyllableWeight as SyllableWeight,
-)
-
-# ── E2–E8 scaffold type re-exports ────────────────────────────────
-from .types import (
-    AffixSet as AffixSet,
-)
-from .types import (
-    CognitiveState as CognitiveState,
-)
-from .types import (
-    ConceptRelation as ConceptRelation,
-)
-from .types import (
-    CriterionSelection as CriterionSelection,
-)
-from .types import (
-    DenotationMap as DenotationMap,
-)
-from .types import (
-    DependencyArc as DependencyArc,
-)
-from .types import (
-    DiacriticAnalysis as DiacriticAnalysis,
-)
-from .types import (
-    DiacriticBinding as DiacriticBinding,
-)
-from .types import (
-    DiacriticMark as DiacriticMark,
-)
-from .types import (
-    GovernanceRelation as GovernanceRelation,
-)
-from .types import (
-    JudgementRecord as JudgementRecord,
-)
-from .types import (
-    JudgementTrace as JudgementTrace,
-)
-from .types import (
-    LayerTrace as LayerTrace,
-)
-from .types import (
-    MorphemeRecord as MorphemeRecord,
-)
-from .types import (
-    PatternTemplate as PatternTemplate,
-)
-from .types import (
-    ReasoningChain as ReasoningChain,
-)
-from .types import (
-    ReviewableVerdict as ReviewableVerdict,
-)
-from .types import (
-    RootEntry as RootEntry,
-)
-from .types import (
-    SemanticFrame as SemanticFrame,
-)
-from .types import (
-    SyllableAnalysis as SyllableAnalysis,
-)
-from .types import (
-    SyllablePattern as SyllablePattern,
-)
-from .types import (
-    SyllableUnit as SyllableUnit,
-)
-from .types import (
-    SyntaxTree as SyntaxTree,
-)
 __all__ = [
     # ── enums ───────────────────────────────────────────────────────
     "POS",
@@ -1271,7 +1272,6 @@ __all__ = [
     "SemanticSubject",
     # ── E2–E8 scaffold enums ─────────────────────────────────────
     "AffixType",
-    "ConceptRelationType",
     "CriterionType",
     "DependencyRelation",
     "DiacriticConsistency",
@@ -1283,12 +1283,12 @@ __all__ = [
     "ReasoningMode",
     "ReviewStatus",
     "SemanticFrameType",
+    "SemanticRelationType",
     "SyllableType",
     "SyllableWeight",
     # ── E2–E8 scaffold types ─────────────────────────────────────
     "AffixSet",
     "CognitiveState",
-    "ConceptRelation",
     "CriterionSelection",
     "DenotationMap",
     "DependencyArc",
@@ -1296,14 +1296,15 @@ __all__ = [
     "DiacriticBinding",
     "DiacriticMark",
     "GovernanceRelation",
-    "JudgementRecord",
     "JudgementTrace",
+    "JudgementVerdict",
     "LayerTrace",
     "MorphemeRecord",
     "PatternTemplate",
     "ReasoningChain",
     "ReviewableVerdict",
     "RootEntry",
+    "SemanticConceptRelation",
     "SemanticFrame",
     "SyllableAnalysis",
     "SyllablePattern",
