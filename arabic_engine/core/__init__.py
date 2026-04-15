@@ -293,6 +293,14 @@ from .enums import (
 from .enums import (
     PhonTransform as PhonTransform,
 )
+
+# ── Unicode Cognitive Input Proof enum re-exports ───────────────────
+from .enums import (
+    PipelineLayerID as PipelineLayerID,
+)
+from .enums import (
+    PipelineStatus as PipelineStatus,
+)
 from .enums import (
     ProofPathKind as ProofPathKind,
 )
@@ -475,29 +483,6 @@ from .enums import (
 )
 from .enums import (
     WeightValidationStatus as WeightValidationStatus,
-)
-from .enums import (
-    ThulathiBab as ThulathiBab,
-)
-from .enums import (
-    AugmentedSemanticLayer as AugmentedSemanticLayer,
-)
-from .enums import (
-    NasikhCategory as NasikhCategory,
-)
-
-# ── Unicode Cognitive Input Proof enum re-exports ───────────────────
-from .enums import (
-    CognitiveLayerID as CognitiveLayerID,
-)
-from .enums import (
-    LayerGateDecision as LayerGateDecision,
-)
-from .enums import (
-    PipelineLayerID as PipelineLayerID,
-)
-from .enums import (
-    PipelineStatus as PipelineStatus,
 )
 
 # ── Kernel re-exports ───────────────────────────────────────────────
@@ -956,6 +941,11 @@ from .types import (
 from .types import (
     UnicodeAtom as UnicodeAtom,
 )
+
+# ── Unicode Cognitive Input Proof type re-exports ───────────────────
+from .types import (
+    UnifiedTraceEntry as UnifiedTraceEntry,
+)
 from .types import (
     UtteranceNode as UtteranceNode,
 )
@@ -1003,44 +993,6 @@ from .types import (
 )
 from .types import (
     ZeroSlotRecord as ZeroSlotRecord,
-)
-
-# ── Unicode Cognitive Input Proof type re-exports ───────────────────
-from .types import (
-    AtomizedInput as AtomizedInput,
-)
-from .types import (
-    CognitiveChainResult as CognitiveChainResult,
-)
-from .types import (
-    CognitiveGateRecord as CognitiveGateRecord,
-)
-from .types import (
-    CognitiveLayerResult as CognitiveLayerResult,
-)
-from .types import (
-    DesignatedUnit as DesignatedUnit,
-)
-from .types import (
-    DifferentiatedUnit as DifferentiatedUnit,
-)
-from .types import (
-    DisciplinedConceptionRecord as DisciplinedConceptionRecord,
-)
-from .types import (
-    InitialConceptionRecord as InitialConceptionRecord,
-)
-from .types import (
-    JudgementReadyInput as JudgementReadyInput,
-)
-from .types import (
-    NormalizedUnit as NormalizedUnit,
-)
-from .types import (
-    SemanticSubject as SemanticSubject,
-)
-from .types import (
-    UnifiedTraceEntry as UnifiedTraceEntry,
 )
 
 __all__ = [

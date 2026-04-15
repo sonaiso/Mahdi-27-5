@@ -2409,3 +2409,306 @@ class PipelineLayerID(Enum):
     L8_EVALUATION = auto()
     L9_INFERENCE = auto()
     L10_WORLD_MODEL = auto()
+
+
+# ── Diacritic Logic (E2) ────────────────────────────────────────────
+
+
+class DiacriticType(Enum):
+    """نوع التشكيل — classification of Arabic diacritical marks.
+
+    FATHA    — فتحة   : short /a/ vowel
+    DAMMA    — ضمة    : short /u/ vowel
+    KASRA    — كسرة   : short /i/ vowel
+    SUKUN    — سكون   : absence of vowel
+    SHADDA   — شدة    : gemination (consonant doubling)
+    TANWIN_F — تنوين فتح : nunation with fatha
+    TANWIN_D — تنوين ضم  : nunation with damma
+    TANWIN_K — تنوين كسر : nunation with kasra
+    HAMZA    — همزة   : glottal stop mark
+    MADDA    — مدة    : elongation mark on alef
+    """
+
+    FATHA = auto()     # فتحة — short /a/
+    DAMMA = auto()     # ضمة — short /u/
+    KASRA = auto()     # كسرة — short /i/
+    SUKUN = auto()     # سكون — absence of vowel
+    SHADDA = auto()    # شدة — gemination
+    TANWIN_F = auto()  # تنوين فتح — nunation /an/
+    TANWIN_D = auto()  # تنوين ضم — nunation /un/
+    TANWIN_K = auto()  # تنوين كسر — nunation /in/
+    HAMZA = auto()     # همزة — glottal stop
+    MADDA = auto()     # مدة — elongation
+
+
+class DiacriticRole(Enum):
+    """دور التشكيل — functional role of a diacritical mark.
+
+    INFLECTIONAL — إعرابي  : marks grammatical case (i'rāb)
+    LEXICAL      — معجمي   : distinguishes word meaning
+    PHONETIC     — صوتي    : marks pronunciation only
+    ORNAMENTAL   — تزييني  : decorative / non-functional
+    """
+
+    INFLECTIONAL = auto()  # إعرابي — grammatical case marking
+    LEXICAL = auto()       # معجمي — lexical distinction
+    PHONETIC = auto()      # صوتي — pronunciation marking
+    ORNAMENTAL = auto()    # تزييني — decorative
+
+
+class DiacriticConsistency(Enum):
+    """اتساق التشكيل — consistency status of diacritics on a token.
+
+    CONSISTENT   — متسق     : all marks are valid and non-conflicting
+    CONFLICTING  — متعارض   : conflicting marks on same consonant
+    INCOMPLETE   — ناقص     : some consonants lack expected marks
+    REDUNDANT    — زائد     : duplicate or unnecessary marks
+    """
+
+    CONSISTENT = auto()    # متسق — valid, non-conflicting
+    CONFLICTING = auto()   # متعارض — conflicting marks
+    INCOMPLETE = auto()    # ناقص — missing expected marks
+    REDUNDANT = auto()     # زائد — unnecessary marks
+
+
+# ── Syllabic Formation (E3) ─────────────────────────────────────────
+
+
+class SyllableType(Enum):
+    """نوع المقطع — syllable structure type in Arabic phonology.
+
+    CV    — مقطع مفتوح قصير  : consonant + short vowel
+    CVV   — مقطع مفتوح طويل  : consonant + long vowel
+    CVC   — مقطع مغلق قصير   : consonant + short vowel + consonant
+    CVVC  — مقطع مغلق طويل   : consonant + long vowel + consonant
+    CVCC  — مقطع مغلق مشدد   : consonant + short vowel + 2 consonants
+    """
+
+    CV = auto()    # مقطع مفتوح قصير
+    CVV = auto()   # مقطع مفتوح طويل
+    CVC = auto()   # مقطع مغلق قصير
+    CVVC = auto()  # مقطع مغلق طويل
+    CVCC = auto()  # مقطع مغلق مشدد
+
+
+class SyllableWeight(Enum):
+    """ثقل المقطع — phonological weight of a syllable.
+
+    LIGHT  — خفيف : CV (one mora)
+    HEAVY  — ثقيل : CVV or CVC (two morae)
+    SUPER  — فائق : CVVC or CVCC (three morae)
+    """
+
+    LIGHT = auto()  # خفيف — one mora
+    HEAVY = auto()   # ثقيل — two morae
+    SUPER = auto()   # فائق — three morae
+
+
+# ── Morphological Intelligence (E4) ─────────────────────────────────
+
+
+class AffixType(Enum):
+    """نوع الملحق — morphological affix classification.
+
+    PREFIX     — سابقة  : attached before root (e.g. يَـ for mudāri')
+    SUFFIX     — لاحقة  : attached after root (e.g. ـتُ for past 1st person)
+    INFIX      — داخلة  : inserted within root (rare in Arabic)
+    CIRCUMFIX  — محيطة  : wraps root (e.g. تَـ...ـانِ for dual feminine)
+    """
+
+    PREFIX = auto()     # سابقة
+    SUFFIX = auto()     # لاحقة
+    INFIX = auto()      # داخلة
+    CIRCUMFIX = auto()  # محيطة
+
+
+class MorphemeType(Enum):
+    """نوع الصرفة — morpheme classification.
+
+    ROOT       — جذر    : consonantal root (trilateral/quadrilateral)
+    PATTERN    — وزن    : morphological pattern template
+    STEM       — جذع    : root + pattern combination
+    AFFIX      — ملحق   : prefix/suffix/infix
+    CLITIC     — متصل   : attached particle (e.g. وَ, الـ)
+    """
+
+    ROOT = auto()     # جذر — consonantal root
+    PATTERN = auto()  # وزن — pattern template
+    STEM = auto()     # جذع — root + pattern
+    AFFIX = auto()    # ملحق — affix
+    CLITIC = auto()   # متصل — attached particle
+
+
+# ── Syntax Graph (E5) ───────────────────────────────────────────────
+
+
+class DependencyRelation(Enum):
+    """علاقة التبعية — syntactic dependency relation types.
+
+    ISNAD      — إسناد    : predication (subject-predicate)
+    IDAFA      — إضافة    : genitive construct (possessive)
+    TAQYID     — تقييد    : restriction/modification
+    SILA       — صلة      : relative clause linkage
+    ATAF       — عطف      : conjunction/coordination
+    BADAL      — بدل      : substitution/apposition
+    TAWKID     — توكيد    : emphasis/confirmation
+    NIDA       — نداء     : vocative
+    ISTITHNA   — استثناء  : exception
+    TAMYIZ     — تمييز    : specification
+    HAL        — حال      : circumstantial/adverbial state
+    """
+
+    ISNAD = auto()      # إسناد — predication
+    IDAFA = auto()      # إضافة — genitive construct
+    TAQYID = auto()     # تقييد — modification
+    SILA = auto()       # صلة — relative clause
+    ATAF = auto()       # عطف — coordination
+    BADAL = auto()      # بدل — apposition
+    TAWKID = auto()     # توكيد — emphasis
+    NIDA = auto()       # نداء — vocative
+    ISTITHNA = auto()   # استثناء — exception
+    TAMYIZ = auto()     # تمييز — specification
+    HAL = auto()        # حال — circumstantial state
+
+
+# ── Semantic Structuring (E6) ───────────────────────────────────────
+
+
+class SemanticFrameType(Enum):
+    """نوع الإطار الدلالي — semantic frame classification.
+
+    ACTION     — فعل     : event/action frame
+    STATE      — حالة    : state/condition frame
+    TRANSFER   — نقل     : transfer frame (give, send, etc.)
+    COGNITION  — إدراك   : cognitive frame (know, believe, etc.)
+    EVALUATION — تقييم   : evaluative frame (good, bad, etc.)
+    EXISTENCE  — وجود    : existential frame (exist, be, etc.)
+    """
+
+    ACTION = auto()      # فعل — event/action
+    STATE = auto()       # حالة — state/condition
+    TRANSFER = auto()    # نقل — transfer
+    COGNITION = auto()   # إدراك — cognitive
+    EVALUATION = auto()  # تقييم — evaluative
+    EXISTENCE = auto()   # وجود — existential
+
+
+class SemanticRelationType(Enum):
+    """نوع العلاقة الدلالية — semantic relation types for E6 scaffold.
+
+    HYPERNYM   — أعم    : broader concept (is-a)
+    HYPONYM    — أخص    : narrower concept (kind-of)
+    MERONYM    — جزء    : part-whole
+    HOLONYM    — كل     : whole-part
+    SYNONYM    — مرادف  : same meaning
+    ANTONYM    — مضاد   : opposite meaning
+    CAUSAL     — سببي   : causal relation
+    TEMPORAL   — زمني   : temporal relation
+    """
+
+    HYPERNYM = auto()   # أعم — broader
+    HYPONYM = auto()    # أخص — narrower
+    MERONYM = auto()    # جزء — part
+    HOLONYM = auto()    # كل — whole
+    SYNONYM = auto()    # مرادف — same meaning
+    ANTONYM = auto()    # مضاد — opposite
+    CAUSAL = auto()     # سببي — causal
+    TEMPORAL = auto()   # زمني — temporal
+
+
+# ── Cognitive Mediation (E7) ────────────────────────────────────────
+
+
+class ReasoningMode(Enum):
+    """نمط الاستدلال — reasoning mode for cognitive mediation.
+
+    DEDUCTIVE    — قياسي    : deductive reasoning (from general to specific)
+    INDUCTIVE    — استقرائي : inductive reasoning (from specific to general)
+    ABDUCTIVE    — استنتاجي : abductive reasoning (best explanation)
+    ANALOGICAL   — تمثيلي   : analogical reasoning (by analogy)
+    """
+
+    DEDUCTIVE = auto()    # قياسي — from general to specific
+    INDUCTIVE = auto()    # استقرائي — from specific to general
+    ABDUCTIVE = auto()    # استنتاجي — best explanation
+    ANALOGICAL = auto()   # تمثيلي — by analogy
+
+
+class CriterionType(Enum):
+    """نوع المعيار — criterion type for subject evaluation.
+
+    SEMANTIC     — دلالي    : meaning-based criterion
+    SYNTACTIC    — نحوي     : structure-based criterion
+    PRAGMATIC    — تداولي   : context-based criterion
+    EPISTEMIC    — معرفي    : knowledge-based criterion
+    NORMATIVE    — معياري   : norm-based criterion
+    """
+
+    SEMANTIC = auto()     # دلالي
+    SYNTACTIC = auto()    # نحوي
+    PRAGMATIC = auto()    # تداولي
+    EPISTEMIC = auto()    # معرفي
+    NORMATIVE = auto()    # معياري
+
+
+# ── Judgement Constitution (E8) ─────────────────────────────────────
+
+
+class JudgementRank(Enum):
+    """رتبة الحكم — rank/level of a judgement.
+
+    DEFINITIVE   — قطعي    : certain, beyond doubt
+    PREDOMINANT  — راجح    : preponderant, most likely
+    PROBABLE     — محتمل   : probable but not certain
+    POSSIBLE     — ممكن    : possible but uncertain
+    DOUBTFUL     — مشكوك   : doubtful, requires review
+    """
+
+    DEFINITIVE = auto()    # قطعي — certain
+    PREDOMINANT = auto()   # راجح — preponderant
+    PROBABLE = auto()      # محتمل — probable
+    POSSIBLE = auto()      # ممكن — possible
+    DOUBTFUL = auto()      # مشكوك — doubtful
+
+
+class ReviewStatus(Enum):
+    """حالة المراجعة — review status of a judgement.
+
+    PENDING    — معلق    : awaiting review
+    APPROVED   — مقبول   : reviewed and approved
+    CONTESTED  — متنازع  : contested, under dispute
+    REVISED    — مراجع   : revised after initial judgement
+    FINAL      — نهائي   : final, no further review
+    """
+
+    PENDING = auto()     # معلق — awaiting review
+    APPROVED = auto()    # مقبول — approved
+    CONTESTED = auto()   # متنازع — under dispute
+    REVISED = auto()     # مراجع — revised
+    FINAL = auto()       # نهائي — final
+
+
+# ── Layer Trace (unified) ───────────────────────────────────────────
+
+
+class EpicLayerID(Enum):
+    """معرّف الطبقة الملحمية — Epic layer identifier for the 8-layer scaffold.
+
+    E1  UNICODE      اليونيكود — Unicode Foundation
+    E2  DIACRITICS   التشكيل — Diacritic Logic
+    E3  SYLLABLES    المقاطع — Syllabic Formation
+    E4  MORPHOLOGY   الصرف — Morphological Intelligence
+    E5  SYNTAX       النحو — Syntax Graph
+    E6  SEMANTICS    الدلالة — Semantic Structuring
+    E7  COGNITION    الإدراك — Cognitive Mediation
+    E8  JUDGEMENT    الحكم — Judgement Constitution
+    """
+
+    UNICODE = auto()      # E1 — اليونيكود
+    DIACRITICS = auto()   # E2 — التشكيل
+    SYLLABLES = auto()    # E3 — المقاطع
+    MORPHOLOGY = auto()   # E4 — الصرف
+    SYNTAX = auto()       # E5 — النحو
+    SEMANTICS = auto()    # E6 — الدلالة
+    COGNITION = auto()    # E7 — الإدراك
+    JUDGEMENT = auto()     # E8 — الحكم
