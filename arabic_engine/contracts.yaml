@@ -151,8 +151,8 @@ layers:
   - name: explanation
     module: arabic_engine.cognition.explanation
     function: build_explanation
-    input_type: "Tuple[Proposition, Dict[str, str], EvaluationResult, List[InferenceResult], Dict[str, Any]]"
-    output_type: "Dict[str, Any]"
+    input_type: "Tuple[Proposition, Dict[str, str], EvaluationResult, List[InferenceResult], Dict[str, object]]"
+    output_type: "Dict[str, object]"
     invariants:
       - "contains why_agent"
       - "contains why_judgement"

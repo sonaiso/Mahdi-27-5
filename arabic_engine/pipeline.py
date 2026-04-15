@@ -687,3 +687,80 @@ def run(
         unified_trace=unified_trace,
         trace_complete=True,
     )
+
+
+# ── Trace utilities (SIVP-v1 § B2, B3) ─────────────────────────────
+
+
+def trace_back(
+    result: PipelineResult,
+    target_layer: int = 0,
+) -> List[UnifiedTraceEntry]:
+    """Return the trace chain from the final layer down to *target_layer*.
+
+    The returned list is ordered from the earliest layer to the latest,
+    filtered to ``layer_index >= target_layer``.  If *target_layer* is 0
+    (default) the full chain is returned.
+    """
+    return [
+        entry for entry in result.unified_trace
+        if entry.layer_index >= target_layer
+    ]
+
+
+def replay_from_trace(
+    trace: List[UnifiedTraceEntry],
+    raw_text: str,
+    *,
+    world: Optional[WorldModel] = None,
+    inference_engine: Optional[InferenceEngine] = None,
+) -> Dict[str, object]:
+    """Re-run the pipeline and compare output hashes to *trace*.
+
+    Returns a report dict with keys:
+
+    * ``matched`` — number of layers whose output hash matches
+    * ``mismatched`` — number of layers whose output hash differs
+    * ``details`` — per-layer comparison list
+    * ``reproduced`` — ``True`` iff all hashes match
+    """
+    fresh = run(raw_text, world=world, inference_engine=inference_engine)
+    details: List[Dict[str, object]] = []
+    matched = 0
+    mismatched = 0
+
+    # Build lookup from original trace
+    original_by_idx: Dict[int, UnifiedTraceEntry] = {
+        e.layer_index: e for e in trace
+    }
+
+    for entry in fresh.unified_trace:
+        orig = original_by_idx.get(entry.layer_index)
+        if orig is None:
+            details.append({
+                "layer": entry.layer_name,
+                "status": "no_original",
+            })
+            mismatched += 1
+            continue
+        if entry.output_hash == orig.output_hash:
+            matched += 1
+            details.append({
+                "layer": entry.layer_name,
+                "status": "match",
+            })
+        else:
+            mismatched += 1
+            details.append({
+                "layer": entry.layer_name,
+                "status": "mismatch",
+                "original_hash": orig.output_hash,
+                "replay_hash": entry.output_hash,
+            })
+
+    return {
+        "matched": matched,
+        "mismatched": mismatched,
+        "details": details,
+        "reproduced": mismatched == 0 and matched > 0,
+    }

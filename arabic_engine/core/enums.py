@@ -1352,7 +1352,17 @@ class ValidationOutcome(Enum):
 
 
 class ValidationState(Enum):
-    """حالة التحقق — current state of a validation process."""
+    """حالة التحقق — current state of a validation process.
+
+    Domain: epistemic validation (``cognition.epistemic_v1``,
+    ``cognition.evaluation``).  Used for the epistemic rank and
+    proposition validation outcome.
+
+    Distinct from:
+    * ``LayerGateDecision`` — per-gate transition decision
+    * ``TransitionGateStatus`` — 7-layer element gate status
+    * ``PipelineStatus`` — overall pipeline run result
+    """
 
     PENDING = auto()        # معلَّق         — not yet validated
     VALID = auto()          # صحيح           — validated and valid
@@ -1879,7 +1889,17 @@ class RepresentationNode(Enum):
 
 
 class TransitionGateStatus(Enum):
-    """حالة بوابة الانتقال — status of a transition gate."""
+    """حالة بوابة الانتقال — status of a transition gate.
+
+    Domain: strict 7-layer element analysis system
+    (``layers.layer_pipeline``).  Each ``TransitionGate`` between
+    adjacent element layers carries one of these values.
+
+    Distinct from:
+    * ``LayerGateDecision`` — cognitive chain gates (9 layers)
+    * ``PipelineStatus`` — overall pipeline run result
+    * ``ValidationState`` — epistemic validation outcome
+    """
 
     PASSED = auto()
     BLOCKED = auto()
