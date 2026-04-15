@@ -2712,3 +2712,36 @@ class EpicLayerID(Enum):
     SEMANTICS = auto()    # E6 — الدلالة
     COGNITION = auto()    # E7 — الإدراك
     JUDGEMENT = auto()     # E8 — الحكم
+
+
+# ── Pre-U₀ Admissibility ────────────────────────────────────────────
+
+
+class AdmissibilityDecision(Enum):
+    """قرار القبول — outcome of the pre-U₀ admissibility check.
+
+    ACCEPT  — all dimensions passed; input enters the chain.
+    SUSPEND — some dimensions uncertain; input enters with warning.
+    REJECT  — critical dimension failed; input does not enter.
+
+    Domain: pre-pipeline admissibility (``signifier/admissibility.py``).
+    """
+
+    ACCEPT = auto()   # قبول
+    SUSPEND = auto()  # تعليق
+    REJECT = auto()   # رد
+
+
+class AdmissibilityDimension(Enum):
+    """بُعد القبول — the six dimensions of pre-U₀ admissibility.
+
+    See ``docs/unicode_possibility_and_cognitive_admissibility_constitution_v1.md``
+    for formal definitions.
+    """
+
+    PRESENCE = auto()                    # الحضور
+    DISTINGUISHABILITY = auto()          # القابلية للتمييز
+    INITIAL_ADMISSIBILITY = auto()       # القبول الأولي
+    PRIOR_KNOWLEDGE_BINDING = auto()     # الربط بالمعرفة المسبقة
+    PRELIMINARY_INTERPRETATION = auto()  # التأويل الأولي
+    PRE_DESIGNATION_CONCEPTION = auto()  # التصور قبل التعيين

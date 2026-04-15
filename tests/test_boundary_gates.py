@@ -162,9 +162,9 @@ class TestUnifiedTrace:
             assert entry.layer_name, f"Missing layer_name at index {entry.layer_index}"
 
     def test_trace_entry_count_equals_layers_executed(self):
-        """12 trace entries = 11 gates + 1 final layer."""
+        """13 trace entries = 1 pre-U₀ + 11 gates + 1 final layer."""
         result = _full_result()
-        assert len(result.unified_trace) == 12
+        assert len(result.unified_trace) == 13
 
 
 # ── B4: trace_complete flag ──────────────────────────────────────────
@@ -190,9 +190,10 @@ class TestTraceBack:
         for i in range(len(indices) - 1):
             assert indices[i + 1] >= indices[i], "Trace not ascending"
 
-    def test_trace_starts_at_layer_zero(self):
+    def test_trace_starts_at_pre_u0(self):
+        """First trace entry is the pre-U₀ admissibility check (index -1)."""
         result = _full_result()
-        assert result.unified_trace[0].layer_index == 0
+        assert result.unified_trace[0].layer_index == -1
 
 
 # ── PipelineLayerID completeness ─────────────────────────────────────

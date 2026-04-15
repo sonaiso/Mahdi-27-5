@@ -185,10 +185,16 @@ class TestReplayDeterminism:
         assert report["matched"] > 0
 
     def test_same_input_produces_same_hashes(self):
-        """Two independent runs produce identical trace hashes."""
+        """Two independent runs produce identical trace hashes.
+
+        The pre-U₀ entry (index -1) is excluded because its output hash
+        includes a timestamp-bearing AdmissibilityResult.
+        """
         r1 = run("كتب")
         r2 = run("كتب")
         for e1, e2 in zip(r1.unified_trace, r2.unified_trace):
+            if e1.layer_index == -1:
+                continue  # Pre-U₀ contains non-deterministic timestamp
             assert e1.output_hash == e2.output_hash, (
                 f"Hash mismatch at {e1.layer_name}: "
                 f"{e1.output_hash} != {e2.output_hash}"

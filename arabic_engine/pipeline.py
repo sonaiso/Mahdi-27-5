@@ -15,6 +15,7 @@ from arabic_engine.cognition.time_space import tag as time_space_tag
 from arabic_engine.cognition.world_model import WorldModel
 from arabic_engine.core.contracts import verify_contracts  # noqa: F401 — re-export
 from arabic_engine.core.enums import (
+    AdmissibilityDecision,
     CarrierType,
     CognitiveLayerID,
     EpistemicRank,
@@ -77,6 +78,7 @@ from arabic_engine.signified.semantic_direction import (
 from arabic_engine.signified.semantic_direction import (
     build_direction_space,
 )
+from arabic_engine.signifier.admissibility import check_admissibility
 from arabic_engine.signifier.root_pattern import batch_closure
 from arabic_engine.signifier.unicode_norm import normalize, tokenize
 from arabic_engine.signifier.weight_fractal import (
@@ -349,12 +351,13 @@ def _partial_result(
         subject="", predicate="", obj="", polarity=True,
     )
     _ts = time_space or TimeSpaceTag(
-        time_ref=TimeRef.UNKNOWN,
-        space_ref=SpaceRef.UNKNOWN,
+        time_ref=TimeRef.UNSPECIFIED,
+        space_ref=SpaceRef.UNSPECIFIED,
     )
     _eval = EvalResult(
+        proposition=_prop,
         truth_state=TruthState.UNKNOWN,
-        guidance_state=GuidanceState.UNKNOWN,
+        guidance_state=GuidanceState.NOT_APPLICABLE,
         confidence=0.0,
     )
     _percept = PerceptTrace(
@@ -366,7 +369,7 @@ def _partial_result(
     _episode = _build_knowledge_episode(text, _prop, {})
     _eval_result = EvaluationResult(
         truth_state=TruthState.UNKNOWN,
-        epistemic_rank=EpistemicRank.MUQALLID,
+        epistemic_rank=EpistemicRank.PROBABILISTIC_DOUBT,
         confidence=0.0,
         validation_state=ValidationState.PENDING,
         consistency="Pipeline halted by gate",
@@ -433,6 +436,28 @@ def run(
         if decision == LayerGateDecision.SUSPEND:
             final_status = PipelineStatus.SUSPEND
         return True
+
+    # Pre-U₀ — Admissibility check (before any processing)
+    admissibility = check_admissibility(text)
+    unified_trace.append(
+        _make_trace_entry(
+            PipelineLayerID.L0_NORMALIZE, -1, text, admissibility,
+            (LayerGateDecision.PASS
+             if admissibility.decision == AdmissibilityDecision.ACCEPT
+             else LayerGateDecision.SUSPEND
+             if admissibility.decision == AdmissibilityDecision.SUSPEND
+             else LayerGateDecision.REJECT),
+            f"Pre-U₀ admissibility: {admissibility.decision.name}",
+        )
+    )
+    if admissibility.decision == AdmissibilityDecision.REJECT:
+        failed = [c for c in admissibility.checks if not c.passed]
+        reason = "; ".join(c.reason for c in failed)
+        return _partial_result(
+            text, text, PipelineStatus.FAILURE, gate_records, unified_trace,
+        )
+    if admissibility.decision == AdmissibilityDecision.SUSPEND:
+        final_status = PipelineStatus.SUSPEND
 
     # L0 — Normalise
     normalised = normalize(text)
@@ -585,7 +610,7 @@ def run(
         episode = _build_knowledge_episode(text, proposition, {})
         evaluation_result = EvaluationResult(
             truth_state=eval_result.truth_state,
-            epistemic_rank=EpistemicRank.MUQALLID,
+            epistemic_rank=EpistemicRank.PROBABILISTIC_DOUBT,
             confidence=eval_result.confidence,
             validation_state=ValidationState.PENDING,
             consistency=f"L8b epistemic validation suspended: {exc}",

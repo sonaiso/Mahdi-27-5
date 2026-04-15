@@ -14,6 +14,8 @@ from typing import FrozenSet, List, Optional, Tuple
 from .enums import (
     POS,
     ActivationStage,
+    AdmissibilityDecision,
+    AdmissibilityDimension,
     AffectiveDimension,
     AffixType,
     AuthorityLevel,
@@ -3637,3 +3639,33 @@ class LayerTrace:
     duration_ms: float
     timestamp: str  # ISO 8601
     metadata: Tuple[Tuple[str, str], ...] = ()
+
+
+# ── Pre-U₀ Admissibility Types ──────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class AdmissibilityCheck:
+    """فحص قبول واحد — result of a single admissibility dimension check.
+
+    Produced by ``signifier.admissibility.check_admissibility()`` for
+    each of the six dimensions defined in the constitution.
+    """
+
+    dimension: AdmissibilityDimension
+    passed: bool
+    reason: str = ""
+    evidence: Tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class AdmissibilityResult:
+    """نتيجة القبول الكامل — overall pre-U₀ admissibility result.
+
+    Aggregates the six dimension checks into a single decision.
+    """
+
+    input_text: str
+    decision: AdmissibilityDecision
+    checks: Tuple[AdmissibilityCheck, ...]
+    timestamp: str = ""
