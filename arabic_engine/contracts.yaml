@@ -244,6 +244,49 @@ layers:
 # adjacent pair (Lᵢ, Lᵢ₊₁), output_type(Lᵢ) ⊆ input_type(Lᵢ₊₁).
 # The pipeline.verify_contracts() function checks this at startup.
 
+  # ── E2: Diacritic Logic ──────────────────────────────────────────
+  - name: diacritic_analysis
+    module: arabic_engine.diacritics.analyzer
+    function: analyze
+    input_type: str
+    output_type: DiacriticAnalysis
+    invariants:
+      - "mark_count >= 0"
+      - "consistency is a valid DiacriticConsistency enum"
+      - "token is preserved from input"
+
+  # ── E3: Syllabic Formation ───────────────────────────────────────
+  - name: syllable_segmentation
+    module: arabic_engine.syllables.segmenter
+    function: segment
+    input_type: str
+    output_type: SyllableAnalysis
+    invariants:
+      - "mora_count >= 0"
+      - "is_valid is bool"
+      - "pattern.syllables is a tuple of SyllableUnit"
+
+  # ── E4: Morphological Lexicon ────────────────────────────────────
+  - name: morphology_lexicon
+    module: arabic_engine.morphology.lexicon
+    function: lookup_root
+    input_type: "Tuple[str, ...]"
+    output_type: "Optional[RootEntry]"
+    invariants:
+      - "if result is not None, root is non-empty tuple"
+      - "if result is not None, frequency >= 0"
+
+  # ── E4: Affix Stripping ─────────────────────────────────────────
+  - name: morphology_affixes
+    module: arabic_engine.morphology.affixes
+    function: strip_affixes
+    input_type: str
+    output_type: AffixSet
+    invariants:
+      - "prefixes is a tuple"
+      - "suffixes is a tuple"
+      - "infixes is a tuple"
+
 # ── General Closure (Ch. 19) ────────────────────────────────────────
 # The Manṭūq system is closed when:
 #   1. Every layer Lᵢ is locally closed (module + function exist)
