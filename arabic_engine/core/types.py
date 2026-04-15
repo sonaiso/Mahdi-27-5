@@ -75,9 +75,11 @@ from .enums import (
     MasdarBab,
     MasdarType,
     MentalIntentionalType,
+    MentalMeaningSource,
     MetaConceptualLevel,
     MethodFamily,
     ModalCategory,
+    NisbaType,
     NormativeCategory,
     OntologicalConstraintType,
     OntologicalLayer,
@@ -139,6 +141,8 @@ from .enums import (
     UtteredFormClass,
     ValidationOutcome,
     ValidationState,
+    WadElement,
+    WadJumpViolation,
     WeightCarryingMode,
     WeightClass,
     WeightFractalPhase,
@@ -3197,3 +3201,150 @@ class CognitiveChainResult:
     is_complete: bool
     jump_violations: Tuple[str, ...] = ()
     reason: str = ""
+
+
+# ── Wad' & Mental Meaning Constitution v1 types ─────────────────────
+
+
+@dataclass(frozen=True)
+class WadRecord:
+    """سجل الوضع — a single Wad' (designation) record (Art. 5–8).
+
+    Captures the act of designating a lafz (utterance) for a mental
+    meaning, including the tasawwur (conception) that must precede it.
+
+    Parameters
+    ----------
+    wad_id:
+        Unique identifier for this designation record.
+    lafz:
+        The utterance/word being designated.
+    mental_meaning:
+        The mental meaning (المعنى الذهني) the lafz is designated for.
+    tasawwur_present:
+        Whether the conception (التصور) prerequisite is met (Art. 24–27).
+    elements:
+        Tuple of :class:`WadElement` values confirming each constitutive
+        element is present.
+    confidence:
+        Confidence in the designation, in [0, 1].
+    """
+
+    wad_id: str
+    lafz: str
+    mental_meaning: str
+    tasawwur_present: bool
+    elements: Tuple[WadElement, ...]
+    confidence: float = 1.0
+
+
+@dataclass(frozen=True)
+class MentalMeaningRecord:
+    """سجل المعنى الذهني — a mental meaning record (Art. 18–23).
+
+    The mental meaning is what is established in the mind from the image,
+    aspect, or relation of a thing, such that it becomes the object of
+    designation and expression.
+
+    Parameters
+    ----------
+    meaning_id:
+        Unique identifier.
+    content:
+        Description of the mental meaning.
+    source:
+        How the meaning arises (perception, abstraction, etc.).
+    matches_external:
+        Whether the mental meaning matches external reality (may or
+        may not — Art. 23).
+    source_tasawwur:
+        Identifier of the tasawwur (conception) from which this meaning
+        derives.
+    """
+
+    meaning_id: str
+    content: str
+    source: MentalMeaningSource
+    matches_external: bool
+    source_tasawwur: str = ""
+
+
+@dataclass(frozen=True)
+class NisbaRecord:
+    """سجل النسبة — a ratio/relation record (Art. 32–35).
+
+    Captures a relation (nisba) between meanings that makes expression
+    possible — the highest purpose of Wad'.
+
+    Parameters
+    ----------
+    nisba_id:
+        Unique identifier.
+    nisba_type:
+        The kind of ratio/relation.
+    first_term:
+        The first term of the relation (e.g. subject).
+    second_term:
+        The second term (e.g. predicate).
+    expression_complete:
+        Whether the relation suffices for a complete expression.
+    """
+
+    nisba_id: str
+    nisba_type: NisbaType
+    first_term: str
+    second_term: str
+    expression_complete: bool = False
+
+
+@dataclass(frozen=True)
+class WadJumpCheckResult:
+    """نتيجة فحص القفز في الوضع — result of a Wad' anti-jump check (Art. 40–42).
+
+    Parameters
+    ----------
+    violation:
+        The jump violation type checked.
+    detected:
+        ``True`` if the prohibited jump was detected.
+    description:
+        Human-readable description.
+    description_ar:
+        Arabic description.
+    """
+
+    violation: WadJumpViolation
+    detected: bool
+    description: str
+    description_ar: str
+
+
+@dataclass(frozen=True)
+class WadConstitutionResult:
+    """نتيجة التحقق من دستور الوضع — Wad' Constitution validation result (Art. 1–51).
+
+    Parameters
+    ----------
+    valid:
+        ``True`` when all constitutional invariants hold.
+    errors:
+        Tuple of error descriptions (empty when valid).
+    wad_records:
+        Wad' records analysed.
+    mental_meanings:
+        Mental meanings extracted.
+    nisab:
+        Ratios/relations identified.
+    jump_checks:
+        Anti-jump check results.
+    chain_position:
+        The governing chain position string (Art. 37).
+    """
+
+    valid: bool
+    errors: Tuple[str, ...] = ()
+    wad_records: Tuple[WadRecord, ...] = ()
+    mental_meanings: Tuple[MentalMeaningRecord, ...] = ()
+    nisab: Tuple[NisbaRecord, ...] = ()
+    jump_checks: Tuple[WadJumpCheckResult, ...] = ()
+    chain_position: str = ""

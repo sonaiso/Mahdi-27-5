@@ -239,6 +239,21 @@ layers:
       - "completeness_score >= 0"
       - "threshold >= 0"
 
+  # ── Wad' and Mental Meaning Constitution v1 ─────────────────────
+  - name: wad_constitution
+    module: arabic_engine.linkage.wad_constitution
+    function: validate_wad_constitution
+    input_type: str
+    output_type: WadConstitutionResult
+    invariants:
+      - "valid is True when all constitutional invariants hold"
+      - "errors is empty when valid is True"
+      - "wad_records are non-empty for valid input"
+      - "mental_meanings are non-empty for valid input"
+      - "nisab are non-empty for valid input"
+      - "jump_checks contains exactly 5 entries"
+      - "chain_position equals 'وضع/لغة/نسب'"
+
 # ── Closure proof ───────────────────────────────────────────────────
 # The composition F = L10 ∘ L9 ∘ … ∘ L0 is well-typed if for every
 # adjacent pair (Lᵢ, Lᵢ₊₁), output_type(Lᵢ) ⊆ input_type(Lᵢ₊₁).

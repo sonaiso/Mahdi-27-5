@@ -430,6 +430,23 @@ from .enums import (
     LayerGateDecision as LayerGateDecision,
 )
 
+# ── Wad' & Mental Meaning Constitution v1 enum re-exports ───────────
+from .enums import (
+    ExpressionMode as ExpressionMode,
+)
+from .enums import (
+    MentalMeaningSource as MentalMeaningSource,
+)
+from .enums import (
+    NisbaType as NisbaType,
+)
+from .enums import (
+    WadElement as WadElement,
+)
+from .enums import (
+    WadJumpViolation as WadJumpViolation,
+)
+
 # ── Kernel re-exports ───────────────────────────────────────────────
 from .kernel import (
     KERNEL_RELATION_PAIRS as KERNEL_RELATION_PAIRS,
@@ -864,6 +881,23 @@ from .types import (
     SemanticSubject as SemanticSubject,
 )
 
+# ── Wad' & Mental Meaning Constitution v1 type re-exports ───────────
+from .types import (
+    MentalMeaningRecord as MentalMeaningRecord,
+)
+from .types import (
+    NisbaRecord as NisbaRecord,
+)
+from .types import (
+    WadConstitutionResult as WadConstitutionResult,
+)
+from .types import (
+    WadJumpCheckResult as WadJumpCheckResult,
+)
+from .types import (
+    WadRecord as WadRecord,
+)
+
 __all__ = [
     # ── enums ───────────────────────────────────────────────────────
     "POS",
@@ -1152,4 +1186,15 @@ __all__ = [
     "JudgementReadyInput",
     "NormalizedUnit",
     "SemanticSubject",
+    # ── Wad' & Mental Meaning Constitution v1 ─────────────────────
+    "ExpressionMode",
+    "MentalMeaningSource",
+    "NisbaType",
+    "WadElement",
+    "WadJumpViolation",
+    "MentalMeaningRecord",
+    "NisbaRecord",
+    "WadConstitutionResult",
+    "WadJumpCheckResult",
+    "WadRecord",
 ]

@@ -8,6 +8,8 @@ Public sub-modules
   isnād (إسناد) modes.
 * :mod:`arabic_engine.linkage.semantic_roles` — derives semantic role
   labels (event, agent, patient, time, place) from syntax output.
+* :mod:`arabic_engine.linkage.wad_constitution` — Wad' and Mental Meaning
+  Constitution v1: validates designation, mental meaning, and ratios.
 """
 
-__all__ = ["dalala", "semantic_roles"]
+__all__ = ["dalala", "semantic_roles", "wad_constitution"]

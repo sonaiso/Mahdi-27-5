@@ -334,6 +334,16 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "description": "Gate evaluation for cognitive layer transitions",
         "description_ar": "تقييم بوابة العبور بين الطبقات العقلية",
     },
+    # ── Wad' and Mental Meaning Constitution v1 ─────────────────────
+    {
+        "symbol": "W_wad",
+        "name": "wad_constitution",
+        "name_ar": "دستور الوضع والمعنى الذهني",
+        "module": "arabic_engine.linkage.wad_constitution",
+        "function": "validate_wad_constitution",
+        "description": "Wad' and Mental Meaning Constitution validation",
+        "description_ar": "التحقق من دستور الوضع والمعنى الذهني",
+    },
 ]
 
 

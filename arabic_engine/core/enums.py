@@ -2340,3 +2340,83 @@ class LayerGateDecision(Enum):
     REJECT = auto()    # رد — مانع قاطع
     SUSPEND = auto()   # تعليق — ناقص بلا مانع
     COMPLETE = auto()  # اكتمال — الطبقة كاملة تمامًا
+
+
+# ── Wad' & Mental Meaning Constitution v1 enums ─────────────────────
+
+
+class WadElement(Enum):
+    """عنصر الوضع — the four constitutive elements of Wad' (Art. 6).
+
+    LAFZ             لفظ — the utterance/word
+    MEANING          معنى — the meaning
+    TAKHSIS          تخصيص — the designation/assignment
+    COMPREHENSIBILITY  قابلية الفهم عند الإطلاق — comprehensibility upon utterance
+    """
+
+    LAFZ = auto()               # لفظ
+    MEANING = auto()            # معنى
+    TAKHSIS = auto()            # تخصيص
+    COMPREHENSIBILITY = auto()  # قابلية الفهم عند الإطلاق
+
+
+class MentalMeaningSource(Enum):
+    """مصدر المعنى الذهني — how a mental meaning arises (Art. 18–23).
+
+    PERCEPTION       من الإدراك الحسي — through sensory perception
+    ABSTRACTION      من التجريد — through abstraction
+    PRIOR_KNOWLEDGE  من المعلومات السابقة — from prior knowledge
+    COMPOSITION      من التركيب الذهني — from mental composition
+    """
+
+    PERCEPTION = auto()       # من الإدراك الحسي
+    ABSTRACTION = auto()      # من التجريد
+    PRIOR_KNOWLEDGE = auto()  # من المعلومات السابقة
+    COMPOSITION = auto()      # من التركيب الذهني
+
+
+class ExpressionMode(Enum):
+    """أداة التعبير — mode of expression (Art. 13–17).
+
+    LAFZ      اللفظ — verbal/word expression (preferred)
+    ISHARA    الإشارة — gesture/pointing
+    MITHAL    المثال — example/model
+    """
+
+    LAFZ = auto()    # اللفظ — التعبير اللفظي
+    ISHARA = auto()  # الإشارة — التعبير بالإشارة
+    MITHAL = auto()  # المثال — التعبير بالمثال
+
+
+class NisbaType(Enum):
+    """نوع النسبة — types of ratios/relations in language (Art. 33).
+
+    ISNADIYYA    إسنادية — predicative (subject–predicate)
+    TAQYIDIYYA   تقييدية — restrictive/attributive
+    IDAFIYYA     إضافية — annexation/genitive
+    FA3ILIYYA    فاعلية — agentive
+    MAF3ULIYYA   مفعولية — patientive/objective
+    """
+
+    ISNADIYYA = auto()    # نسبة إسنادية
+    TAQYIDIYYA = auto()   # نسبة تقييدية
+    IDAFIYYA = auto()     # نسبة إضافية
+    FA3ILIYYA = auto()    # نسبة فاعلية
+    MAF3ULIYYA = auto()   # نسبة مفعولية
+
+
+class WadJumpViolation(Enum):
+    """قفزة ممنوعة في الوضع — prohibited jumps in Wad' (Art. 40–42).
+
+    LAFZ_TO_MEANING_NO_TASAWWUR    لفظ → معنى مكتمل بلا تصور
+    LAFZ_TO_EXTERNAL_NO_MENTAL     لفظ → خارج بلا معنى ذهني
+    LANGUAGE_TO_JUDGEMENT_NO_METHOD لغة → حكم بلا طريقة عقل
+    WAD_TO_EXTERNAL_DIRECT         وضع → خارج مباشر بلا توسط ذهني
+    MUFRADAT_TO_EXPRESSION_NO_NISAB مفردات → تعبير كامل بلا نسب
+    """
+
+    LAFZ_TO_MEANING_NO_TASAWWUR = auto()
+    LAFZ_TO_EXTERNAL_NO_MENTAL = auto()
+    LANGUAGE_TO_JUDGEMENT_NO_METHOD = auto()
+    WAD_TO_EXTERNAL_DIRECT = auto()
+    MUFRADAT_TO_EXPRESSION_NO_NISAB = auto()
