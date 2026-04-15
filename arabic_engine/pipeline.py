@@ -53,9 +53,9 @@ from arabic_engine.core.types import (
     TimeSpaceTag,
     UtteranceRecord,
 )
-from arabic_engine.linkage.dalala import full_validation
-from arabic_engine.linkage.semantic_roles import derive_semantic_roles
-from arabic_engine.signified.ontology import batch_map
+from arabic_engine.semantics.dalala import full_validation
+from arabic_engine.semantics.semantic_roles import derive_semantic_roles
+from arabic_engine.semantics.ontology import batch_map
 from arabic_engine.morphology.root_pattern import batch_closure
 from arabic_engine.signal.unicode_norm import normalize, tokenize
 from arabic_engine.syntax.syntax import analyse as syntax_analyse

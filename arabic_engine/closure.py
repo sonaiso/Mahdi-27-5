@@ -184,7 +184,7 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "symbol": "𝔖/ontology",
         "name": "ontology",
         "name_ar": "الخريطة المفهومية",
-        "module": "arabic_engine.signified.ontology",
+        "module": "arabic_engine.semantics.ontology",
         "function": "batch_map",
         "description": "Ontological mapping — signified layer",
         "description_ar": "ربط الدال بالمدلول",
@@ -193,7 +193,7 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "symbol": "ℰ_min",
         "name": "dalala",
         "name_ar": "التوسعة التركيبية الدنيا",
-        "module": "arabic_engine.linkage.dalala",
+        "module": "arabic_engine.semantics.dalala",
         "function": "full_validation",
         "description": "Dalāla validation — signification links",
         "description_ar": "توثيق الدلالة: مطابقة، تضمن، التزام",
@@ -220,7 +220,7 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "symbol": "𝒫⁺_min/roles",
         "name": "semantic_roles",
         "name_ar": "الأدوار الدلالية",
-        "module": "arabic_engine.linkage.semantic_roles",
+        "module": "arabic_engine.semantics.semantic_roles",
         "function": "derive_semantic_roles",
         "description": "Semantic role assignment (event/agent/patient)",
         "description_ar": "تعيين الأدوار الدلالية: حدث، فاعل، مفعول",
@@ -579,7 +579,7 @@ def _check_semantic_roles_closure() -> ClosureVerdict:
     the keys ``event``, ``agent``, and ``patient``.
     """
     try:
-        mod = importlib.import_module("arabic_engine.linkage.semantic_roles")
+        mod = importlib.import_module("arabic_engine.semantics.semantic_roles")
         fn = getattr(mod, "derive_semantic_roles", None)
         if fn is None:
             return ClosureVerdict(

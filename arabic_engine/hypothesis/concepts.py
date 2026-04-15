@@ -11,7 +11,7 @@ from typing import List
 
 from arabic_engine.core.enums import ActivationStage, HypothesisStatus, SemanticType
 from arabic_engine.core.types import HypothesisNode
-from arabic_engine.signified.ontology import map_concept
+from arabic_engine.semantics.ontology import map_concept
 from arabic_engine.morphology.root_pattern import lexical_closure
 
 
