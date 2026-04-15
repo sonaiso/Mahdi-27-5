@@ -2294,3 +2294,49 @@ class WeightValidationStatus(Enum):
     ACCEPTED = auto()   # مقبول — passes all criteria
     REJECTED = auto()   # مرفوض — fails mandatory criteria
     DEFICIENT = auto()  # ناقص — partially meets criteria
+
+
+# ── Unicode Cognitive Input Proof enums ─────────────────────────────
+
+
+class CognitiveLayerID(Enum):
+    """معرّف الطبقة العقلية — cognitive re-rationalisation layer (Art. 41).
+
+    Represents the nine stages U₀–U₈ through which a Unicode input is
+    re-rationalised from raw encoding to judgement-ready material.
+
+    U₀  UNICODE_RAW          المدخل اليونيكودي الخام
+    U₁  ATOMIZED             المُعطى المُعيَّن ذريًا
+    U₂  DIFFERENTIATED       الذرّات المتميزة المتشاكلة
+    U₃  NORMALIZED           المُعطى المُطبَّع
+    U₄  DESIGNATED           المُعطى الحاضر المفروق المُعيَّن
+    U₅  INITIAL_CONCEPTION   التصور الأولي
+    U₆  DISCIPLINED_CONCEPTION  التصور المنضبط
+    U₇  SEMANTIC_SUBJECT     الموضوع الدلالي المحرر
+    U₈  JUDGEMENT_READY       المُعطى الصالح للحكم
+    """
+
+    UNICODE_RAW = auto()             # U₀ — المدخل اليونيكودي الخام
+    ATOMIZED = auto()                # U₁ — التعيين الذري
+    DIFFERENTIATED = auto()          # U₂ — التمييز والتشاكل
+    NORMALIZED = auto()              # U₃ — التجميع والتطبيع
+    DESIGNATED = auto()              # U₄ — الحضور والفرق والتعيين
+    INITIAL_CONCEPTION = auto()      # U₅ — التصور الأولي
+    DISCIPLINED_CONCEPTION = auto()  # U₆ — التصور المنضبط
+    SEMANTIC_SUBJECT = auto()        # U₇ — الموضوع الدلالي المحرر
+    JUDGEMENT_READY = auto()         # U₈ — الصالح للحكم
+
+
+class LayerGateDecision(Enum):
+    """قرار بوابة العبور — gate decision at a cognitive layer boundary.
+
+    PASS     — عبور   : minimum completeness met, proceed to next layer
+    REJECT   — رد     : blocking condition found, cannot proceed
+    SUSPEND  — تعليق  : incomplete but no blocker, awaiting more data
+    COMPLETE — اكتمال : layer fully satisfied with no residual
+    """
+
+    PASS = auto()      # عبور — الحد الأدنى مستوفى
+    REJECT = auto()    # رد — مانع قاطع
+    SUSPEND = auto()   # تعليق — ناقص بلا مانع
+    COMPLETE = auto()  # اكتمال — الطبقة كاملة تمامًا

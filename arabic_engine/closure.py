@@ -306,6 +306,34 @@ _LAYER_CHAIN: List[Dict[str, Any]] = [
         "description": "Total single-word closure — إقفال جامع مانع",
         "description_ar": "إقفال اللفظ المفرد إقفالاً جامعاً مانعاً",
     },
+    # ── Unicode as Cognitive Input Proof (v1) ────────────────────────
+    {
+        "symbol": "U₀→U₈",
+        "name": "cognitive_chain",
+        "name_ar": "سلسلة العقلنة المعرفية",
+        "module": "arabic_engine.cognitive_input.chain",
+        "function": "run_cognitive_chain",
+        "description": "Full cognitive re-rationalisation chain (U₀–U₈)",
+        "description_ar": "سلسلة العقلنة الكاملة من اليونيكود إلى الحكم",
+    },
+    {
+        "symbol": "𝒫",
+        "name": "cognitive_proof",
+        "name_ar": "البرهان العقلي",
+        "module": "arabic_engine.cognitive_input.proof",
+        "function": "verify_unicode_cognitive_proof",
+        "description": "Formal proof verification for Unicode cognitive input",
+        "description_ar": "التحقق البرهاني لليونيكود كمعطى عقلي أولي",
+    },
+    {
+        "symbol": "𝒢",
+        "name": "cognitive_gate",
+        "name_ar": "بوابة العبور العقلية",
+        "module": "arabic_engine.cognitive_input.gate",
+        "function": "evaluate_gate",
+        "description": "Gate evaluation for cognitive layer transitions",
+        "description_ar": "تقييم بوابة العبور بين الطبقات العقلية",
+    },
 ]
 
 

@@ -205,6 +205,40 @@ layers:
       - "closure_confidence in [0, 1]"
       - "surface is preserved from input"
 
+  # ── Unicode Cognitive Input Chain (Proof v1) ──────────────────────
+  - name: cognitive_chain
+    module: arabic_engine.cognitive_input.chain
+    function: run_cognitive_chain
+    input_type: str
+    output_type: CognitiveChainResult
+    invariants:
+      - "layer_results contains exactly 8 entries for valid input"
+      - "gates contains exactly 8 entries for valid input"
+      - "is_complete iff final_layer is JUDGEMENT_READY"
+      - "jump_violations is empty for valid chain"
+
+  # ── Unicode Cognitive Input Proof Verification ────────────────────
+  - name: cognitive_proof
+    module: arabic_engine.cognitive_input.proof
+    function: verify_unicode_cognitive_proof
+    input_type: str
+    output_type: UnicodeCognitiveProofResult
+    invariants:
+      - "all_passed is True when all conditions verified"
+      - "conditions list contains at least 6 entries (5 premises + conclusion)"
+      - "each condition has a valid ProofConditionStatus"
+
+  # ── Cognitive Gate Evaluation ─────────────────────────────────────
+  - name: cognitive_gate
+    module: arabic_engine.cognitive_input.gate
+    function: evaluate_gate
+    input_type: "Tuple[CognitiveLayerID, CognitiveLayerID, bool, float, bool]"
+    output_type: CognitiveGateRecord
+    invariants:
+      - "decision is a valid LayerGateDecision enum"
+      - "completeness_score >= 0"
+      - "threshold >= 0"
+
 # ── Closure proof ───────────────────────────────────────────────────
 # The composition F = L10 ∘ L9 ∘ … ∘ L0 is well-typed if for every
 # adjacent pair (Lᵢ, Lᵢ₊₁), output_type(Lᵢ) ⊆ input_type(Lᵢ₊₁).

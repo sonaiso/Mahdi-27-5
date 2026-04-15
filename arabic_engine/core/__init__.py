@@ -422,6 +422,14 @@ from .enums import (
     NasikhCategory as NasikhCategory,
 )
 
+# ── Unicode Cognitive Input Proof enum re-exports ───────────────────
+from .enums import (
+    CognitiveLayerID as CognitiveLayerID,
+)
+from .enums import (
+    LayerGateDecision as LayerGateDecision,
+)
+
 # ── Kernel re-exports ───────────────────────────────────────────────
 from .kernel import (
     KERNEL_RELATION_PAIRS as KERNEL_RELATION_PAIRS,
@@ -821,6 +829,41 @@ from .types import (
     ZeroSlotRecord as ZeroSlotRecord,
 )
 
+# ── Unicode Cognitive Input Proof type re-exports ───────────────────
+from .types import (
+    AtomizedInput as AtomizedInput,
+)
+from .types import (
+    CognitiveChainResult as CognitiveChainResult,
+)
+from .types import (
+    CognitiveGateRecord as CognitiveGateRecord,
+)
+from .types import (
+    CognitiveLayerResult as CognitiveLayerResult,
+)
+from .types import (
+    DesignatedUnit as DesignatedUnit,
+)
+from .types import (
+    DifferentiatedUnit as DifferentiatedUnit,
+)
+from .types import (
+    DisciplinedConceptionRecord as DisciplinedConceptionRecord,
+)
+from .types import (
+    InitialConceptionRecord as InitialConceptionRecord,
+)
+from .types import (
+    JudgementReadyInput as JudgementReadyInput,
+)
+from .types import (
+    NormalizedUnit as NormalizedUnit,
+)
+from .types import (
+    SemanticSubject as SemanticSubject,
+)
+
 __all__ = [
     # ── enums ───────────────────────────────────────────────────────
     "POS",
@@ -1095,4 +1138,18 @@ __all__ = [
     "WeightFractalScore",
     "WeightDirectionSuitability",
     "WeightValidationResult",
+    # ── Unicode Cognitive Input Proof ──────────────────────────────
+    "CognitiveLayerID",
+    "LayerGateDecision",
+    "AtomizedInput",
+    "CognitiveChainResult",
+    "CognitiveGateRecord",
+    "CognitiveLayerResult",
+    "DesignatedUnit",
+    "DifferentiatedUnit",
+    "DisciplinedConceptionRecord",
+    "InitialConceptionRecord",
+    "JudgementReadyInput",
+    "NormalizedUnit",
+    "SemanticSubject",
 ]
