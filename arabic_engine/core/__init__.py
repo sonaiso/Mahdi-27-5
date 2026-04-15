@@ -429,6 +429,12 @@ from .enums import (
 from .enums import (
     LayerGateDecision as LayerGateDecision,
 )
+from .enums import (
+    PipelineLayerID as PipelineLayerID,
+)
+from .enums import (
+    PipelineStatus as PipelineStatus,
+)
 
 # ── Kernel re-exports ───────────────────────────────────────────────
 from .kernel import (
@@ -863,6 +869,9 @@ from .types import (
 from .types import (
     SemanticSubject as SemanticSubject,
 )
+from .types import (
+    UnifiedTraceEntry as UnifiedTraceEntry,
+)
 
 __all__ = [
     # ── enums ───────────────────────────────────────────────────────
@@ -1152,4 +1161,8 @@ __all__ = [
     "JudgementReadyInput",
     "NormalizedUnit",
     "SemanticSubject",
+    # ── Pipeline gate & trace (SIVP-v1) ───────────────────────────
+    "PipelineLayerID",
+    "PipelineStatus",
+    "UnifiedTraceEntry",
 ]
