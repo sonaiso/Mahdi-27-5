@@ -2214,7 +2214,7 @@ class ConceptualType(Enum):
     MASDARIYYA   — مصدرية    : infinitival
     ZAMANIYYA    — زمانية    : temporal
     MAKANIYYA    — مكانية    : locative
-    3ALA2IQIYYA  — علائقية   : relational
+    ALA2IQIYYA   — علائقية   : relational
     """
 
     KULLI = auto()         # كلي — universal
