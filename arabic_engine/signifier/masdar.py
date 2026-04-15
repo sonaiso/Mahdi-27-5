@@ -4,4 +4,7 @@
     Use ``arabic_engine.morphology.masdar`` instead.
 """
 
-from arabic_engine.morphology.masdar import *  # noqa: F401, F403
+import arabic_engine.morphology.masdar as _mod
+import sys
+
+sys.modules[__name__] = _mod

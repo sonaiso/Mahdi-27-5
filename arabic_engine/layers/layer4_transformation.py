@@ -1,2 +1,10 @@
-"""Backward-compatibility shim — this module has moved to arabic_engine.element_layers."""
-from arabic_engine.element_layers.layer4_transformation import *  # noqa: F401, F403
+"""Backward-compatibility shim — this module has moved to arabic_engine.pipeline.element_layers.
+
+.. deprecated::
+    Use ``arabic_engine.pipeline.element_layers.layer4_transformation`` instead.
+"""
+
+import arabic_engine.pipeline.element_layers.layer4_transformation as _mod
+import sys
+
+sys.modules[__name__] = _mod

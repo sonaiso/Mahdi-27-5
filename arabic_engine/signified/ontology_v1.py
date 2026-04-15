@@ -4,4 +4,7 @@
     Use ``arabic_engine.semantics.ontology_v1`` instead.
 """
 
-from arabic_engine.semantics.ontology_v1 import *  # noqa: F401, F403
+import arabic_engine.semantics.ontology_v1 as _mod
+import sys
+
+sys.modules[__name__] = _mod

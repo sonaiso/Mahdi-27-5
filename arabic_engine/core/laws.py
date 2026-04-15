@@ -4,4 +4,7 @@
     Use ``arabic_engine.formal.laws`` instead.
 """
 
-from arabic_engine.formal.laws import *  # noqa: F401, F403
+import arabic_engine.formal.laws as _mod
+import sys
+
+sys.modules[__name__] = _mod

@@ -4,4 +4,7 @@
     Use ``arabic_engine.semantics.semantic_roles`` instead.
 """
 
-from arabic_engine.semantics.semantic_roles import *  # noqa: F401, F403
+import arabic_engine.semantics.semantic_roles as _mod
+import sys
+
+sys.modules[__name__] = _mod

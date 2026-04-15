@@ -1,5 +1,6 @@
-"""Hypothesis layer — staged hypothesis generation for the Arabic engine.
+"""Hypothesis layer — backward-compatibility shims.
 
-Each sub-module generates :class:`~arabic_engine.core.types.HypothesisNode`
-instances at a particular :class:`~arabic_engine.core.enums.ActivationStage`.
+.. deprecated::
+    Modules have moved to :mod:`arabic_engine.pipeline.hypothesis`.
+    Import from the new location instead.
 """

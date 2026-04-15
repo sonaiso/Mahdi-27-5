@@ -4,4 +4,7 @@
     Use ``arabic_engine.validation.integrity`` instead.
 """
 
-from arabic_engine.validation.integrity import *  # noqa: F401, F403
+import arabic_engine.validation.integrity as _mod
+import sys
+
+sys.modules[__name__] = _mod

@@ -1,5 +1,6 @@
-"""Constraint engine — scoring, pruning, propagation, and revision.
+"""Constraint engine — backward-compatibility shims.
 
-Operates on the hypothesis graph to narrow the candidate space and
-produce stabilised decisions.
+.. deprecated::
+    Modules have moved to :mod:`arabic_engine.pipeline.constraints`.
+    Import from the new location instead.
 """

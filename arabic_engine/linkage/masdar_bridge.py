@@ -4,4 +4,7 @@
     Use ``arabic_engine.semantics.masdar_bridge`` instead.
 """
 
-from arabic_engine.semantics.masdar_bridge import *  # noqa: F401, F403
+import arabic_engine.semantics.masdar_bridge as _mod
+import sys
+
+sys.modules[__name__] = _mod

@@ -1,11 +1,6 @@
-"""النموذج الطبقي الصارم — Strict 7-Layer Arabic Phonological Analysis.
+"""Element layers — backward-compatibility shims.
 
-This package implements a strict layered model (Layer 0 → Layer 6) for
-analysing Arabic sounds and letters, from mental primitives through
-generative, auditory, structural, transformation and judgment layers
-to a final programmatic representation.
-
-Each layer must pass a *transition gate* before the element may
-advance to the next layer.  The governing criterion throughout is
-**reality-match** (مطابقة واقع العربية).
+.. deprecated::
+    Modules have moved to :mod:`arabic_engine.pipeline.element_layers`.
+    Import from the new location instead.
 """

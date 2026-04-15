@@ -34,6 +34,17 @@ DEFAULT_REQUIRED_MODULES: tuple[str, ...] = (
 
 DEFAULT_SCAN_DIRS: tuple[str, ...] = ("arabic_engine", "tests", "docs", "db")
 
+# Directories containing backward-compatibility shim modules that redirect
+# imports to their new canonical locations.  These are intentionally
+# similar small files and should not trigger the duplicate-content check.
+_COMPAT_SHIM_DIRS: frozenset[str] = frozenset({
+    "arabic_engine/layers",
+    "arabic_engine/element_layers",
+    "arabic_engine/signifier",
+    "arabic_engine/signified",
+    "arabic_engine/linkage",
+})
+
 
 @dataclass(frozen=True)
 class DuplicateFileGroup:
@@ -76,8 +87,11 @@ def _find_duplicate_content_groups(
 ) -> tuple[DuplicateFileGroup, ...]:
     hash_to_paths: dict[str, list[str]] = {}
     for path in _iter_scannable_files(project_root, scan_dirs):
-        digest = hashlib.sha256(path.read_bytes()).hexdigest()
         relative_path = str(path.relative_to(project_root))
+        # Skip files inside backward-compatibility shim directories
+        if any(relative_path.startswith(d + "/") for d in _COMPAT_SHIM_DIRS):
+            continue
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
         hash_to_paths.setdefault(digest, []).append(relative_path)
 
     duplicate_groups: list[DuplicateFileGroup] = []

@@ -206,7 +206,7 @@ def run(
     # L2b — Optional strict 7-layer element analysis
     layer_traces: List[LayerTraceRecord] = []
     if analyze_layers:
-        from arabic_engine.element_layers.layer_pipeline import analyze_word as _analyze_word
+        from arabic_engine.pipeline.element_layers.layer_pipeline import analyze_word as _analyze_word
         from arabic_engine.morphology.root_pattern import extract_root_pattern
 
         for closure in closures:

@@ -4,4 +4,7 @@
     Use ``arabic_engine.morphology.aeu`` instead.
 """
 
-from arabic_engine.morphology.aeu import *  # noqa: F401, F403
+import arabic_engine.morphology.aeu as _mod
+import sys
+
+sys.modules[__name__] = _mod

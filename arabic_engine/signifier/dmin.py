@@ -4,4 +4,7 @@
     Use ``arabic_engine.morphology.dmin`` instead.
 """
 
-from arabic_engine.morphology.dmin import *  # noqa: F401, F403
+import arabic_engine.morphology.dmin as _mod
+import sys
+
+sys.modules[__name__] = _mod

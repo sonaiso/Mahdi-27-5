@@ -4,4 +4,7 @@
     Use ``arabic_engine.morphology.functional_transition`` instead.
 """
 
-from arabic_engine.morphology.functional_transition import *  # noqa: F401, F403
+import arabic_engine.morphology.functional_transition as _mod
+import sys
+
+sys.modules[__name__] = _mod

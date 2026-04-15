@@ -4,4 +4,7 @@
     Use ``arabic_engine.semantics.dalala`` instead.
 """
 
-from arabic_engine.semantics.dalala import *  # noqa: F401, F403
+import arabic_engine.semantics.dalala as _mod
+import sys
+
+sys.modules[__name__] = _mod

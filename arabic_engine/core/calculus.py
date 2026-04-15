@@ -4,4 +4,7 @@
     Use ``arabic_engine.formal.calculus`` instead.
 """
 
-from arabic_engine.formal.calculus import *  # noqa: F401, F403
+import arabic_engine.formal.calculus as _mod
+import sys
+
+sys.modules[__name__] = _mod

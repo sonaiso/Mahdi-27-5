@@ -4,4 +4,7 @@
     Use ``arabic_engine.formal.fractal_constitution`` instead.
 """
 
-from arabic_engine.formal.fractal_constitution import *  # noqa: F401, F403
+import arabic_engine.formal.fractal_constitution as _mod
+import sys
+
+sys.modules[__name__] = _mod

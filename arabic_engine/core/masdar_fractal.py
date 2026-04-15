@@ -4,4 +4,7 @@
     Use ``arabic_engine.formal.masdar_fractal`` instead.
 """
 
-from arabic_engine.formal.masdar_fractal import *  # noqa: F401, F403
+import arabic_engine.formal.masdar_fractal as _mod
+import sys
+
+sys.modules[__name__] = _mod

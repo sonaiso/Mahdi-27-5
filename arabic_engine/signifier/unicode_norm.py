@@ -4,4 +4,7 @@
     Use ``arabic_engine.signal.unicode_norm`` instead.
 """
 
-from arabic_engine.signal.unicode_norm import *  # noqa: F401, F403
+import arabic_engine.signal.unicode_norm as _mod
+import sys
+
+sys.modules[__name__] = _mod

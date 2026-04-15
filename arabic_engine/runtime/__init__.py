@@ -1,6 +1,6 @@
-"""Runtime orchestrator and legacy adapters.
+"""Runtime — backward-compatibility shims.
 
-The :mod:`~arabic_engine.runtime.orchestrator` drives the full
-Fractal Kernel pipeline; :mod:`~arabic_engine.runtime.adapters`
-maps results back to the legacy :class:`RuntimeState`.
+.. deprecated::
+    Modules have moved to :mod:`arabic_engine.pipeline`.
+    Import from the new location instead.
 """

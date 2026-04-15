@@ -4,4 +4,7 @@
     Use ``arabic_engine.semantics.signified_v2`` instead.
 """
 
-from arabic_engine.semantics.signified_v2 import *  # noqa: F401, F403
+import arabic_engine.semantics.signified_v2 as _mod
+import sys
+
+sys.modules[__name__] = _mod
