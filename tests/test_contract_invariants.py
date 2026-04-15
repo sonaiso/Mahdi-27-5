@@ -7,8 +7,9 @@ of enums and types used across the three pipeline systems.
 
 from __future__ import annotations
 
-import yaml
 from pathlib import Path
+
+import yaml
 
 from arabic_engine.cognition.inference_rules import InferenceEngine
 from arabic_engine.cognition.world_model import WorldModel
@@ -29,7 +30,6 @@ from arabic_engine.core.enums import (
     ValidationState,
 )
 from arabic_engine.pipeline import run
-
 
 # ── helpers ──────────────────────────────────────────────────────────
 
@@ -270,10 +270,16 @@ class TestDomainConsistency:
     """C1/C4/C5 — each decision/state enum has a distinct domain."""
 
     def test_pipeline_status_distinct_from_gate_decision(self):
-        """PipelineStatus (pipeline result) ≠ LayerGateDecision (per-gate)."""
+        """PipelineStatus (pipeline result) ≠ LayerGateDecision (per-gate).
+
+        SUSPEND is intentionally shared (same semantic concept).
+        SUCCESS≠PASS and FAILURE≠REJECT are deliberately distinct names.
+        """
         ps_names = {e.name for e in PipelineStatus}
         gd_names = {e.name for e in LayerGateDecision}
-        # SUSPEND is shared by design, but SUCCESS≠PASS, FAILURE≠REJECT
+        # SUSPEND is shared by design
+        assert "SUSPEND" in ps_names and "SUSPEND" in gd_names
+        # Distinct names for different semantics
         assert "SUCCESS" in ps_names and "SUCCESS" not in gd_names
         assert "FAILURE" in ps_names and "FAILURE" not in gd_names
         assert "PASS" in gd_names and "PASS" not in ps_names

@@ -17,6 +17,8 @@ from arabic_engine.core.contracts import verify_contracts  # noqa: F401 — re-e
 from arabic_engine.core.enums import (
     CarrierType,
     CognitiveLayerID,
+    EpistemicRank,
+    GuidanceState,
     JudgementType,
     LayerGateDecision,
     LinkKind,
@@ -26,7 +28,10 @@ from arabic_engine.core.enums import (
     ProofPathKind,
     RealityKind,
     SenseModality,
+    SpaceRef,
+    TimeRef,
     TraceMode,
+    TruthState,
     ValidationOutcome,
     ValidationState,
 )
@@ -334,10 +339,6 @@ def _partial_result(
     time_space: Optional[TimeSpaceTag] = None,
 ) -> PipelineResult:
     """Build a partial :class:`PipelineResult` when a gate halts the chain."""
-    from arabic_engine.core.enums import (
-        GuidanceState as _GS,
-        TruthState as _TS,
-    )
 
     _tokens = tokens or []
     _closures = closures or []
@@ -348,16 +349,12 @@ def _partial_result(
         subject="", predicate="", obj="", polarity=True,
     )
     _ts = time_space or TimeSpaceTag(
-        time_ref=__import__(
-            "arabic_engine.core.enums", fromlist=["TimeRef"]
-        ).TimeRef.UNKNOWN,
-        space_ref=__import__(
-            "arabic_engine.core.enums", fromlist=["SpaceRef"]
-        ).SpaceRef.UNKNOWN,
+        time_ref=TimeRef.UNKNOWN,
+        space_ref=SpaceRef.UNKNOWN,
     )
     _eval = EvalResult(
-        truth_state=_TS.UNKNOWN,
-        guidance_state=_GS.UNKNOWN,
+        truth_state=TruthState.UNKNOWN,
+        guidance_state=GuidanceState.UNKNOWN,
         confidence=0.0,
     )
     _percept = PerceptTrace(
@@ -368,10 +365,8 @@ def _partial_result(
     )
     _episode = _build_knowledge_episode(text, _prop, {})
     _eval_result = EvaluationResult(
-        truth_state=_TS.UNKNOWN,
-        epistemic_rank=__import__(
-            "arabic_engine.core.enums", fromlist=["EpistemicRank"]
-        ).EpistemicRank.MUQALLID,
+        truth_state=TruthState.UNKNOWN,
+        epistemic_rank=EpistemicRank.MUQALLID,
         confidence=0.0,
         validation_state=ValidationState.PENDING,
         consistency="Pipeline halted by gate",

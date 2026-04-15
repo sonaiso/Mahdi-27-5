@@ -21,7 +21,6 @@ from arabic_engine.pipeline import (
     run,
 )
 
-
 # ── helpers ──────────────────────────────────────────────────────────
 
 def _full_result(sentence: str = "كَتَبَ زَيْدٌ الرِّسَالَةَ أَمْسَ") -> PipelineResult:
@@ -53,11 +52,10 @@ class TestPipelineResultFields:
         assert len(result.gate_records) > 0
 
     def test_gate_records_count_equals_layer_boundaries(self):
-        """11 gate boundaries for 12 layer transitions."""
+        """Gate count equals number of adjacent layer-pair transitions."""
         result = _full_result()
-        # L0→L1, L1→L2, L2→L3, L3→L4, L4→L5, L5→L6,
-        # L6→L7, L7→L7b, L7b→L8, L8→L9, L9→L10 = 11 gates
-        assert len(result.gate_records) == 11
+        expected = len(PipelineLayerID) - 1
+        assert len(result.gate_records) == expected
 
     def test_unified_trace_non_empty(self):
         result = _full_result()
