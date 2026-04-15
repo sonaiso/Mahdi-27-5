@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- **Project Goals and Proof Objectives Constitution v1** (`docs/project_goals_and_proof_objectives_constitution_v1.md`) — sovereign constitution defining the five pillars: minimal Unicode input, decision-chain trace, fractal structure, no-jump law, and conditional judgement.
 - Heuristic syntax layer (`syntax/syntax.py`) — assigns verb/subject/object/adverb roles.
 - Temporal and spatial anchoring (`cognition/time_space.py`).
 - In-memory world model (`cognition/world_model.py`).

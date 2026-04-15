@@ -1,5 +1,9 @@
 # Architecture — Arabic Engine
 
+> **المرجع السيادي**: هذه الوثيقة خاضعة لدستور أهداف المشروع ومقاصده البرهانية
+> [`PGPO-v1`](project_goals_and_proof_objectives_constitution_v1.md).
+> أي تعارض يُحسم لصالح الدستور.
+
 ## Overview
 
 The Arabic Engine is a computational Arabic language analysis pipeline based on two
