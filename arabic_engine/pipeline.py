@@ -473,12 +473,34 @@ def run(
         return _partial_result(text, normalised, final_status, gate_records,
                                unified_trace, tokens=tokens, closures=closures)
 
-    # L3b — Semantic Direction Assignment
-    _direction_space = _get_direction_space()
-    direction_assignments = [_assign_direction(cl, _direction_space) for cl in closures]
+    # L3b — Semantic Direction Assignment (guarded sublayer)
+    direction_assignments: List[DirectionAssignment] = []
+    try:
+        _direction_space = _get_direction_space()
+        direction_assignments = [_assign_direction(cl, _direction_space) for cl in closures]
+    except Exception as exc:
+        final_status = PipelineStatus.SUSPEND
+        unified_trace.append(
+            _make_trace_entry(
+                PipelineLayerID.L3_SYNTAX, 30, closures, direction_assignments,
+                LayerGateDecision.SUSPEND,
+                f"L3b direction assignment suspended: {exc}",
+            )
+        )
 
-    # L3c — Weight Fractal Analysis
-    weight_fractals = [_run_weight_fractal(cl) for cl in closures]
+    # L3c — Weight Fractal Analysis (guarded sublayer)
+    weight_fractals: List[WeightFractalResult] = []
+    try:
+        weight_fractals = [_run_weight_fractal(cl) for cl in closures]
+    except Exception as exc:
+        final_status = PipelineStatus.SUSPEND
+        unified_trace.append(
+            _make_trace_entry(
+                PipelineLayerID.L3_SYNTAX, 31, closures, weight_fractals,
+                LayerGateDecision.SUSPEND,
+                f"L3c weight fractal analysis suspended: {exc}",
+            )
+        )
 
     # L4 — Ontological Mapping
     concepts = batch_map(closures)
@@ -534,30 +556,49 @@ def run(
                                dalala_links=links, proposition=proposition,
                                time_space=ts_tag)
 
-    # L8b — Build epistemic knowledge episode
-    episode = _build_knowledge_episode(text, proposition, semantic_roles)
-    episode_input = KnowledgeEpisodeInput(
-        episode_id=episode.episode_id,
-        reality_anchor=episode.reality_anchor,
-        sense_trace=episode.sense_trace,
-        prior_infos=episode.prior_infos,
-        opinion_traces=episode.opinion_traces,
-        linking_trace=episode.linking_trace,
-        judgement=episode.judgement,
-        method=episode.method,
-        carrier=episode.carrier,
-        proof_path=episode.proof_path,
-        conflict_rule=episode.conflict_rule,
-    )
-    validation = validate_episode(episode_input)
-    validation_state = _to_validation_state(validation.outcome)
-    evaluation_result = EvaluationResult(
-        truth_state=eval_result.truth_state,
-        epistemic_rank=validation.rank,
-        confidence=eval_result.confidence,
-        validation_state=validation_state,
-        consistency="; ".join(validation.messages),
-    )
+    # L8b — Build epistemic knowledge episode (guarded sublayer)
+    try:
+        episode = _build_knowledge_episode(text, proposition, semantic_roles)
+        episode_input = KnowledgeEpisodeInput(
+            episode_id=episode.episode_id,
+            reality_anchor=episode.reality_anchor,
+            sense_trace=episode.sense_trace,
+            prior_infos=episode.prior_infos,
+            opinion_traces=episode.opinion_traces,
+            linking_trace=episode.linking_trace,
+            judgement=episode.judgement,
+            method=episode.method,
+            carrier=episode.carrier,
+            proof_path=episode.proof_path,
+            conflict_rule=episode.conflict_rule,
+        )
+        validation = validate_episode(episode_input)
+        validation_state = _to_validation_state(validation.outcome)
+        evaluation_result = EvaluationResult(
+            truth_state=eval_result.truth_state,
+            epistemic_rank=validation.rank,
+            confidence=eval_result.confidence,
+            validation_state=validation_state,
+            consistency="; ".join(validation.messages),
+        )
+    except Exception as exc:
+        episode = _build_knowledge_episode(text, proposition, {})
+        evaluation_result = EvaluationResult(
+            truth_state=eval_result.truth_state,
+            epistemic_rank=EpistemicRank.MUQALLID,
+            confidence=eval_result.confidence,
+            validation_state=ValidationState.PENDING,
+            consistency=f"L8b epistemic validation suspended: {exc}",
+        )
+        final_status = PipelineStatus.SUSPEND
+        unified_trace.append(
+            _make_trace_entry(
+                PipelineLayerID.L8_EVALUATION, 90, (proposition, semantic_roles),
+                evaluation_result,
+                LayerGateDecision.SUSPEND,
+                f"L8b epistemic step suspended: {exc}",
+            )
+        )
 
     # L9 — Inference (v2)
     inferences: List[InferenceResult] = []

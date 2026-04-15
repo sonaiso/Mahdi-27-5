@@ -157,6 +157,9 @@ class RuntimeState:
     judgement: Optional[JudgementResult] = None
     trace: List[TraceEntry] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
+    # ── Gate integrity fields ───────────────────────────────────────
+    completed_stages: List[str] = field(default_factory=list)
+    stage_decisions: List[Dict[str, str]] = field(default_factory=list)
 
     # ── convenience helpers ──────────────────────────────────────────
 
@@ -392,6 +395,33 @@ _STAGES = [
     build_judgement,
 ]
 
+_STAGE_ORDER = [s.name for s in PipelineStage]
+
+
+def _stage_gate(
+    state: RuntimeState,
+    stage: PipelineStage,
+) -> bool:
+    """Verify that the previous stage completed before running *stage*.
+
+    Returns ``True`` if the stage may proceed; ``False`` if a required
+    predecessor is missing (anti-jump enforcement).
+    """
+    idx = _STAGE_ORDER.index(stage.name)
+    if idx == 0:
+        # First stage always allowed
+        return True
+    required = _STAGE_ORDER[idx - 1]
+    if required not in state.completed_stages:
+        state.stage_decisions.append({
+            "stage": stage.name,
+            "decision": "REJECT",
+            "reason": f"Cannot execute {stage.name}: predecessor "
+                      f"{required} not completed",
+        })
+        return False
+    return True
+
 
 def run_pipeline(text: str) -> RuntimeState:
     """تشغيل السلسلة الكاملة — run the full eight-stage pipeline.
@@ -407,8 +437,32 @@ def run_pipeline(text: str) -> RuntimeState:
         Final state containing all intermediate results and the trace.
     """
     state = RuntimeState(raw_text=text)
-    for stage_fn in _STAGES:
-        stage_fn(state)
+    stage_enum_list = list(PipelineStage)
+    for i, stage_fn in enumerate(_STAGES):
+        current_stage = stage_enum_list[i]
+        if not _stage_gate(state, current_stage):
+            break
+        try:
+            stage_fn(state)
+            state.completed_stages.append(current_stage.name)
+            state.stage_decisions.append({
+                "stage": current_stage.name,
+                "decision": "PASS",
+                "reason": f"{current_stage.name} completed successfully",
+            })
+        except Exception as exc:
+            state.stage_decisions.append({
+                "stage": current_stage.name,
+                "decision": "SUSPEND",
+                "reason": f"{current_stage.name} suspended: {exc}",
+            })
+            state.append_trace(
+                current_stage,
+                input_summary=f"error at {current_stage.name}",
+                output_summary=str(exc),
+                conflict=str(exc),
+            )
+            break
     return state
 
 

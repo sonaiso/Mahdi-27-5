@@ -169,8 +169,8 @@ class TestVerifyContracts:
         path = _write_yaml(tmp_path, _CLASS_METHOD_YAML)
         assert verify_contracts(path) is True
 
-    def test_adjacency_missing_output_type_raises(self, tmp_path):
-        """Adjacency check accesses output_type; missing key should raise."""
+    def test_adjacency_missing_output_type_handled(self, tmp_path):
+        """verify_contracts succeeds even when output_type is missing
+        (adjacency enforcement is in verify_adjacency)."""
         path = _write_yaml(tmp_path, _MISSING_OUTPUT_TYPE_YAML)
-        with pytest.raises(KeyError):
-            verify_contracts(path)
+        assert verify_contracts(path) is True
