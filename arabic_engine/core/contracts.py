@@ -9,6 +9,7 @@ invoked independently.
 from __future__ import annotations
 
 import importlib
+import inspect
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -26,6 +27,18 @@ def _load_contracts(contracts_path: Optional[str] = None) -> List[Dict[str, Any]
     return spec.get("layers", [])
 
 
+def _extract_return_type_name(func: object) -> str:
+    """Return the simplified return-annotation string of *func*, or ''."""
+    try:
+        sig = inspect.signature(func)  # type: ignore[arg-type]
+    except (ValueError, TypeError):
+        return ""
+    ann = sig.return_annotation
+    if ann is inspect.Parameter.empty:
+        return ""
+    return getattr(ann, "__name__", str(ann))
+
+
 def verify_contracts(contracts_path: Optional[str] = None) -> bool:
     """Verify layer-adjacency type contracts.
 
@@ -34,6 +47,8 @@ def verify_contracts(contracts_path: Optional[str] = None) -> bool:
       2. The declared function name exists in that module.
       3. ``output_type(Lᵢ)`` is structurally compatible with
          ``input_type(Lᵢ₊₁)`` (simplified string-containment check).
+      4. (SIVP-v1 § A5) If the function has a return-type annotation,
+         verify it is consistent with the declared ``output_type``.
 
     Returns ``True`` if all contracts pass; raises :class:`ValueError`
     otherwise.
@@ -63,14 +78,31 @@ def verify_contracts(contracts_path: Optional[str] = None) -> bool:
                 f"(layer '{layer['name']}')"
             )
 
+        # SIVP-v1 § A5 — lightweight return-type consistency check
+        func = getattr(mod, function_name)
+        declared_output = layer.get("output_type", "")
+        actual_return = _extract_return_type_name(func)
+        if actual_return and declared_output:
+            # Normalise for simple comparison (strip module qualifiers)
+            norm_actual = actual_return.rsplit(".", 1)[-1]
+            norm_declared = declared_output.rsplit(".", 1)[-1]
+            # Accept if the declared type appears as substring (handles
+            # generic wrappers like ``List[X]`` vs ``list[X]``).
+            if (
+                norm_declared.lower() not in norm_actual.lower()
+                and norm_actual.lower() not in norm_declared.lower()
+            ):
+                raise ValueError(
+                    f"Contract type mismatch at layer '{layer['name']}': "
+                    f"declared output_type='{declared_output}', "
+                    f"actual return annotation='{actual_return}'"
+                )
+
     # Adjacency type check (simplified string-containment heuristic)
     for i in range(len(layers) - 1):
         current = layers[i]
         nxt = layers[i + 1]
         current["output_type"]
         nxt["input_type"]
-        # The contracts are documentation-level; full static analysis
-        # would require a type-checker.  We verify invariants at
-        # runtime inside the pipeline instead.
 
     return True

@@ -330,6 +330,59 @@
 
 ---
 
+## جدول معايير الخروج من مرحلة التحقق
+
+### Exit Criteria for Verification Phase
+
+**لا يُسمح ببدء Feature Phase إلا بعد تحقق EC-1 إلى EC-8 جميعاً.**
+
+| الشرط | الوصف | كيفية التحقق |
+|-------|-------|-------------|
+| **EC-1** | كل طبقة في `pipeline.run()` محمية ببوابة | `pytest tests/test_boundary_gates.py` |
+| **EC-2** | `PipelineResult` يحوي حالة موحدة + سجل بوابات + أثر موحد | `pytest tests/test_boundary_gates.py::TestPipelineResultFields` |
+| **EC-3** | `verify_contracts()` يفحص الأنواع لا الاستيراد فقط | `pytest tests/test_contracts.py` |
+| **EC-4** | كل `SUSPEND/REJECT` يحمل `reason` غير فارغ | `pytest tests/test_boundary_gates.py::TestGateEnforcement::test_each_gate_has_reason` |
+| **EC-5** | إعادة التشغيل من الأثر ممكنة | `pytest tests/test_boundary_gates.py` (replay tests) |
+| **EC-6** | لا تعداد متقاطع بلا تبرير | `pytest tests/test_contract_invariants.py::TestDomainConsistency` |
+| **EC-7** | كل invariant في contracts.yaml مغطّى | `pytest tests/test_contract_invariants.py` |
+| **EC-8** | CI يمر بالكامل (lint + test) | GitHub Actions green ✅ |
+
+---
+
+## المسؤوليات والأدلة
+
+### Package Ownership & Evidence Artifacts
+
+| الحزمة | المسؤول | Evidence Artifact | Pass/Fail Method |
+|--------|---------|-------------------|------------------|
+| **A** — Boundary & Gate | pipeline maintainer | `tests/test_boundary_gates.py` | `pytest` — all tests pass |
+| **B** — Trace & Replay | trace maintainer | `tests/test_boundary_gates.py` + replay tests | `pytest` + hash comparison |
+| **C** — Domain Consistency | types/enums maintainer | `tests/test_contract_invariants.py` + `docs/architecture.md` | `pytest` + documentation review |
+
+---
+
+## خريطة الأنابيب الثلاث
+
+### Pipeline Relationship Map
+
+| Main Pipeline (`pipeline.py`) | Runtime Pipeline (`runtime_pipeline.py`) | Cognitive Chain (`cognitive_input/chain.py`) |
+|-------------------------------|------------------------------------------|----------------------------------------------|
+| **الغرض**: تحليل لغوي كامل | **الغرض**: تشغيل عملياتي مع أثر | **الغرض**: إثبات عقلي للمدخل |
+| **المرجعية**: أساسي (primary) | **المرجعية**: مشتق (operational) | **المرجعية**: مشتق (proof) |
+| L0: Normalize | Utterance | U₀: UNICODE_RAW |
+| L1: Tokenize | — | U₁: ATOMIZED |
+| L2: Lexical Closure | Concept | U₂: DIFFERENTIATED |
+| L3: Syntax | Relation / Role | U₃: NORMALIZED |
+| L4: Ontology | Axis | U₄: DESIGNATED |
+| L5: Dalāla | — | U₅: INITIAL_CONCEPTION |
+| L6: Judgment | Factor / Case | U₆: DISCIPLINED_CONCEPTION |
+| L7: Time/Space | — | U₇: SEMANTIC_SUBJECT |
+| L8: Evaluation | Judgement | U₈: JUDGEMENT_READY |
+| L9: Inference | — | — |
+| L10: World Model | — | — |
+
+---
+
 ## الوثائق ذات الصلة
 
 | الوثيقة | المرجع |

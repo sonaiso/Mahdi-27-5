@@ -3214,6 +3214,37 @@ class CognitiveChainResult:
     reason: str = ""
 
 
+# ── Unified trace entry (SIVP-v1 § B1) ─────────────────────────────
+
+
+@dataclass(frozen=True)
+class UnifiedTraceEntry:
+    """سجل أثر موحّد — single trace record for one pipeline layer.
+
+    Collects the minimal evidence required by SIVP-v1 § B1 so that every
+    layer execution is auditable and replayable:
+
+    * **input_hash / output_hash** — SHA-256 digests for reproducibility.
+    * **timestamp** — ISO-8601 wall-clock time of execution.
+    * **state** — the gate decision that followed this layer.
+    * **reason / evidence** — mandatory when ``state`` is SUSPEND or
+      REJECT.
+    """
+
+    layer_index: int
+    layer_name: str
+    input_hash: str
+    output_hash: str
+    input_summary: str = ""
+    output_summary: str = ""
+    rules_applied: Tuple[str, ...] = ()
+    completeness: float = 1.0
+    state: LayerGateDecision = LayerGateDecision.PASS
+    timestamp: str = ""
+    reason: str = ""
+    evidence: Tuple[str, ...] = ()
+
+
 # ── Diacritic Logic (E2) ────────────────────────────────────────────
 
 

@@ -293,6 +293,14 @@ from .enums import (
 from .enums import (
     PhonTransform as PhonTransform,
 )
+
+# ── Unicode Cognitive Input Proof enum re-exports ───────────────────
+from .enums import (
+    PipelineLayerID as PipelineLayerID,
+)
+from .enums import (
+    PipelineStatus as PipelineStatus,
+)
 from .enums import (
     ProofPathKind as ProofPathKind,
 )
@@ -933,6 +941,11 @@ from .types import (
 from .types import (
     UnicodeAtom as UnicodeAtom,
 )
+
+# ── Unicode Cognitive Input Proof type re-exports ───────────────────
+from .types import (
+    UnifiedTraceEntry as UnifiedTraceEntry,
+)
 from .types import (
     UtteranceNode as UtteranceNode,
 )
@@ -1270,44 +1283,8 @@ __all__ = [
     "JudgementReadyInput",
     "NormalizedUnit",
     "SemanticSubject",
-    # ── E2–E8 scaffold enums ─────────────────────────────────────
-    "AffixType",
-    "CriterionType",
-    "DependencyRelation",
-    "DiacriticConsistency",
-    "DiacriticRole",
-    "DiacriticType",
-    "EpicLayerID",
-    "JudgementRank",
-    "MorphemeType",
-    "ReasoningMode",
-    "ReviewStatus",
-    "SemanticFrameType",
-    "SemanticRelationType",
-    "SyllableType",
-    "SyllableWeight",
-    # ── E2–E8 scaffold types ─────────────────────────────────────
-    "AffixSet",
-    "CognitiveState",
-    "CriterionSelection",
-    "DenotationMap",
-    "DependencyArc",
-    "DiacriticAnalysis",
-    "DiacriticBinding",
-    "DiacriticMark",
-    "GovernanceRelation",
-    "JudgementTrace",
-    "JudgementVerdict",
-    "LayerTrace",
-    "MorphemeRecord",
-    "PatternTemplate",
-    "ReasoningChain",
-    "ReviewableVerdict",
-    "RootEntry",
-    "SemanticConceptRelation",
-    "SemanticFrame",
-    "SyllableAnalysis",
-    "SyllablePattern",
-    "SyllableUnit",
-    "SyntaxTree",
+    # ── Pipeline gate & trace (SIVP-v1) ───────────────────────────
+    "PipelineLayerID",
+    "PipelineStatus",
+    "UnifiedTraceEntry",
 ]

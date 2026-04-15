@@ -1352,7 +1352,17 @@ class ValidationOutcome(Enum):
 
 
 class ValidationState(Enum):
-    """حالة التحقق — current state of a validation process."""
+    """حالة التحقق — current state of a validation process.
+
+    Domain: epistemic validation (``cognition.epistemic_v1``,
+    ``cognition.evaluation``).  Used for the epistemic rank and
+    proposition validation outcome.
+
+    Distinct from:
+    * ``LayerGateDecision`` — per-gate transition decision
+    * ``TransitionGateStatus`` — 7-layer element gate status
+    * ``PipelineStatus`` — overall pipeline run result
+    """
 
     PENDING = auto()        # معلَّق         — not yet validated
     VALID = auto()          # صحيح           — validated and valid
@@ -1879,7 +1889,17 @@ class RepresentationNode(Enum):
 
 
 class TransitionGateStatus(Enum):
-    """حالة بوابة الانتقال — status of a transition gate."""
+    """حالة بوابة الانتقال — status of a transition gate.
+
+    Domain: strict 7-layer element analysis system
+    (``layers.layer_pipeline``).  Each ``TransitionGate`` between
+    adjacent element layers carries one of these values.
+
+    Distinct from:
+    * ``LayerGateDecision`` — cognitive chain gates (9 layers)
+    * ``PipelineStatus`` — overall pipeline run result
+    * ``ValidationState`` — epistemic validation outcome
+    """
 
     PASSED = auto()
     BLOCKED = auto()
@@ -2340,6 +2360,55 @@ class LayerGateDecision(Enum):
     REJECT = auto()    # رد — مانع قاطع
     SUSPEND = auto()   # تعليق — ناقص بلا مانع
     COMPLETE = auto()  # اكتمال — الطبقة كاملة تمامًا
+
+
+# ── Pipeline Status ─────────────────────────────────────────────────
+
+
+class PipelineStatus(Enum):
+    """حالة السلسلة الموحّدة — unified status for the main pipeline result.
+
+    Derived from the aggregate of all gate decisions across the layer
+    chain.  Every call to ``pipeline.run()`` yields exactly one of these
+    values so that callers can branch on a single, consistent status.
+
+    Domain: main pipeline (``pipeline.py``) only.
+    Related but distinct: ``LayerGateDecision`` (per-gate),
+    ``TransitionGateStatus`` (7-layer system), ``ValidationState``
+    (epistemic validation).
+    """
+
+    SUCCESS = auto()   # نجاح — all layers passed, chain complete
+    SUSPEND = auto()   # تعليق — one or more layers suspended
+    FAILURE = auto()   # فشل — a layer was rejected, chain halted
+
+
+# ── Pipeline Layer ID ────────────────────────────────────────────────
+
+
+class PipelineLayerID(Enum):
+    """معرّف طبقة السلسلة الرئيسية — identifies each layer in pipeline.run().
+
+    Maps the 12 canonical stages L0–L11 of the main analytical pipeline.
+    Used for gate enforcement between adjacent layers.
+
+    Domain: main pipeline (``pipeline.py``) only.
+    Related but distinct: ``CognitiveLayerID`` (cognitive input chain
+    U₀–U₈), ``StrictLayerID`` (7-layer element analysis).
+    """
+
+    L0_NORMALIZE = auto()
+    L1_TOKENIZE = auto()
+    L2_LEXICAL_CLOSURE = auto()
+    L3_SYNTAX = auto()
+    L4_ONTOLOGY = auto()
+    L5_DALALA = auto()
+    L6_JUDGMENT = auto()
+    L7_TIME_SPACE = auto()
+    L7B_SEMANTIC_ROLES = auto()
+    L8_EVALUATION = auto()
+    L9_INFERENCE = auto()
+    L10_WORLD_MODEL = auto()
 
 
 # ── Diacritic Logic (E2) ────────────────────────────────────────────

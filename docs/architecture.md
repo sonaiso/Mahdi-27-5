@@ -259,3 +259,51 @@ It validates:
    * `tests/`
    * `docs/`
    * `db/`
+
+---
+
+## Pipeline Relationship Map (SIVP-v1 § C2)
+
+The project contains three distinct pipeline systems.  The **main
+pipeline** (`pipeline.py`) is the primary/canonical reference.  The
+other two are specialised derivatives:
+
+| Aspect | Main Pipeline | Runtime Pipeline | Cognitive Chain |
+|--------|---------------|------------------|-----------------|
+| **File** | `pipeline.py` | `runtime_pipeline.py` | `cognitive_input/chain.py` |
+| **Purpose** | Full linguistic analysis | Operational 8-stage processing | Unicode re-rationalisation proof |
+| **Authority** | **Primary** — defines the canonical layer stack | Derived — operational bridge | Derived — formal proof chain |
+| **Layers** | 12 (L0–L10 + sub-layers) | 8 stages (Utterance→Judgement) | 9 stages (U₀–U₈) |
+| **Gate enforcement** | `PipelineLayerID` + `_evaluate_pipeline_gate()` | None (trace only) | `CognitiveLayerID` + `evaluate_gate()` |
+| **Status model** | `PipelineStatus` (SUCCESS/SUSPEND/FAILURE) | None | `LayerGateDecision` (PASS/REJECT/SUSPEND/COMPLETE) |
+| **Trace model** | `UnifiedTraceEntry` | `TraceEntry` | `CognitiveGateRecord` |
+| **Entry point** | `run()` | `run_pipeline()` | `run_cognitive_chain()` |
+
+### Layer correspondence
+
+| Main Pipeline | Runtime Pipeline | Cognitive Chain |
+|---------------|------------------|-----------------|
+| L0: Normalize | Utterance | U₀: UNICODE_RAW |
+| L1: Tokenize | — | U₁: ATOMIZED |
+| L2: Lexical Closure | Concept | U₂: DIFFERENTIATED |
+| L3: Syntax | Relation / Role | U₃: NORMALIZED |
+| L4: Ontology | Axis | U₄: DESIGNATED |
+| L5: Dalāla | — | U₅: INITIAL_CONCEPTION |
+| L6: Judgment | Factor / Case | U₆: DISCIPLINED_CONCEPTION |
+| L7: Time/Space | — | U₇: SEMANTIC_SUBJECT |
+| L8: Evaluation | Judgement | U₈: JUDGEMENT_READY |
+| L9: Inference | — | — |
+| L10: World Model | — | — |
+
+### Decision/state enum domains
+
+| Enum | Domain | Used by |
+|------|--------|---------|
+| `PipelineStatus` | Main pipeline result | `pipeline.py` |
+| `LayerGateDecision` | Cognitive gate per-transition | `cognitive_input/gate.py`, `cognitive_input/chain.py`, `pipeline.py` |
+| `TransitionGateStatus` | 7-layer element gates | `layers/layer_pipeline.py` |
+| `ValidationState` | Epistemic validation | `cognition/epistemic_v1.py`, `cognition/evaluation.py` |
+
+These four enums are intentionally distinct: each belongs to a
+different subsystem with different semantics.  See the docstrings on
+each enum for the detailed domain description and cross-references.
