@@ -11,7 +11,7 @@ from arabic_engine.cognition.explanation import build_explanation
 from arabic_engine.cognition.inference_rules import InferenceEngine
 from arabic_engine.cognition.time_space import tag as time_space_tag
 from arabic_engine.cognition.world_model import WorldModel
-from arabic_engine.core.contracts import verify_contracts  # noqa: F401 — re-export
+from arabic_engine.validation.contracts import verify_contracts  # noqa: F401 — re-export
 from arabic_engine.core.enums import (
     CarrierType,
     JudgementType,
