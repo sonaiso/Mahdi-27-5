@@ -14,7 +14,6 @@ from arabic_engine.core.contracts import (
     verify_adjacency,
 )
 
-
 # ── Type normalisation ──────────────────────────────────────────────
 
 

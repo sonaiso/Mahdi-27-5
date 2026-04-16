@@ -10,7 +10,6 @@ from arabic_engine.cognition.inference_rules import InferenceEngine
 from arabic_engine.cognition.world_model import WorldModel
 from arabic_engine.core.enums import (
     LayerGateDecision,
-    PipelineStatus,
     TruthState,
 )
 from arabic_engine.core.types import DecisionTrace

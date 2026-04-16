@@ -452,7 +452,17 @@ def run(
     )
     if admissibility.decision == AdmissibilityDecision.REJECT:
         failed = [c for c in admissibility.checks if not c.passed]
-        reason = "; ".join(c.reason for c in failed)
+        reject_reason = "; ".join(c.reason for c in failed)
+        gate_records.append(CognitiveGateRecord(
+            gate_id="PG_PRE_U0_REJECT",
+            from_layer=CognitiveLayerID.UNICODE_RAW,
+            to_layer=CognitiveLayerID.UNICODE_RAW,
+            decision=LayerGateDecision.REJECT,
+            completeness_score=0.0,
+            threshold=0.5,
+            has_blocker=True,
+            reason=f"Pre-U₀ REJECT: {reject_reason}",
+        ))
         return _partial_result(
             text, text, PipelineStatus.FAILURE, gate_records, unified_trace,
         )

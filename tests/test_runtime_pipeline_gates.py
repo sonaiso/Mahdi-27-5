@@ -14,7 +14,6 @@ from arabic_engine.runtime_pipeline import (
     run_pipeline,
 )
 
-
 # ── Stage gate enforcement ──────────────────────────────────────────
 
 

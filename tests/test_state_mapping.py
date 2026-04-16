@@ -15,7 +15,6 @@ from arabic_engine.core.enums import (
 )
 from arabic_engine.core.types import STATUS_MAPPINGS, StatusMapping
 
-
 _ENUM_REGISTRY = {
     "PipelineStatus": PipelineStatus,
     "LayerGateDecision": LayerGateDecision,

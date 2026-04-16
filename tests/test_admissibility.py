@@ -14,7 +14,6 @@ from arabic_engine.core.types import AdmissibilityCheck, AdmissibilityResult
 from arabic_engine.pipeline import run
 from arabic_engine.signifier.admissibility import check_admissibility
 
-
 # ── Result structure ────────────────────────────────────────────────
 
 
